@@ -1,6 +1,0 @@
-2018-07-17 11:49:41:654[main]DEBUGcom.pre.zlm.o2o.dao.AreaDao.listArea - ==>  Preparing: SELECT area_id,area_name,priority,create_time,last_edit_time FROM area ORDER BY priority DESC 
-2018-07-17 11:49:41:688[main]DEBUGcom.pre.zlm.o2o.dao.AreaDao.listArea - ==> Parameters: 
-2018-07-17 11:49:41:704[main]DEBUGcom.pre.zlm.o2o.dao.AreaDao.listArea - <==      Total: 2
-2018-07-17 11:50:51:326[main]DEBUGcom.pre.zlm.o2o.dao.AreaDao.listArea - ==>  Preparing: SELECT area_id,area_name,priority,create_time,last_edit_time FROM area ORDER BY priority DESC 
-2018-07-17 11:50:51:345[main]DEBUGcom.pre.zlm.o2o.dao.AreaDao.listArea - ==> Parameters: 
-2018-07-17 11:50:51:360[main]DEBUGcom.pre.zlm.o2o.dao.AreaDao.listArea - <==      Total: 2
