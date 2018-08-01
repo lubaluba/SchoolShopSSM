@@ -4,7 +4,7 @@
 	<!-- 日志级别 TRACE<DEBUG<INFO<WARN<ERROR -->
 	<property name="log.level" value="debug"/>
 	<property name="log.maxHistory" value="30"/>
-	<property name="log.filePath" value="${catalina.base}/logs/webapps"/>
+	<property name="log.filePath" value="C:/o2o_files/logs/webapps"/>
 	<property name="log.pattern" value="%d{yyyy-MM-dd HH:mm:ss:SSS}[%thread]%-5level%logger{50} - %msg%n"/>
 	<!-- 控制台设置 -->
 	<appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
