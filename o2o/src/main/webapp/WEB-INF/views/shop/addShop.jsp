@@ -26,11 +26,6 @@
 	    s.parentNode.insertBefore(hm, s);
 	})();
 </script>
-<script type="text/javascript">
-	$.ajax({
-		
-	})
-</script>
 </head>
 <body>
 	<div class="page-group">
@@ -88,7 +83,7 @@
             <div class="item-inner">
               <div class="item-title label">联系方式</div>
               <div class="item-input">
-                <input type="text" placeholder="phone">
+                <input type="text" placeholder="联系方式">
               </div>
             </div>
           </div>
@@ -121,7 +116,7 @@
             <div class="item-inner">
               <div class="item-title label">店铺简介</div>
               <div class="item-input">
-                <textarea></textarea>
+                <textarea placeholder="店铺简介"></textarea>
               </div>
             </div>
           </div>
@@ -130,16 +125,17 @@
     </div>
     <div class="content-block">
       <div class="row">
-        <div class="col-50"><a href="#" class="button button-big button-fill button-danger">取消</a></div>
-        <div class="col-50"><a href="#" class="button button-big button-fill button-success">提交</a></div>
+        <div class="col-50"><a href="#" class="button button-big button-fill button-danger">返回</a></div>
+        <div class="col-50"><a href="#" class="button button-big button-fill button-success" id="addShopSubmit">提交</a></div>
       </div>
     </div>
   </div>
-</div>
+</div>`
 
   </div>
     <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+    <script type="text/javascript" src="../resources/js/shop/shop.js"></script>
   </body>
 </html>

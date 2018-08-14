@@ -22,8 +22,8 @@ public class ShopServiceImpl implements ShopService{
 		if(shop == null) {
 			return new ShopExecution(ShopStateEnum.NULL_SHOP);
 		}
-		if(shop.getShopId() == null) {
-			return new ShopExecution(ShopStateEnum.NULL_SHOPID);
+		if(shop.getShopName() == null) {
+			return new ShopExecution(ShopStateEnum.NULL_SHOPNAME);
 		}
 		shop.setEnableStatus(0);
 		shop.setCreateTime(new Date());
@@ -46,6 +46,7 @@ public class ShopServiceImpl implements ShopService{
 		}
 		return new ShopExecution(ShopStateEnum.CHECK);
 	}
+	
 	private void addShopImg(Shop shop,InputStream shopImgInputStream,String fileName) {
 		//获取shop图片目录的相对值路径
 		String dest=PathUtils.getShopImagePath(shop.getShopId());

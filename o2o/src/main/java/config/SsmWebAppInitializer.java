@@ -17,5 +17,5 @@ public class SsmWebAppInitializer extends AbstractAnnotationConfigDispatcherServ
 	protected String[] getServletMappings() {
 		return new String [] {"/"};
 	}
-
+	
 }

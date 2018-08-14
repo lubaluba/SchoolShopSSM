@@ -20,6 +20,7 @@ import com.pre.zlm.o2o.service.ShopService;
 public class ShopServiceTest extends BaseTest{
 	@Autowired
 	private ShopService service;
+	
 	@Test
 	public void addShopTest() throws FileNotFoundException {
 		Shop shop =new Shop();
@@ -38,10 +39,10 @@ public class ShopServiceTest extends BaseTest{
 		user.setUserId(1L);
 		shop.setArea(a);
 		shop.setOwner(user);
-		File shopImg=new File("C:/360极速浏览器下载/壁纸/01.jpg");
+		File shopImg=new File("C:/360极速浏览器下载/壁纸/05fdab5e0254bfaa2cdf08b5a030209b.jpg");
 		InputStream in=new FileInputStream(shopImg);
 		shop.setShopCategory(sc);
 		ShopExecution se =service.addShop(shop,in,shopImg.getName());
-		assertEquals(se.getState(),ShopStateEnum.CHECK.getState());
+		assertEquals(se.getState(), ShopStateEnum.CHECK.getState());
 	}
 }

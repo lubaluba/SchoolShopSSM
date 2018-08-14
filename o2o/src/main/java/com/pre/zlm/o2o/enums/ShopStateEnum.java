@@ -7,7 +7,7 @@ public enum ShopStateEnum {
 	PASS(2,"通过认证"),
 	INNER_ERROR(-1001,"程序内部错误"),
 	NULL_SHOP(-1002,"shop信息为空"),
-	NULL_SHOPID(-1003,"shopid为空");
+	NULL_SHOPNAME(-1003,"shopNaem为空");
 	private int state;
 	private String stateInfo;
 	private ShopStateEnum(int state,String stateInfo) {

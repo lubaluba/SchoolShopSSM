@@ -11,6 +11,13 @@
   	<spring.version>5.0.5.RELEASE</spring.version>
   </properties>
   <dependencies>
+  
+  	<dependency>
+    	<groupId>javax.servlet</groupId>
+    	<artifactId>jstl</artifactId>
+    	<version>1.2</version>
+	</dependency>
+	
   <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
