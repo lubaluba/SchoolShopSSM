@@ -157,6 +157,14 @@
     	<artifactId>thumbnailator</artifactId>
     	<version>0.4.8</version>
 	</dependency>
+	<!-- lombok -->
+	<dependency>
+    	<groupId>org.projectlombok</groupId>
+    	<artifactId>lombok</artifactId>
+    	<version>1.18.0</version>
+    	<scope>provided</scope>
+	</dependency>
+	
 	
   </dependencies>
   <build>

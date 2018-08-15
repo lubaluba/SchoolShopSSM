@@ -44,7 +44,7 @@
             <div class="item-inner">
               <div class="item-title label">店铺名称</div>
               <div class="item-input">
-                <input type="text" placeholder="店名">
+                <input type="text" placeholder="店名" id="shop-name" >
               </div>
             </div>
           </div>
@@ -69,9 +69,8 @@
             <div class="item-inner">
               <div class="item-title label">所属区域</div>
               <div class="item-input">
-                <select>
+                <select id = "shop-area">
                   <option>---请选择---</option>
-                  <option>2</option>
                 </select>
               </div>
             </div>
@@ -83,7 +82,7 @@
             <div class="item-inner">
               <div class="item-title label">联系方式</div>
               <div class="item-input">
-                <input type="text" placeholder="联系方式">
+                <input type="text" placeholder="联系方式" id="phone">
               </div>
             </div>
           </div>
@@ -105,7 +104,7 @@
             <div class="item-inner">
               <div class="item-title label">详细地址</div>
               <div class="item-input">
-                <input type="text"  placeholder="address" class="">
+                <input type="text"  placeholder="address" id="shop-addr">
               </div>
             </div>
           </div>
@@ -116,7 +115,7 @@
             <div class="item-inner">
               <div class="item-title label">店铺简介</div>
               <div class="item-input">
-                <textarea placeholder="店铺简介"></textarea>
+                <textarea placeholder="店铺简介" id="shop-desc"></textarea>
               </div>
             </div>
           </div>
@@ -126,7 +125,9 @@
     <div class="content-block">
       <div class="row">
         <div class="col-50"><a href="#" class="button button-big button-fill button-danger">返回</a></div>
-        <div class="col-50"><a href="#" class="button button-big button-fill button-success" id="addShopSubmit">提交</a></div>
+        <div class="col-50">
+        	<a href="#" class="button button-big button-fill button-success" id="addShopSubmit" onclick="submit()">提交</a>
+        </div>
       </div>
     </div>
   </div>
