@@ -1,8 +1,12 @@
 package com.pre.zlm.o2o.web.shopController;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,12 +15,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pre.zlm.o2o.dto.ShopExecution;
 import com.pre.zlm.o2o.entity.Shop;
+import com.pre.zlm.o2o.entity.ShopCategory;
 import com.pre.zlm.o2o.entity.UserInfo;
 import com.pre.zlm.o2o.enums.ShopStateEnum;
 import com.pre.zlm.o2o.exception.ShopOperationException;
+import com.pre.zlm.o2o.service.ShopCategoryService;
 import com.pre.zlm.o2o.service.ShopService;
 import com.pre.zlm.o2o.utils.HttpServletRequestUtils;
 @Controller
@@ -26,6 +33,30 @@ public class ShopController {
 	@Autowired
 	private ShopService service;
 	
+	@Autowired
+	private ShopCategoryService shopCategoryService;
+		
+	
+	@RequestMapping(value = "/getshopCategorylist", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> getShopCategoryList(HttpServletRequest request) {
+		
+		Map<String, Object> result =new HashMap<>();
+		List<ShopCategory> shopCategoryList  = new ArrayList<>();
+		try {
+			shopCategoryList = shopCategoryService.listShopCategory(new ShopCategory());
+			result.put("success", true);
+			result.put("rows", shopCategoryList);
+			result.put("total", shopCategoryList.size());
+		} catch(Exception e) {
+			result.put("success", false);
+			result.put("errMsg", e.getMessage());
+		}
+		return result;
+	}
+	/**
+	 * 注册店铺
+	 */
 	@RequestMapping(value="/registershop",method=RequestMethod.POST)
 	@ResponseBody
 	private Map<String,Object> registerShop(HttpServletRequest request) {

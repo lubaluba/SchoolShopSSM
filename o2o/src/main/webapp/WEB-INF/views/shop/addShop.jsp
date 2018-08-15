@@ -55,9 +55,8 @@
             <div class="item-inner">
               <div class="item-title label">店铺类型</div>
               <div class="item-input">
-                <select>
+                <select id = "shop-category">
                   <option>---请选择---</option>
-                  <option>2</option>
                 </select>
               </div>
             </div>
@@ -93,7 +92,7 @@
             <div class="item-inner">
               <div class="item-title label">店铺图片</div>
               <div class="item-input">
-                <input type="file">
+                <input type="file" id = "shop-img">
               </div>
             </div>
           </div>
@@ -126,7 +125,7 @@
       <div class="row">
         <div class="col-50"><a href="#" class="button button-big button-fill button-danger">返回</a></div>
         <div class="col-50">
-        	<a href="#" class="button button-big button-fill button-success" id="addShopSubmit" onclick="submit()">提交</a>
+        	<a href="javascript:void(0)" class="button button-big button-fill button-success" id="addShopSubmit" onclick="submit()">提交</a>
         </div>
       </div>
     </div>

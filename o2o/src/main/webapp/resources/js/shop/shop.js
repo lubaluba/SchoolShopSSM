@@ -13,6 +13,16 @@ $(function(){
 		},
 		"json"
 	);
+	$.get(
+			"/o2o/shopAdmin/getshopCategorylist.action",
+			function(data){
+				for(var i = 0; i < data.total; i++){
+					var category = data.rows[i];
+					$("#shop-category").append("<option value='"+category.shopCategoryId+"' >"+category.shopCategoryName+"</option>");
+				};
+			},
+			"json"
+		);
 })
 //登录提交表单
 function submit(){
@@ -21,29 +31,39 @@ function submit(){
 	shop.shopAddr = $('#shop-addr').val();
 	shop.phone = $('#phone').val();
 	shop.shopDesc = $('#shop-desc').val();
+	/*var shop_area =  $("#shop-area").find("option").not(function(){
+		return!this.selected;
+	}).val();*/
 	shop.area = {
 		areaId : $("#shop-area").find("option").not(function(){
 			return!this.selected;
 		}).val()
 	};
-	var shopImg = $('$shop-img')[0].files[0];
+	shop.shopCategory = {
+			shopCategoryId : $("#shop-category").find("option").not(function(){
+				return!this.selected;
+			}).val()
+	};
+	var shopImg = $('#shop-img')[0].files[0];
 	var formData  = new FormData();
 	formData.append('shopImg',shopImg);
 	formData.append('shopStr',JSON.stringify(shop));
-	
+
 	$.ajax({
-			url	: "/o2o/shopAdmin/registershop.action",
 			type: "POST",
-			data: formData,
-			contentType : false,
-			proceesData : false,
-			cache : false,
-			success : function(data){
+			url: "/o2o/shopAdmin/registershop.action",
+			data:formData,
+			dataType: "json",
+			processData: false,
+			contentType: false,
+			cache: false,
+			success: function(data){
 				if(data.success){
-					$.toast('提交成功！');
+					$.toast('提交成功!');
 				}else{
 					$.toast('提交失败！' + data.errMsg);
 				}
 			}
 	});
+	$.toast("s");
 }

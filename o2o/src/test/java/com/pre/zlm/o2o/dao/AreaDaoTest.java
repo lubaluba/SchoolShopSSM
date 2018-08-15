@@ -14,8 +14,6 @@ public class AreaDaoTest extends BaseTest{
 	@Test
 	public void test() {
 		List<Area> list =areaDao.listArea();
-		System.out.println(list.get(1).getPriority());
-		System.out.println(list.get(1).getAreaName());
 		assertEquals(2,list.size());
 	}
 }

@@ -6,10 +6,11 @@ import com.pre.zlm.o2o.dao.AreaDao;
 import com.pre.zlm.o2o.entity.Area;
 import com.pre.zlm.o2o.service.AreaService;
 @Service
-public class AreaServiceImpl implements AreaService{
+public class AreaServiceImpl implements AreaService {
 	@Autowired
-	private AreaDao dao;
+	private AreaDao areaDao;
+	
 	public List<Area> getAreaList(){
-		return dao.listArea();
+		return areaDao.listArea();
 	}
 }
