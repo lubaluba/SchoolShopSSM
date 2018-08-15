@@ -25,6 +25,7 @@ import com.pre.zlm.o2o.enums.ShopStateEnum;
 import com.pre.zlm.o2o.exception.ShopOperationException;
 import com.pre.zlm.o2o.service.ShopCategoryService;
 import com.pre.zlm.o2o.service.ShopService;
+import com.pre.zlm.o2o.utils.CodeUtil;
 import com.pre.zlm.o2o.utils.HttpServletRequestUtils;
 @Controller
 @RequestMapping("/shopAdmin")
@@ -60,12 +61,15 @@ public class ShopController {
 	@RequestMapping(value="/registershop",method=RequestMethod.POST)
 	@ResponseBody
 	private Map<String,Object> registerShop(HttpServletRequest request) {
-		
 		Map<String,Object> modelMap =new HashMap<>();
-		
+		if (! CodeUtil.checkVerifyCode(request)) {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", "验证码错误");
+			return modelMap;
+		}
 		//接受并转化相应的参数,包括店铺信息以及图片信息
 		String shopStr = HttpServletRequestUtils.getString(request, "shopstr");
-		
+		System.out.println(shopStr);
 		//jackson的用法,将json转换为POJOS,将参数转换为实体类
 		ObjectMapper mapper =new ObjectMapper();
 		Shop shop =null;

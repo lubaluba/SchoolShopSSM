@@ -2,6 +2,7 @@ package config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
@@ -19,14 +20,19 @@ public class WebConfig extends WebMvcConfigurationSupport{
 		resolver.setExposeContextBeansAsAttributes(true);
 		return resolver;
 	}
-/*	@Bean
+	
+	/**
+	 *	文件上传解析器,如果不配置的话,会导致request里面的参数无法解析
+	 */
+	@Bean
 	protected CommonsMultipartResolver multipartResolver() {
 		CommonsMultipartResolver commonsMultipartResolver=new CommonsMultipartResolver();
 		commonsMultipartResolver.setMaxUploadSize(2097152);
-		commonsMultipartResolver.setMaxInMemorySize(0);
+		commonsMultipartResolver.setMaxInMemorySize(2097152);
 		commonsMultipartResolver.setDefaultEncoding("UTF-8");
 		return commonsMultipartResolver;
-	}*/
+	}
+	
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();

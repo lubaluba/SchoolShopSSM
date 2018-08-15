@@ -31,9 +31,6 @@ function submit(){
 	shop.shopAddr = $('#shop-addr').val();
 	shop.phone = $('#phone').val();
 	shop.shopDesc = $('#shop-desc').val();
-	/*var shop_area =  $("#shop-area").find("option").not(function(){
-		return!this.selected;
-	}).val();*/
 	shop.area = {
 		areaId : $("#shop-area").find("option").not(function(){
 			return!this.selected;
@@ -45,10 +42,17 @@ function submit(){
 			}).val()
 	};
 	var shopImg = $('#shop-img')[0].files[0];
+	//shop.shopImg = shopImg;
 	var formData  = new FormData();
-	formData.append('shopImg',shopImg);
-	formData.append('shopStr',JSON.stringify(shop));
-
+	formData.append('shopImg', shopImg);
+	formData.append('shopstr', JSON.stringify(shop));
+	var verifyCodeActual = $("#j_captcha").val();
+	if(!verifyCodeActual){
+		$.toast("请输入验证码");
+		return;
+	}
+	
+	formData.append('verifyCodeActual', verifyCodeActual);
 	$.ajax({
 			type: "POST",
 			url: "/o2o/shopAdmin/registershop.action",
@@ -63,7 +67,7 @@ function submit(){
 				}else{
 					$.toast('提交失败！' + data.errMsg);
 				}
+				$('#captcha_img').click();
 			}
 	});
-	$.toast("s");
 }

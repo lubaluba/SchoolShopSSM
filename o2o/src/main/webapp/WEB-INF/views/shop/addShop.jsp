@@ -119,6 +119,18 @@
             </div>
           </div>
         </li>
+        <!-- 验证码 -->
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title label">验证码</div>
+              <input type="text" id = "j_captcha" placeholder="验证码">
+              <div class="item-input">
+                <img id = "captcha_img" alt="点击更换" title="点击更换" onclick="changeVerifyCode(this)"  src = "../kaptcha"> 
+              </div>
+            </div>
+          </div>
+        </li>
       </ul>
     </div>
     <div class="content-block">
@@ -137,5 +149,6 @@
     <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
     <script type="text/javascript" src="../resources/js/shop/shop.js"></script>
+    <script type="text/javascript" src="../resources/js/commom/commom.js"></script>
   </body>
 </html>
