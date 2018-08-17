@@ -8,7 +8,8 @@ public enum ShopStateEnum {
 	PASS(2,"通过认证"),
 	INNER_ERROR(-1001,"程序内部错误"),
 	NULL_SHOP(-1002,"shop信息为空"),
-	NULL_SHOPNAME(-1003,"shopNaem为空");
+	NULL_SHOPNAME(-1003,"shopNaem为空"),
+	UPDATE_ERROR(-1004,"店铺更新失败");
 	
 	private int state;
 	

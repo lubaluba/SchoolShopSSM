@@ -28,4 +28,54 @@
 		</set>
 		WHERE shop_id =#{shopId}
 	</update>
+	
+	<resultMap type="com.pre.zlm.o2o.entity.Shop" id="shopMap">
+		<id column="shop_id" property="shopId"/>
+		<result column="shop_name" property="shopName"/>
+		<result column="shop_desc" property="shopDesc"/>
+		<result column="shop_addr" property="shopAddr"/>
+		<result column="phone" property="phone"/>
+		<result column="shop_img" property="shopImg"/>
+		<result column="priority " property="priority"/>
+		<result column="create_time" property="createTime"/>
+		<result column="last_edit_time" property="lastEditTime"/>
+		<result column="enable_status" property="enableStatus"/>
+		<result column="advice" property="advice"/>
+		<association property="area" column="area_id" javaType="com.pre.zlm.o2o.entity.Area">
+			<id column="area_id" property="areaId"/>
+			<result column="area_name" property="areaName"/>
+		</association>
+		<association property="shopCategory" column="shop_category_id" javaType="com.pre.zlm.o2o.entity.ShopCategory">
+			<id column="shop_category_id" property="shopCategoryId"/>
+			<result column="shop_category_name" property="shopCategoryName"/>
+		</association>
+		<association property="owner" column="woner_id" javaType="com.pre.zlm.o2o.entity.UserInfo">
+			<id column="user_id"  property="userId"/>
+			<result column="name" property="name"/>
+		</association>
+	</resultMap>
+		
+	<select id="getShopById" resultMap="shopMap" parameterType="Long">
+		SELECT
+			shop_id,
+			shop_name,
+			shop_addr,
+			phone,
+			shop_img,
+			shop.priority,
+			shop.create_time,
+			shop.last_edit_time,
+			shop.enable_status,
+			advice,
+			area.area_id,
+			area_name,
+			shop_category.shop_category_id,
+			shop_category_name
+		FROM
+			shop, area,shop_category
+		WHERE
+			shop.area_id = area.area_id 
+			AND shop.shop_category_id = shop_category.shop_category_id
+			AND shop_id = #{shopId}
+	</select>
 </mapper>

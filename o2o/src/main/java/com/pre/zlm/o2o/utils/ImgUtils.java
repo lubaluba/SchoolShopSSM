@@ -3,9 +3,13 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Random;
+
 import javax.imageio.ImageIO;
+
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 public class ImgUtils {
@@ -50,4 +54,34 @@ public class ImgUtils {
 			dirPath.mkdirs();
 		}
 	}	
+	
+	/**
+	 * @param storePath
+	 * 先判断storePath是文件的路径还是目录的路径
+	 * 如果storePath是文件路径,则删除该文件
+	 * 如果storePath是目录的路径,则删除该目录下所有文件
+	 * 删除图片文件
+	 */
+	public static void deleteFileOrPath(String storePath) {
+		File fileOrPath = new File(PathUtils.getImgBasePath() + storePath);
+		if (fileOrPath.exists()) {
+			if (fileOrPath.isDirectory()) {
+				ArrayList<File> list =new ArrayList<>(Arrays.asList(fileOrPath.listFiles()));
+				while(list.size() > 0) {
+					File f = list.get(0);
+					if(f.isDirectory()) {
+						File[] files = fileOrPath.listFiles();
+						for(int i = 0; i < files.length; i++) {
+							list.add(files[i]);
+						}	
+					} else {
+						f.delete();
+					}
+					list.remove(0);
+				}
+			} else {
+				fileOrPath.delete();
+			}
+		}
+	}
 }

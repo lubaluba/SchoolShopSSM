@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,12 +17,24 @@ import com.pre.zlm.o2o.entity.Shop;
 import com.pre.zlm.o2o.entity.ShopCategory;
 import com.pre.zlm.o2o.entity.UserInfo;
 import com.pre.zlm.o2o.enums.ShopStateEnum;
+import com.pre.zlm.o2o.exception.ShopOperationException;
 import com.pre.zlm.o2o.service.ShopService;
 public class ShopServiceTest extends BaseTest{
 	@Autowired
 	private ShopService service;
 	
 	@Test
+	public void testUpdateShop() throws ShopOperationException,FileNotFoundException{
+		Shop shop = service.getShopById(11L);
+		assertEquals("ww", shop.getShopName());
+		shop.setShopName("吃鸡小铺");
+		ShopExecution shopExecution = service.updateShop(shop, null, null);
+		assertEquals("操作成功", shopExecution.getStateInfo());
+		assertEquals("吃鸡小铺", shopExecution.getShop().getShopName());
+	}
+	
+	@Test
+	@Ignore
 	public void addShopTest() throws FileNotFoundException {
 		Shop shop =new Shop();
 		shop.setShopName("ww");

@@ -1,4 +1,6 @@
 package com.pre.zlm.o2o.dao;
+import static org.junit.Assert.assertEquals;
+
 import java.util.Date;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -11,6 +13,15 @@ import com.pre.zlm.o2o.entity.UserInfo;
 public class ShopDaoTest extends BaseTest{
 	@Autowired
 	private ShopDao dao;
+	
+	@Test
+	public void testGetShopById() {
+		Shop shop = dao.getShopById(11L);
+		assertEquals("ww", shop.getShopName());
+		assertEquals("渔湾市", shop.getArea().getAreaName());
+		assertEquals("体育用品", shop.getShopCategory().getShopCategoryName());
+	}
+	
 	@Test
 	@Ignore
 	public void insertTest() {
@@ -36,7 +47,9 @@ public class ShopDaoTest extends BaseTest{
 		shop.setShopCategory(sc);
 		dao.insertShop(shop);
 	}
+	
 	@Test
+	@Ignore
 	public void updateTest() {
 		Shop shop =new Shop();
 		shop.setShopName("试试手");

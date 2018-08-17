@@ -16,6 +16,7 @@ import com.pre.zlm.o2o.utils.PathUtils;
 public class ShopServiceImpl implements ShopService{
 	@Autowired
 	private ShopDao dao;
+	
 	@Override
 	@Transactional
 	public ShopExecution addShop(Shop shop, InputStream shopImgInputStream, String fileName) {
@@ -52,6 +53,41 @@ public class ShopServiceImpl implements ShopService{
 		String dest=PathUtils.getShopImagePath(shop.getShopId());
 		String shopImgAddr =ImgUtils.generateThumbnail(shopImgInputStream,dest,fileName);
 		shop.setShopImg(shopImgAddr);
+	}
+
+	@Override
+	public Shop getShopById(Long shopId) {
+		return dao.getShopById(shopId);
+	}
+
+	@Override
+	@Transactional
+	public ShopExecution updateShop(Shop shop, InputStream shopImgInputStream, String fileName) 
+			throws ShopOperationException {
+		if (shop == null || shop.getShopId() == null) {
+			return new ShopExecution(ShopStateEnum.NULL_SHOP);
+		}
+		try {
+			//判断是否需要处理图片
+			Shop oldShop = dao.getShopById(shop.getShopId());
+			if (shopImgInputStream != null && fileName != null && !fileName.equals("")) {
+				if (oldShop.getShopImg() != null) {
+					ImgUtils.deleteFileOrPath(oldShop.getShopImg());
+				}
+				addShopImg(shop, shopImgInputStream, fileName);
+			}
+			//更新店铺
+			shop.setLastEditTime(new Date());
+			int effectedNum = dao.updateShop(shop);
+			if (effectedNum < 1) {
+				return new ShopExecution(ShopStateEnum.UPDATE_ERROR);
+			} else {
+				shop = dao.getShopById(shop.getShopId());
+				return new ShopExecution(ShopStateEnum.SUCCESS, shop);
+			}
+		} catch(Exception e) {
+			throw new ShopOperationException("店铺更新异常" + e.getMessage());
+		}
 	}
 
 }
