@@ -69,7 +69,6 @@ public class ShopController {
 		}
 		//接受并转化相应的参数,包括店铺信息以及图片信息
 		String shopStr = HttpServletRequestUtils.getString(request, "shopstr");
-		System.out.println(shopStr);
 		//jackson的用法,将json转换为POJOS,将参数转换为实体类
 		ObjectMapper mapper =new ObjectMapper();
 		Shop shop =null;
