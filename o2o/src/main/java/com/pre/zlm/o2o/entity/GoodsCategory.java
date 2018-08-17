@@ -2,40 +2,31 @@ package com.pre.zlm.o2o.entity;
 
 import java.util.Date;
 
+import lombok.Data;
+@Data
 public class GoodsCategory {
+	/**
+	 * 商品类别ID
+	 */
 	private Long goodsCategoryId;
+	
+	/**
+	 * 所属店铺ID
+	 */
 	private Long shopId;
+	
+	/**
+	 * 商品类别名称
+	 */
 	private String goodsCategoryName;
+	
+	/**
+	 * 权重
+	 */
 	private Integer priority;
+	
+	/**
+	 * 创建时间
+	 */
 	private Date createTime;
-	public Long getGoodsCategoryId() {
-		return goodsCategoryId;
-	}
-	public void setGoodsCategoryId(Long goodsCategoryId) {
-		this.goodsCategoryId = goodsCategoryId;
-	}
-	public Long getShopId() {
-		return shopId;
-	}
-	public void setShopId(Long shopId) {
-		this.shopId = shopId;
-	}
-	public String getGoodsCategoryName() {
-		return goodsCategoryName;
-	}
-	public void setGoodsCategoryName(String goodsCategoryName) {
-		this.goodsCategoryName = goodsCategoryName;
-	}
-	public Integer getPriority() {
-		return priority;
-	}
-	public void setPriority(Integer priority) {
-		this.priority = priority;
-	}
-	public Date getCreateTime() {
-		return createTime;
-	}
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
 }

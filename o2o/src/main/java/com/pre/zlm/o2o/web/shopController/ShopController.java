@@ -44,6 +44,7 @@ public class ShopController {
 		
 		Map<String, Object> result =new HashMap<>();
 		List<ShopCategory> shopCategoryList  = new ArrayList<>();
+		
 		try {
 			shopCategoryList = shopCategoryService.listShopCategory(new ShopCategory());
 			result.put("success", true);
@@ -58,10 +59,10 @@ public class ShopController {
 	/**
 	 * 注册店铺
 	 */
-	@RequestMapping(value="/registershop",method=RequestMethod.POST)
+	@RequestMapping(value="/registershop", method=RequestMethod.POST)
 	@ResponseBody
 	private Map<String,Object> registerShop(HttpServletRequest request) {
-		Map<String,Object> modelMap =new HashMap<>();
+		Map<String,Object> modelMap = new HashMap<>();
 		if (! CodeUtil.checkVerifyCode(request)) {
 			modelMap.put("success", false);
 			modelMap.put("errMsg", "验证码错误");
@@ -70,24 +71,24 @@ public class ShopController {
 		//接受并转化相应的参数,包括店铺信息以及图片信息
 		String shopStr = HttpServletRequestUtils.getString(request, "shopstr");
 		//jackson的用法,将json转换为POJOS,将参数转换为实体类
-		ObjectMapper mapper =new ObjectMapper();
-		Shop shop =null;
+		ObjectMapper mapper = new ObjectMapper();
+		Shop shop = null;
 		try {
-			shop=mapper.readValue(shopStr,Shop.class);
+			shop=mapper.readValue(shopStr, Shop.class);
 		} catch (Exception e) {
 			modelMap.put("success", false);
 			modelMap.put("errMsg", "参数json转换异常");
 			return modelMap;
 		}
 		//图片上传读取转换
-		CommonsMultipartFile shopImg=null;
-		CommonsMultipartResolver cmpr =new CommonsMultipartResolver(request.getSession().getServletContext());
-		if(cmpr.isMultipart(request)) {
-			MultipartHttpServletRequest multipartHttpServletRequest=(MultipartHttpServletRequest)request;
-			shopImg=(CommonsMultipartFile)multipartHttpServletRequest.getFile("shopImg");
+		CommonsMultipartFile shopImg = null;
+		CommonsMultipartResolver cmpr = new CommonsMultipartResolver(request.getSession().getServletContext());
+		if (cmpr.isMultipart(request)) {
+			MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest)request;
+			shopImg = (CommonsMultipartFile)multipartHttpServletRequest.getFile("shopImg");
 		} else {
-			modelMap.put("success",false);
-			modelMap.put("errMsg","上传图片不可为空");
+			modelMap.put("success", false);
+			modelMap.put("errMsg"," 上传图片不可为空");
 			return modelMap;
 		}
 		

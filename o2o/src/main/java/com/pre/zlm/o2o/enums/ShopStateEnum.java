@@ -1,6 +1,7 @@
 package com.pre.zlm.o2o.enums;
 
 public enum ShopStateEnum {
+	
 	CHECK(0,"审核中"),
 	OFFLINE(-1,"非法店铺"),
 	SUCCESS(1,"操作成功"),
@@ -8,8 +9,11 @@ public enum ShopStateEnum {
 	INNER_ERROR(-1001,"程序内部错误"),
 	NULL_SHOP(-1002,"shop信息为空"),
 	NULL_SHOPNAME(-1003,"shopNaem为空");
+	
 	private int state;
+	
 	private String stateInfo;
+	
 	private ShopStateEnum(int state,String stateInfo) {
 		this.state=state;
 		this.stateInfo=stateInfo;
