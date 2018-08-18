@@ -3,32 +3,47 @@
  */
 //异步获得区域列表信息
 $(function(){
-	$.get(
-		"/o2o/superadmin/listarea.action",
-		false,
-		function(data){
+	var shopId = getQueryString("shopId");
+	$.ajax({
+		type: "GET",
+		url: "/o2o/superadmin/listarea.action",
+		dataType: "json",
+		async:false,
+		success: function(data){
 			for(var i = 0; i < data.total; i++){
 				var area = data.rows[i];
 				$("#shop-area").append("<option value='"+area.areaId+"' >"+area.areaName+"</option>");
 			};
+		}
+	})
+
+	
+	$.get(
+		"/o2o/shopAdmin/getshopbyid?shopId=" + shopId,
+		function(data){
+			var shop = data.shop;
+			$("#shop-name").val(shop.shopName);
+			$("#phone").val(shop.phone);
+			$("#shop-addr").val(shop.shopAddr);
+			$("#shop-desc").val(shop.shopDesc);
+			var areaops = document.getElementById('shop-area').options;
+			for(var i =0; i<areaops.length;i++){
+				if(areaops[i].value==shop.area.areaId){
+					areaops[i].selected = 'selected';
+				}
+			};
+			
+			$("#shop-category").append("<option value='"+shop.shopCategory.shopCategoryId+"' >"+shop.shopCategory.shopCategoryName+"</option>");
+			$('#shop-category').attr('disabled','disabled');
 		},
 		"json"
 	);
-	$.get(
-			"/o2o/shopAdmin/getshopCategorylist.action",
-			false,
-			function(data){
-				for(var i = 0; i < data.total; i++){
-					var category = data.rows[i];
-					$("#shop-category").append("<option value='"+category.shopCategoryId+"' >"+category.shopCategoryName+"</option>");
-				};
-			},
-			"json"
-		);
 })
 //登录提交表单
-function submit(){
+function update(){
+	var shopId = getQueryString("shopId");
 	var shop = {};
+	shop.shopId = shopId;
 	shop.shopName = $('#shop-name').val();
 	shop.shopAddr = $('#shop-addr').val();
 	shop.phone = $('#phone').val();
@@ -57,7 +72,7 @@ function submit(){
 	formData.append('verifyCodeActual', verifyCodeActual);
 	$.ajax({
 			type: "POST",
-			url: "/o2o/shopAdmin/registershop.action",
+			url: "/o2o/shopAdmin/updateshop.action",
 			data:formData,
 			dataType: "json",
 			processData: false,

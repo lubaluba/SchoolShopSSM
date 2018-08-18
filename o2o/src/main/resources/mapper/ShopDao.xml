@@ -59,6 +59,7 @@
 		SELECT
 			shop_id,
 			shop_name,
+			shop_desc,
 			shop_addr,
 			phone,
 			shop_img,
