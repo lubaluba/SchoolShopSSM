@@ -9,7 +9,8 @@ public enum ShopStateEnum {
 	INNER_ERROR(-1001,"程序内部错误"),
 	NULL_SHOP(-1002,"shop信息为空"),
 	NULL_SHOPNAME(-1003,"shopNaem为空"),
-	UPDATE_ERROR(-1004,"店铺更新失败");
+	UPDATE_ERROR(-1004,"店铺更新失败"),
+	QUERY_NULL(-1005, "查询为空,请检查查询条件");
 	
 	private int state;
 	

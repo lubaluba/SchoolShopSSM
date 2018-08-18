@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -18,12 +19,41 @@ import com.pre.zlm.o2o.entity.ShopCategory;
 import com.pre.zlm.o2o.entity.UserInfo;
 import com.pre.zlm.o2o.enums.ShopStateEnum;
 import com.pre.zlm.o2o.exception.ShopOperationException;
-import com.pre.zlm.o2o.service.ShopService;
 public class ShopServiceTest extends BaseTest{
 	@Autowired
 	private ShopService service;
 	
+	/**
+	 * 通过店铺类别查询
+	 */
 	@Test
+	public void testGetShopListByShopCategory() {
+		ShopCategory sp = new ShopCategory();
+		sp.setShopCategoryId(3L);
+		Shop shopCondition = new Shop();
+		shopCondition.setShopCategory(sp);
+		ShopExecution se = service.listShopByCondition(shopCondition, 1, 1);
+		assertEquals(1, se.getState());
+		assertEquals(3, se.getCount());
+		List<Shop> list = se.getShopList();
+		assertEquals(1, list.size());
+		assertEquals("吃鸡小铺", list.get(0).getShopName());
+	}
+	
+	/**
+	 * 测试非法
+	 */
+	public void testIlleage() {
+		ShopCategory sp = new ShopCategory();
+		sp.setShopCategoryId(111L);
+		Shop shopCondition = new Shop();
+		shopCondition.setShopCategory(sp);
+		ShopExecution se = service.listShopByCondition(shopCondition, 1, 1);
+		assertEquals(-1005, se.getState());
+	}
+	
+	@Test
+	@Ignore
 	public void testUpdateShop() throws ShopOperationException,FileNotFoundException{
 		Shop shop = service.getShopById(11L);
 		assertEquals("ww", shop.getShopName());

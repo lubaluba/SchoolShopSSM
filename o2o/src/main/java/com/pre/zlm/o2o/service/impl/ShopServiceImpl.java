@@ -1,9 +1,12 @@
 package com.pre.zlm.o2o.service.impl;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.pre.zlm.o2o.dao.ShopDao;
 import com.pre.zlm.o2o.dto.ShopExecution;
 import com.pre.zlm.o2o.entity.Shop;
@@ -11,11 +14,29 @@ import com.pre.zlm.o2o.enums.ShopStateEnum;
 import com.pre.zlm.o2o.exception.ShopOperationException;
 import com.pre.zlm.o2o.service.ShopService;
 import com.pre.zlm.o2o.utils.ImgUtils;
+import com.pre.zlm.o2o.utils.PageCalculator;
 import com.pre.zlm.o2o.utils.PathUtils;
 @Service
 public class ShopServiceImpl implements ShopService{
 	@Autowired
 	private ShopDao dao;
+	
+	@Override
+	public ShopExecution listShopByCondition(Shop shopCondition, int pageIndex, int pageSize) {
+		ShopExecution shopExecution = new ShopExecution();
+		int rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
+		int count = dao.getShopListCount(shopCondition);
+		List<Shop> shopList = dao.getShopList(shopCondition, rowIndex, pageSize);
+		if (shopList != null) {	
+			shopExecution.setShopList(shopList);
+			shopExecution.setCount(count);
+			shopExecution.setState(ShopStateEnum.SUCCESS.getState());
+		} else {
+			shopExecution.setState(ShopStateEnum.QUERY_NULL.getState());
+		}
+
+		return shopExecution;
+	}
 	
 	@Override
 	@Transactional

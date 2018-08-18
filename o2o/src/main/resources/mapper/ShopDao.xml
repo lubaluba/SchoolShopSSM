@@ -55,7 +55,75 @@
 		</association>
 	</resultMap>
 		
-	<select id="getShopById" resultMap="shopMap" parameterType="Long">
+	<select id="getShopList" resultMap="shopMap">
+		SELECT
+			shop_id,
+			shop_name,
+			shop_desc,
+			shop_addr,
+			phone,
+			shop_img,
+			shop.priority,
+			shop.create_time,
+			shop.last_edit_time,
+			shop.enable_status,
+			advice,
+			area.area_id,
+			area_name,
+			shop_category.shop_category_id,
+			shop_category_name
+		FROM
+			shop, area,shop_category
+		<where>
+			<if test="shopCondition.shopCategory != null and shopCondition.shopCategory.shopCategoryId != null">
+				and shop.shop_category_id = #{shopCondition.shopCategory.shopCategoryId}
+			</if>
+			<if test="shopCondition.area != null and shopCondition.area.areaId != null">
+				and shop.area_id = #{shopCondition.area.areaId}
+			</if>
+			<if test = "shopCondition.shopName != null">
+				and shop_name like '%${shopCondition.shopName}%'
+			</if>
+			<if test="shopCondition.enableStatus != null">
+				and enable_status = #{shopCondition.enableStatus}
+			</if>
+			<if test="shopCondition.owner != null and shopCondition.owner.userId != null">
+				and owner_id = #{shopCondition.owner.userId}
+			</if>
+			AND shop.area_id = area.area_id 
+			AND shop.shop_category_id = shop_category.shop_category_id
+		</where>
+		ORDER BY shop.priority DESC
+		LIMIT #{rowIndex}, #{pageSize}
+	</select>	
+		
+	<select id="getShopListCount" resultType="int">
+		SELECT 
+		count(1)
+		FROM
+			shop, area, shop_category
+		<where>
+			<if test="shopCondition.shopCategory != null and shopCondition.shopCategory.shopCategoryId != null">
+				and shop.shop_category_id = #{shopCondition.shopCategory.shopCategoryId}
+			</if>
+			<if test="shopCondition.area != null and shopCondition.area.areaId != null">
+				and shop.area_id= #{shopCondition.area.areaId}
+			</if>
+			<if test = "shopCondition.shopName != null">
+				and shop_name like '%${shopCondition.shopName}%'
+			</if>
+			<if test="shopCondition.enableStatus != null">
+				and enable_status = #{shopCondition.enableStatus}
+			</if>
+			<if test="shopCondition.owner != null and shopCondition.owner.userId != null">
+				and owner_id = #{shopCondition.owner.userId}
+			</if>
+			AND shop.area_id = area.area_id 
+			AND shop.shop_category_id = shop_category.shop_category_id
+		</where>
+	
+	</select>	
+	<select id="getShopById" resultMap="shopMap"  parameterType="Long">
 		SELECT
 			shop_id,
 			shop_name,

@@ -38,6 +38,70 @@ public class ShopController {
 	private ShopCategoryService shopCategoryService;
 
 	/**
+	 * 检查当前用户是否有权限操作shop,主要看是否登录
+	 */
+	@RequestMapping(value = "/getshoplist", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> getShopList(HttpServletRequest request) {
+		Map<String, Object> result = new HashMap<>();
+		UserInfo user = new UserInfo();
+		user.setUserId(11L);
+		user.setName("王小二");
+		request.getSession().setAttribute("user", user);
+		user = (UserInfo)request.getSession().getAttribute("user");
+		try {
+			Shop shopCondition = new Shop();
+			shopCondition.setOwner(user);
+			ShopExecution se = service.listShopByCondition(shopCondition, 0, 1);
+			result.put("success", true);
+			result.put("shoplist", se.getShopList());
+			result.put("user", user);
+		} catch (Exception e) {
+			result.put("success", false);
+			result.put("errMsg", e.getMessage());
+		}
+		return result;
+	}
+	
+	/**
+	 * 点击进入店铺展示详情页面
+	 */
+	@RequestMapping(value = "/getshopmanagementinfo", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> getShopManagementInfo(HttpServletRequest request) {
+		Map<String, Object> result = new HashMap<>();
+		long shopId = HttpServletRequestUtils.getLong(request, "shopId");
+		if (shopId <= 0) {
+			Object currentShopObj = request.getSession().getAttribute("currentShop");
+			if (currentShopObj == null) {
+				result.put("redirect", true);
+				result.put("url", "o2o/shop/shoplist");
+			} else {
+				Shop currentShop = (Shop)currentShopObj;
+				result.put("redirect", false);
+				result.put("shopId", currentShop.getShopId());
+			}
+		} else {
+			Shop currentShop = new Shop();
+			currentShop.setShopId(shopId);
+			request.getSession().setAttribute("currentShop", currentShop);
+			result.put("redirect", false);
+			result.put("shopId", currentShop.getShopId());
+		}
+		return result;
+	}
+	
+	/**
+	 * 管理员根据条件查询店铺信息
+	 */
+	@RequestMapping(value = "queryShopList", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object>  queryShop(){
+		Map<String, Object> result = new HashMap<>();
+		return result;
+	}
+	
+	/**
 	 *	更新店铺
 	 */
 	@RequestMapping(value = "/getshopbyid", method = RequestMethod.GET)

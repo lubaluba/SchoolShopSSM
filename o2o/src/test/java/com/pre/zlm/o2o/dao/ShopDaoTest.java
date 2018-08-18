@@ -2,9 +2,12 @@ package com.pre.zlm.o2o.dao;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
+import java.util.List;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import com.pre.zlm.o2o.BaseTest;
 import com.pre.zlm.o2o.entity.Area;
 import com.pre.zlm.o2o.entity.Shop;
@@ -14,7 +17,87 @@ public class ShopDaoTest extends BaseTest{
 	@Autowired
 	private ShopDao dao;
 	
+	/**
+	 * 通过区域店主店铺
+	 */
 	@Test
+	public void testgetShopList() {
+		UserInfo user = new UserInfo();
+		user.setUserId(1L);
+		Shop shopCondition = new Shop();
+		shopCondition.setOwner(user);
+		int rows =  dao.getShopListCount(shopCondition);
+		assertEquals(3, rows);
+		List<Shop> list = dao.getShopList(shopCondition, 1, 2);
+		assertEquals(2, list.size());
+		assertEquals("ss", list.get(1).getShopName());
+		
+	}
+	/**
+	 * 通过店铺类别查询
+	 */
+	@Test
+	public void testGetShopListByShopCategory() {
+		ShopCategory sp = new ShopCategory();
+		sp.setShopCategoryId(3L);
+		Shop shopCondition = new Shop();
+		shopCondition.setShopCategory(sp);
+		int rows =  dao.getShopListCount(shopCondition);
+		assertEquals(3, rows);
+		List<Shop> list = dao.getShopList(shopCondition, 1, 2);
+		assertEquals(2, list.size());
+		assertEquals("ss", list.get(1).getShopName());
+		
+	}
+	/**
+	 * 根据店铺区域查询
+	 */
+	@Test
+	public void testGetShopListByArea() {
+		Area area = new Area();
+		area.setAreaId(1);
+		Shop shopCondition = new Shop();
+		shopCondition.setArea(area);
+		int rows =  dao.getShopListCount(shopCondition);
+		assertEquals(2, rows);
+		List<Shop> list = dao.getShopList(shopCondition, 0, 2);
+		assertEquals(2, list.size());
+		assertEquals("ss", list.get(1).getShopName());
+		
+	}
+	
+	/**
+	 * 根据店铺状态查询
+	 */
+	@Test
+	public void testGetShopListByStatus() {
+		Shop shopCondition = new Shop();
+		shopCondition.setEnableStatus(0);
+		int rows =  dao.getShopListCount(shopCondition);
+		assertEquals(3, rows);
+		List<Shop> list = dao.getShopList(shopCondition, 0, 2);
+		assertEquals(2, list.size());
+		assertEquals("吃鸡小铺", list.get(0).getShopName());
+		
+	}
+	
+	/**
+	 * 根据店铺状态查询
+	 */
+	@Test
+	public void testGetShopListByName() {
+		Shop shopCondition = new Shop();
+		shopCondition.setShopName("吃鸡");
+		int rows =  dao.getShopListCount(shopCondition);
+		assertEquals(1, rows);
+		List<Shop> list = dao.getShopList(shopCondition, 0, 1);
+		assertEquals(1, list.size());
+		assertEquals("吃鸡小铺", list.get(0).getShopName());
+		
+	}
+	
+	@Test
+	@Ignore
 	public void testGetShopById() {
 		Shop shop = dao.getShopById(11L);
 		assertEquals("ww", shop.getShopName());

@@ -16,5 +16,10 @@ public interface ShopService {
 	/**
 	 * 更新店铺信息
 	 */
-	public ShopExecution updateShop(Shop shop, InputStream shopImgInputStream, String fileName);
+	ShopExecution updateShop(Shop shop, InputStream shopImgInputStream, String fileName);
+	
+	/**
+	 * 查询店铺列表
+	 */
+	ShopExecution listShopByCondition(Shop shopCondition, int pageIndex, int pageSize);
 }
