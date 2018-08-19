@@ -9,5 +9,6 @@
 <h2>Hello World!</h2>
 <a href="shopAdmin/toAddShopPage">添加店铺</a>
 <a href="shopAdmin/toUpdatePage?shopId=11">更新店铺</a>
+<a href="shopAdmin/toShopList">店铺列表</a>
 </body>
 </html>

@@ -55,8 +55,12 @@
             <div class="item-inner">
               <div class="item-title label">店铺类型</div>
               <div class="item-input">
-                <select id = "shop-category">
+                <select id = "shop-category" onchange="getChildren(this)">
                   <option>---请选择---</option>
+                </select>
+              </div>
+              <div class="item-input">
+                <select id = "shop-category-sub">
                 </select>
               </div>
             </div>

@@ -33,7 +33,7 @@
   	<header class="bar bar-nav">
     	<a class="button button-link button-nav pull-left back" href="/demos/form">
     		<span class="icon icon-left"></span>返回</a>
-   		 	<h1 class="title">添加店铺</h1>
+   		 	<h1 class="title">店铺修改</h1>
   	</header>
   	<div class="content">
     <div class="list-block">

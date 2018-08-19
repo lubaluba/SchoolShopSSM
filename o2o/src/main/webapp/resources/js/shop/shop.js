@@ -26,6 +26,26 @@ $(function(){
 			"json"
 		);
 })
+
+/**
+ * 获得子类
+ */
+function getChildren(data){
+	var index = data.selectedIndex;
+	var val = data.options[index].value;
+	$("#shop-category-sub").empty();
+	$.get(
+			"/o2o/shopAdmin/getshopCategorylist.action?parentId="+val,
+			false,
+			function(data){
+				for(var i = 0; i < data.total; i++){
+					var category = data.rows[i];
+					$("#shop-category-sub").append("<option value='"+category.shopCategoryId+"' >"+category.shopCategoryName+"</option>");
+				};
+			},
+			"json"
+		);
+}
 //登录提交表单
 function submit(){
 	var shop = {};
@@ -39,7 +59,7 @@ function submit(){
 		}).val()
 	};
 	shop.shopCategory = {
-			shopCategoryId : $("#shop-category").find("option").not(function(){
+			shopCategoryId : $("#shop-category-sub").find("option").not(function(){
 				return!this.selected;
 			}).val()
 	};
@@ -66,6 +86,7 @@ function submit(){
 			success: function(data){
 				if(data.success){
 					$.toast('提交成功!');
+					window.location.href = "/o2o/shopAdmin/toShopList"
 				}else{
 					$.toast('提交失败！' + data.errMsg);
 				}

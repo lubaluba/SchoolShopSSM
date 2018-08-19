@@ -38,21 +38,21 @@ public class ShopController {
 	private ShopCategoryService shopCategoryService;
 
 	/**
-	 * 检查当前用户是否有权限操作shop,主要看是否登录
+	 *	获得店铺列表
 	 */
 	@RequestMapping(value = "/getshoplist", method = RequestMethod.GET)
 	@ResponseBody
 	private Map<String, Object> getShopList(HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<>();
 		UserInfo user = new UserInfo();
-		user.setUserId(11L);
+		user.setUserId(1L);
 		user.setName("王小二");
 		request.getSession().setAttribute("user", user);
 		user = (UserInfo)request.getSession().getAttribute("user");
 		try {
 			Shop shopCondition = new Shop();
 			shopCondition.setOwner(user);
-			ShopExecution se = service.listShopByCondition(shopCondition, 0, 1);
+			ShopExecution se = service.listShopByCondition(shopCondition, 0, 3);
 			result.put("success", true);
 			result.put("shoplist", se.getShopList());
 			result.put("user", user);
@@ -75,7 +75,7 @@ public class ShopController {
 			Object currentShopObj = request.getSession().getAttribute("currentShop");
 			if (currentShopObj == null) {
 				result.put("redirect", true);
-				result.put("url", "o2o/shop/shoplist");
+				result.put("url", "/o2o/shopAdmin/toShopList");
 			} else {
 				Shop currentShop = (Shop)currentShopObj;
 				result.put("redirect", false);
@@ -186,15 +186,26 @@ public class ShopController {
 		return result;
 	}
 	
+	/**
+	 *	获取店铺类别列表
+	 */
 	@RequestMapping(value = "/getshopCategorylist", method = RequestMethod.GET)
 	@ResponseBody
 	private Map<String, Object> getShopCategoryList(HttpServletRequest request) {
 		
 		Map<String, Object> result =new HashMap<>();
-		List<ShopCategory> shopCategoryList  = new ArrayList<>();
-		
+		List<ShopCategory> shopCategoryList;
 		try {
-			shopCategoryList = shopCategoryService.listShopCategory(new ShopCategory());
+			long id = HttpServletRequestUtils.getLong(request, "parentId");
+			if(id < 0) {
+				shopCategoryList = shopCategoryService.listShopCategory(new ShopCategory());
+			}else {
+				ShopCategory shopCategoryCondition = new ShopCategory();
+				ShopCategory parent = new ShopCategory();
+				parent.setShopCategoryId(id);
+				shopCategoryCondition.setParent(parent);
+				shopCategoryList = shopCategoryService.listShopCategory(shopCategoryCondition);
+			}
 			result.put("success", true);
 			result.put("rows", shopCategoryList);
 			result.put("total", shopCategoryList.size());
@@ -244,7 +255,9 @@ public class ShopController {
 		//注册店铺
 		if (shop != null && shopImg != null) {
 		//注册店铺时需要店主的信息,此时可以通过session获取。
-			UserInfo owner = (UserInfo)request.getSession().getAttribute("user");
+			//UserInfo owner = (UserInfo)request.getSession().getAttribute("user");
+			UserInfo owner = new UserInfo();
+			owner.setUserId(1L);
 			shop.setOwner(owner);
 			ShopExecution se;
 			try {

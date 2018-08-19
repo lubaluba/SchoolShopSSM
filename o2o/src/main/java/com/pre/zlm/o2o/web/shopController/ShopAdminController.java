@@ -17,5 +17,14 @@ public class ShopAdminController {
 	public String updateShopPage() {
 		return "shop/updateshop";
 	}
-
+	
+	@RequestMapping(value = "/toShopList")
+	public String shopList() {
+		return "shop/shoplist";
+	}
+	
+	@RequestMapping(value = "/toShopManagement")
+	public String shopManagement() {
+		return "shop/shopmanagement";
+	}
 }

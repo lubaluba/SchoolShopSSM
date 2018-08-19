@@ -13,10 +13,10 @@
 			parent_id 
 		FROM
 			shop_category
-		<!-- 当不指定其父标签签时,只查询二级标签(即有父类的类别) -->
+		<!-- 当不指定其父标签签时,只查询一级标签(即父类) -->
 		<where>
 			<if test="shopCategoryCondition.parent == null">
-				and parent_id is not null
+				and parent_id is null
 			</if>
 			<if test="shopCategoryCondition.parent != null">
 				and parent_id = #{shopCategoryCondition.parent.shopCategoryId}
