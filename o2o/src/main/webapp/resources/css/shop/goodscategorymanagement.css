@@ -1,0 +1,16 @@
+@charset "UTF-8";
+.row-goods-category {
+	border : 1px solid #999;
+	padding : .5rem;
+	boreder-bottom : none;
+}
+.row-goods-category:last-child{
+	border : 1px solid #999;
+}
+.category-input{
+	border : none;
+	background-color : #eee;
+}
+.goods-category-name {
+	white-space : nowrap;
+}

@@ -45,7 +45,7 @@ var _hmt = _hmt || [];
   					class="button button-big button-fill">商品管理</a>
   			</div>
   			<div class="col-50 mb">
-  				<a href="#" class="button button-big button-fill">类别管理</a>
+  				<a href="/o2o/shopAdmin/toGoodsCategoryManagement" class="button button-big button-fill">类别管理</a>
   			</div>
   			<div class = "col-100 mb">
   				<a href="/o2o/shopAdmin/toShopList" class="button button-big button-fill">返回</a>
