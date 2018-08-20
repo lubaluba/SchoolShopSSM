@@ -12,4 +12,5 @@ public interface ShopCategoryService {
 	 * @return
 	 */
 	List<ShopCategory> listShopCategory(ShopCategory shopCategoryCondition);
+	
 }

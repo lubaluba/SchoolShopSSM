@@ -16,4 +16,18 @@
 		ORDER BY
 		priority DESC
 	</select>
+	
+	<insert id="batchInsertGoodsCategory" parameterType="java.util.List">
+		INSERT INTO
+			goods_category(goods_category_name, priority, create_time, shop_id)
+		VALUES
+		<foreach collection="list" item="category" index="index" separator=",">
+			(
+				#{category.goodsCategoryName},
+				#{category.priority},
+				#{category.createTime},
+				#{category.shopId}
+			)		
+		</foreach>
+	</insert>
 </mapper>
