@@ -54,10 +54,10 @@ var _hmt = _hmt || [];
     	<div class="content-block">
     		<div class="row">
     			<div class="col-50">
-    				<a href="#" id="log-out" class="button button-big button-fill button-success" id = "new">新增</a>
+    				<a href="javascript:void(0)" class="button button-big button-fill button-success" id="new">新增</a>
     			</div>
 				<div class="col-50">
-    				<a href="/o2o/shop/changepsw" id="bindOrChange" class="button button-big button-fill" id = "submit">提交</a>
+    				<a href="javascript:void(0)" class="button button-big button-fill" id = "submit">提交</a>
     			</div>
     		</div>
      	</div>

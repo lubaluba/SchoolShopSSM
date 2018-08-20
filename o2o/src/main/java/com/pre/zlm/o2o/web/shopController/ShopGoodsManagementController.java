@@ -1,5 +1,6 @@
 package com.pre.zlm.o2o.web.shopController;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,6 +63,7 @@ public class ShopGoodsManagementController {
 		//从session中取出shopId
 		Shop currentShop = (Shop)request.getSession().getAttribute("currentShop");
 		for (GoodsCategory gc : goodsCategoryList) {
+			gc.setCreateTime(new Date());
 			gc.setShopId(currentShop.getShopId());
 		}
 		
