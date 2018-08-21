@@ -19,16 +19,18 @@ import com.pre.zlm.o2o.entity.GoodsCategory;
 import com.pre.zlm.o2o.entity.Shop;
 import com.pre.zlm.o2o.enums.GoodsCategoryStateEnum;
 import com.pre.zlm.o2o.service.GoodsCategoryService;
+import com.pre.zlm.o2o.web.BaseController;
 
 /**
  * 店铺商品管理
  */
 @Controller
 @RequestMapping(value = "shopAdmin")
-public class ShopGoodsManagementController {
+public class ShopGoodsManagementController extends BaseController {
 	
 	@Autowired
 	private GoodsCategoryService goodsService;
+	
 	/**
 	 * 根据id获取商铺中商品类别信息
 	 */
@@ -45,11 +47,10 @@ public class ShopGoodsManagementController {
 			goodsCategoryList  = goodsService.listShopCategory(currentShop.getShopId());
 			result.put("success", true);
 			result.put("goodscategorylist", goodsCategoryList);
+			return result;
 		} else {
-			result.put("success", false);
-			result.put("errMsg", "查询店铺类别信息失败");
+			return exceptionResult(result, "查询店铺类别信息失败");
 		}
-		return result;
 	}
 	
 	/**
@@ -72,20 +73,16 @@ public class ShopGoodsManagementController {
 				GoodsCategoryExecution ge = goodsService.batchInsertGoodsCategory(goodsCategoryList);
 				if (ge.getState() == GoodsCategoryStateEnum.SUCCESS.getState()) {
 					result.put("success", true);
+					return result;
 				} else {
-					result.put("success", false);
-					result.put("errMsg", ge.getStateInfo());
+					return exceptionResult(result, ge.getStateInfo());
 				}
 			} catch (RuntimeException e) {
-				result.put("success", false);
-				result.put("errMsg", e.getMessage());
-				return result;
+				return exceptionResult(result, e.toString());
 			} 
 		} else {
-			result.put("success", false);
-			result.put("errMsg", "请至少添加一个商品类别");
+			return exceptionResult(result, "请至少添加一个商品类别");
 		}
-		return result;
 	}
 	
 	@RequestMapping(value = "/deletegoodscategory", method = RequestMethod.POST)
@@ -100,19 +97,15 @@ public class ShopGoodsManagementController {
 				GoodsCategoryExecution ge = goodsService.deleteGoodsCategory(goodsCategoryId, currentShop.getShopId());
 				if (ge.getState() == GoodsCategoryStateEnum.SUCCESS.getState()) {
 					result.put("success", true);
+					return result;
 				} else {
-					result.put("success", false);
-					result.put("errMsg", ge.getStateInfo());
+					return exceptionResult(result, ge.getStateInfo());
 				}
 			} catch (RuntimeException e) {
-				result.put("success", false);
-				result.put("errMsg", e.getMessage());
-				return result;
+				return exceptionResult(result, e.toString());
 			} 
 		} else {
-			result.put("success", false);
-			result.put("errMsg", "请选择一个商品类别");
+			return exceptionResult(result, "请选择一个商品类别");
 		}
-		return result;
 	}
 }

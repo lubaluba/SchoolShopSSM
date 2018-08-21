@@ -42,7 +42,7 @@ public class ImgUtils {
 		return relativeAddr;
 	}
 	
-	public static String generateThumbnail(ImageHolder imgHolder, String targetAddr) {
+	public static String generateThumbnail(ImageHolder imgHolder, String targetAddr) throws IOException {
 		String realFileName = getRandomFileName();
 		String extension = getFileExtension(imgHolder.getImageName());
 		makeDirPath(targetAddr);
@@ -53,14 +53,14 @@ public class ImgUtils {
 		try {
 			Thumbnails.of(imgHolder.getImage())
 			.size(200, 200)
-			.watermark(Positions.BOTTOM_RIGHT,ImageIO.read(new File(basePath+"/watermark.png")), 0.75f)
+			.watermark(Positions.BOTTOM_RIGHT,ImageIO.read(new File(basePath+"/watermark.jpg")), 0.75f)
 			.outputQuality(0.8f)
 			.toFile(dest);
+			return relativeAddr;
 		} catch (IOException e) {
 			logger.error(e.toString());
-			e.printStackTrace();
+			throw new IOException("图片转换异常");
 		}
-		return relativeAddr;
 	}
 	//产生随机文件名
 	public static String getRandomFileName() {

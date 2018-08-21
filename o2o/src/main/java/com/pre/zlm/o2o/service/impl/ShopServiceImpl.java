@@ -1,4 +1,5 @@
 package com.pre.zlm.o2o.service.impl;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -114,7 +115,7 @@ public class ShopServiceImpl implements ShopService{
 		}
 	}
 
-	private void addShopImg(Shop shop, ImageHolder imgHolder) {
+	private void addShopImg(Shop shop, ImageHolder imgHolder) throws IOException {
 		//获取shop图片目录的相对值路径
 		String dest=PathUtils.getShopImagePath(shop.getShopId());
 		String shopImgAddr =ImgUtils.generateThumbnail(imgHolder, dest);

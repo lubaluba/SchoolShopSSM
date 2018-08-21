@@ -24,12 +24,12 @@ import com.pre.zlm.o2o.entity.Shop;
 import com.pre.zlm.o2o.enums.GoodsStateEnum;
 import com.pre.zlm.o2o.exception.GoodsOperationException;
 import com.pre.zlm.o2o.service.GoodsService;
-import com.pre.zlm.o2o.utils.CodeUtil;
 import com.pre.zlm.o2o.utils.HttpServletRequestUtils;
+import com.pre.zlm.o2o.web.BaseController;
 
 @Controller
 @RequestMapping("/shopAdmin")
-public class GoodsController {
+public class GoodsController extends BaseController {
 	
 	@Autowired
 	private GoodsService service;
@@ -41,12 +41,8 @@ public class GoodsController {
 	@ResponseBody
 	private Map<String, Object> addGood(HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<>();
-		//验证码校验
-		Map<String,Object> modelMap = new HashMap<>();
-		if (! CodeUtil.checkVerifyCode(request)) {
-			modelMap.put("success", false);
-			modelMap.put("errMsg", "验证码错误");
-			return modelMap;
+		if (!checkCode()) {
+			return exceptionResult(result, "验证码错误");
 		}
 
 		//接收前端参数变量的初始化,包括商品,缩略图,详情图列表实体类
@@ -94,30 +90,26 @@ public class GoodsController {
 			return result;
 		}
 		
-		if (goods != null && thumbnail != null && goodsImgList.size() > 0) {
-			try {
-				Shop currentShop = (Shop)request.getSession().getAttribute("currentShop");
-				Shop shop = new Shop();
-				shop.setShopId(currentShop.getShopId());
-				goods.setShop(shop);
-				GoodsExecution pe = service.addGoods(goods, thumbnail, goodsImgList);
-				if (pe.getState() == GoodsStateEnum.SUCCESS.getState()) {
-					result.put("success", true);
-				} else {
-					result.put("success", false);
-					result.put("errMsg", pe.getStateInfo());
-				} 
-			} catch (GoodsOperationException e) {
-				result.put("success", false);
-				result.put("errMsg", e.toString());
-				return modelMap;
-			}
-			
-		} else {
-			result.put("success", false);
-			result.put("errMsg", "请输入商品信息");	
+		//插入商品信息;
+		if(goods == null || thumbnail == null || goodsImgList.size() <= 0) {
+			return exceptionResult(result, "请输入商品信息");
 		}
-		return result;
+		try {
+			Shop currentShop = (Shop)request.getSession().getAttribute("currentShop");
+			Shop shop = new Shop();
+			shop.setShopId(currentShop.getShopId());
+			goods.setShop(shop);
+			GoodsExecution pe = service.addGoods(goods, thumbnail, goodsImgList);
+			if (pe.getState() == GoodsStateEnum.SUCCESS.getState()) {
+				result.put("success", true);
+				return result;
+			} else {
+				return exceptionResult(result, pe.getStateInfo());
+			} 
+		} catch (GoodsOperationException e) {
+			return exceptionResult(result, e.toString());
+		}		
 	}
+	
 }
 	

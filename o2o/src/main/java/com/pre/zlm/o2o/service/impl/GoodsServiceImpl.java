@@ -1,5 +1,6 @@
 package com.pre.zlm.o2o.service.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -42,7 +43,11 @@ public class GoodsServiceImpl implements GoodsService {
 			goods.setEnableStatus(1);
 			//处理图片
 			if (thumbnail != null) {
-				addThumbnail(goods, thumbnail);
+				try {
+					addThumbnail(goods, thumbnail);
+				} catch (IOException e) {
+					throw new GoodsOperationException("图片转换失败");
+				}
 			}
 			
 			try {
@@ -68,10 +73,12 @@ public class GoodsServiceImpl implements GoodsService {
 	 * 处理文件缩略图
 	 * @param goods
 	 * @param thumbnail
+	 * @throws IOException 
 	 */
-	private void addThumbnail(Goods goods, ImageHolder thumbnail) {
+	private void addThumbnail(Goods goods, ImageHolder thumbnail) throws IOException {
 		String dest = PathUtils.getShopImagePath(goods.getShop().getShopId());
-		String thumbnailAddr = ImgUtils.generateThumbnail(thumbnail, dest);
+		String thumbnailAddr;
+		thumbnailAddr = ImgUtils.generateThumbnail(thumbnail, dest);
 		goods.setImgAddr(thumbnailAddr);
 	}
 	
