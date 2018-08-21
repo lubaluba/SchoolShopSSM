@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.pre.zlm.o2o.BaseTest;
+import com.pre.zlm.o2o.dto.ImageHolder;
 import com.pre.zlm.o2o.dto.ShopExecution;
 import com.pre.zlm.o2o.entity.Area;
 import com.pre.zlm.o2o.entity.Shop;
@@ -58,7 +59,7 @@ public class ShopServiceTest extends BaseTest{
 		Shop shop = service.getShopById(11L);
 		assertEquals("ww", shop.getShopName());
 		shop.setShopName("吃鸡小铺");
-		ShopExecution shopExecution = service.updateShop(shop, null, null);
+		ShopExecution shopExecution = service.updateShop(shop, null);
 		assertEquals("操作成功", shopExecution.getStateInfo());
 		assertEquals("吃鸡小铺", shopExecution.getShop().getShopName());
 	}
@@ -85,7 +86,7 @@ public class ShopServiceTest extends BaseTest{
 		File shopImg=new File("C:/360极速浏览器下载/壁纸/05fdab5e0254bfaa2cdf08b5a030209b.jpg");
 		InputStream in=new FileInputStream(shopImg);
 		shop.setShopCategory(sc);
-		ShopExecution se =service.addShop(shop,in,shopImg.getName());
+		ShopExecution se =service.addShop(shop, new ImageHolder(in, shopImg.getName()));
 		assertEquals(se.getState(), ShopStateEnum.CHECK.getState());
 	}
 }

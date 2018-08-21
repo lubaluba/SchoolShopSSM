@@ -1,7 +1,6 @@
 package com.pre.zlm.o2o.utils;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,6 +8,11 @@ import java.util.Date;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.pre.zlm.o2o.dto.ImageHolder;
 
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
@@ -20,17 +24,40 @@ public class ImgUtils {
 	
 	private static final Random r = new Random();
 	
-	public static String generateThumbnail(InputStream thumbnailInputStream, String targetAddr, String fileName) {
+	private static Logger logger = LoggerFactory.getLogger(ImgUtils.class);
+	
+	public static String generateNormalThumbnail(ImageHolder imgHolder, String targetAddr) {
 		String realFileName = getRandomFileName();
-		String extension = getFileExtension(fileName);
+		String extension = getFileExtension(imgHolder.getImageName());
 		makeDirPath(targetAddr);
 		String relativeAddr = targetAddr + realFileName+extension;
 		File dest = new File(PathUtils.getImgBasePath() + relativeAddr);
 		try {
-			Thumbnails.of(thumbnailInputStream).size(200, 200)
+			Thumbnails.of(imgHolder.getImage()).size(337, 640)
 			.watermark(Positions.BOTTOM_RIGHT,ImageIO.read(new File(basePath+"/watermark.jpg")), 0.75f)
-			.outputQuality(0.8f).toFile(dest);
+			.outputQuality(0.9f).toFile(dest);
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return relativeAddr;
+	}
+	
+	public static String generateThumbnail(ImageHolder imgHolder, String targetAddr) {
+		String realFileName = getRandomFileName();
+		String extension = getFileExtension(imgHolder.getImageName());
+		makeDirPath(targetAddr);
+		String relativeAddr = targetAddr + realFileName + extension;
+		File dest = new File(PathUtils.getImgBasePath() + relativeAddr);
+		logger.debug("current relativeAddr is " + relativeAddr);
+		logger.debug("basePath is" + basePath);
+		try {
+			Thumbnails.of(imgHolder.getImage())
+			.size(200, 200)
+			.watermark(Positions.BOTTOM_RIGHT,ImageIO.read(new File(basePath+"/watermark.png")), 0.75f)
+			.outputQuality(0.8f)
+			.toFile(dest);
+		} catch (IOException e) {
+			logger.error(e.toString());
 			e.printStackTrace();
 		}
 		return relativeAddr;

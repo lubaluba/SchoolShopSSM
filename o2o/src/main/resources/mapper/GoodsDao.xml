@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pre.zlm.o2o.dao.GoodsDao">
+	
+	<insert id="insertGoods" useGeneratedKeys="true" keyColumn="goods_id" keyProperty="goodsId">
+		INSERT INTO 
+			goods(goods_name,goods_desc,img_addr,normal_price,promotion_price,priority,
+					create_time,last_edit_time,enable_status,goods_category_id,shop_id)
+		VALUES
+			(#{goodsName},#{goodsDesc},#{imgAddr},#{normalPrice},#{promotionPrice},#{priority},#{createTime},
+			#{lastEditTime},#{enableStatus},#{goodsCategory.goodsCategoryId},#{shop.shopId})
+	</insert>
+	
+</mapper>
