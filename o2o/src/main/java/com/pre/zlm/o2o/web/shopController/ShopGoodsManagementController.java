@@ -87,4 +87,32 @@ public class ShopGoodsManagementController {
 		}
 		return result;
 	}
+	
+	@RequestMapping(value = "/deletegoodscategory", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> deleteGoodsCategory(Long goodsCategoryId, HttpServletRequest request){
+		Map<String, Object> result = new HashMap<>();
+		
+		if (goodsCategoryId != null && goodsCategoryId > 0) {
+			try {
+				//从session中取出shopId
+				Shop currentShop = (Shop)request.getSession().getAttribute("currentShop");
+				GoodsCategoryExecution ge = goodsService.deleteGoodsCategory(goodsCategoryId, currentShop.getShopId());
+				if (ge.getState() == GoodsCategoryStateEnum.SUCCESS.getState()) {
+					result.put("success", true);
+				} else {
+					result.put("success", false);
+					result.put("errMsg", ge.getStateInfo());
+				}
+			} catch (RuntimeException e) {
+				result.put("success", false);
+				result.put("errMsg", e.getMessage());
+				return result;
+			} 
+		} else {
+			result.put("success", false);
+			result.put("errMsg", "请选择一个商品类别");
+		}
+		return result;
+	}
 }

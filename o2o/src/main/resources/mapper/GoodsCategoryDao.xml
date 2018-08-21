@@ -30,4 +30,14 @@
 			)		
 		</foreach>
 	</insert>
+	
+	<delete id="deleteGoodsCategory">
+		DELETE FROM
+			goods_category
+		<where>
+			goods_category_id = #{goodsCategoryId}
+			AND shop_id = #{shopId}
+		</where>
+	</delete>
+	
 </mapper>

@@ -44,6 +44,26 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
 		}
 	}
 
+	/**
+	 * 删除商品类别信息
+	 */
+	@Override
+	@Transactional
+	public GoodsCategoryExecution deleteGoodsCategory(long goodsCategoryId, long shopId)
+			throws GoodsCategoryOperationException {
+		// TODO 将此商品类别下的商品的类别id置为空
+		try {
+			int effectedNum  = goodsCategoryDao.deleteGoodsCategory(goodsCategoryId, shopId);
+			if (effectedNum <= 0) {
+				throw new GoodsCategoryOperationException("商品类别删除失败");
+			} else {
+				return new GoodsCategoryExecution(GoodsCategoryStateEnum.SUCCESS);
+			}
+		} catch (Exception e) {
+			throw new GoodsCategoryOperationException("deleteGoodsCategory error" + e.getMessage());
+		}
+	}
+
 	
 	
 }

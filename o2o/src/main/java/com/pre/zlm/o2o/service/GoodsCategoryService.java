@@ -22,4 +22,11 @@ public interface GoodsCategoryService {
 	 */
 	GoodsCategoryExecution batchInsertGoodsCategory(List<GoodsCategory> goodsCategoryList) 
 			throws GoodsCategoryOperationException;
+			
+	/**
+	 *	 删除某个店铺商品类别信信息
+	 *	注意:要先将该商品类别的商品下的商品的categoryId置为null,再删除类别
+	 */
+	GoodsCategoryExecution deleteGoodsCategory(long goodsCategoryId, long shopId)
+			throws GoodsCategoryOperationException;
 }
