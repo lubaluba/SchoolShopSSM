@@ -40,6 +40,37 @@ $(function(){
 		});
 	});
 	
+	$(".category-warp").on("click", ".row-goods-category.temp .delete",
+			function(e){
+				console.log($(this).parent().parent());
+				$(this).parent().parent().remove();
+	});
+	
+	$(".category-warp").on("click", ".row-goods-category.now .delete",
+			function(e){
+				//返回绑定事件的元素,类似于this
+				var target = e.currentTarget;
+				$.confirm("确定吗?",function(){
+					$.ajax({
+						url : "/o2o/shopAdmin/deletegoodscategory.action",
+						type : "POST",
+						data : {
+							goodsCategoryId : target.getAttribute("data-id")
+							
+						},
+						dataType : "json",
+						success : function(data){
+							if (data.success){
+								$.toast("删除成功!");
+								getList();
+							} else {
+								$.toast("删除失败!");
+							}
+						}
+					})
+				})
+	});
+	
 })
 
 function getList(){
@@ -53,7 +84,7 @@ function getList(){
 						html += "<div class='row row-goods-category now'><div class='col-33 goods-category-name'>"
 						+ list[i].goodsCategoryName + "</div><div class='col-33'>"
 						+ list[i].priority + "</div><div class='col-33'>"
-						+ "<a href = '#' class='button delete' >删除</a></div></div>"
+						+ "<a href = '#' class='button delete' data-id=' "+ list[i].goodsCategoryId +"' >删除</a></div></div>"
 					}
 					$("#category-row").html(html);
 				}
