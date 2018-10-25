@@ -49,7 +49,7 @@
 			<id column="shop_category_id" property="shopCategoryId"/>
 			<result column="shop_category_name" property="shopCategoryName"/>
 		</association>
-		<association property="owner" column="woner_id" javaType="com.pre.zlm.o2o.entity.UserInfo">
+		<association property="owner" column="owner_id" javaType="com.pre.zlm.o2o.entity.UserInfo">
 			<id column="user_id"  property="userId"/>
 			<result column="name" property="name"/>
 		</association>

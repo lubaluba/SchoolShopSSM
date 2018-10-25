@@ -7,7 +7,7 @@ $(function(){
 			function(){
 				var tempHtml = "<div class='row row-goods-category temp'>"
 					+ "<div class='col-33'><input class='category-input category' type='text' placeholder='类别'></div>"
-					+ "<div class='col-33'><input class='category-input priority' type='number' placeholder='0'></div>"
+					+ "<div class='col-33'><input class='category-input priority' type='number' min='0' max='5' placeholder='0'></div>"
 					+ "<div class='col-33'><a href='#' class='button delete'>删除</a></div>"
 					+ "</div>";
 				$(".category-warp").append(tempHtml);

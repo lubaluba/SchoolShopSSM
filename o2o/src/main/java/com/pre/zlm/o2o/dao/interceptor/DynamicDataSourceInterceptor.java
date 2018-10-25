@@ -84,7 +84,7 @@ public class DynamicDataSourceInterceptor implements Interceptor {
 	}
 
 	/**
-	 * 类的初始化是设置配置
+	 * 类的初始化时配置
 	 */
 	@Override
 	public void setProperties(Properties properties) {

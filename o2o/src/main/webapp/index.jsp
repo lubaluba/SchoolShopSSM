@@ -6,7 +6,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2>Hello World!</h2>
+<h2>欢迎光临,主页还在开发之中,敬请期待.....</h2>
 <a href="shopAdmin/toAddShopPage">添加店铺</a>
 <a href="shopAdmin/toUpdatePage?shopId=11">更新店铺</a>
 <a href="shopAdmin/toShopList">店铺列表</a>

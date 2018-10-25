@@ -84,7 +84,7 @@ public class RootConfig extends org.apache.ibatis.session.Configuration{
 		org.apache.ibatis.session.Configuration config =new org.apache.ibatis.session.Configuration();
 		
 		/**
-		 * 开启驼峰式命名匹配
+		 * 开启驼峰式命名匹配,如:Table{create_time} --> Entity{createTime}
 		 */
 		config.setMapUnderscoreToCamelCase(true);
 		
@@ -97,6 +97,7 @@ public class RootConfig extends org.apache.ibatis.session.Configuration{
 		 * 配置好的interceptor
 		 */
 		config.addInterceptor(new DynamicDataSourceInterceptor());
+		
 		return config;
 	}
 	

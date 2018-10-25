@@ -72,17 +72,31 @@ public class BaseController {
 	 * return 
 	 * @throws IOException 
 	 */
-	protected ImageHolder ResolverImg(String fileAttrName)throws RuntimeException, IOException{
+	protected ImageHolder ResolverImg(String fileAttrName) throws IOException{
 		CommonsMultipartFile shopImg = null;
 		CommonsMultipartResolver cmpr = new CommonsMultipartResolver(request.getSession().getServletContext());
 		if (cmpr.isMultipart(request)) {
 			MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest)request;
-			shopImg = (CommonsMultipartFile)multipartHttpServletRequest.getFile(fileAttrName);
-			
+			shopImg = (CommonsMultipartFile)multipartHttpServletRequest.getFile(fileAttrName);	
 		} else {
 			throw new RuntimeException("图片为空");
 		}
 		return new ImageHolder(shopImg.getInputStream(), shopImg.getOriginalFilename());
+	}
+	
+	/**
+	 *	对于更新操作的图片处理,因为更新时图片可以为空 
+	 */
+	protected ImageHolder ResolverImgForUpdate(String fileAttrName)throws RuntimeException, IOException{
+		CommonsMultipartFile shopImg = null;
+		CommonsMultipartResolver cmpr = new CommonsMultipartResolver(request.getSession().getServletContext());
+		if (cmpr.isMultipart(request)) {
+			MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest)request;
+			shopImg = (CommonsMultipartFile)multipartHttpServletRequest.getFile(fileAttrName);	
+		} else {
+			throw new RuntimeException("图片为空");
+		}
+		return (shopImg == null) ? null :new ImageHolder(shopImg.getInputStream(), shopImg.getOriginalFilename());
 	}
 	
 	/**

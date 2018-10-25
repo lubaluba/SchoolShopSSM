@@ -89,7 +89,7 @@ public class ShopGoodsManagementController extends BaseController {
 	@ResponseBody
 	public Map<String, Object> deleteGoodsCategory(Long goodsCategoryId, HttpServletRequest request){
 		Map<String, Object> result = new HashMap<>();
-		
+		// TODO 将此店铺该类别下的所有商品的类别id置为空
 		if (goodsCategoryId != null && goodsCategoryId > 0) {
 			try {
 				//从session中取出shopId

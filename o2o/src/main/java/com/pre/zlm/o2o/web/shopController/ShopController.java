@@ -98,7 +98,6 @@ public class ShopController extends BaseController {
 	@RequestMapping(value = "/getshopCategorylist", method = RequestMethod.GET)
 	@ResponseBody
 	private Map<String, Object> getShopCategoryList(HttpServletRequest request) {
-		
 		Map<String, Object> result =new HashMap<>();
 		List<ShopCategory> shopCategoryList;
 		try {
@@ -124,16 +123,13 @@ public class ShopController extends BaseController {
 	/**
 	 * 注册店铺
 	 */
-	@RequestMapping(value="/registershop", method=RequestMethod.POST)
+	@RequestMapping(value = "/registershop", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String,Object> registerShop(HttpServletRequest request) {
-		
 		Map<String,Object> result = new HashMap<>();
-		
 		if (! checkCode()) {
 			return exceptionResult(result, "验证码错误");
 		}
-		
 		Shop shop = null;
 		try {
 			shop = (Shop)getObject("shopstr", Shop.class);
@@ -180,7 +176,7 @@ public class ShopController extends BaseController {
 	}
 	
 	/**
-	 *	更新店铺
+	 *	根据id获取店铺详情
 	 */
 	@RequestMapping(value = "/getshopbyid", method = RequestMethod.GET)
 	@ResponseBody
@@ -203,10 +199,12 @@ public class ShopController extends BaseController {
 		return result;
 	}
 	
+	/**
+	 *	更新店铺
+	 */
 	@RequestMapping(value = "/updateshop", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> updateShop(HttpServletRequest request) {
-		
 		Map<String, Object> result = new HashMap<>();
 		//检验验证码
 		if (! checkCode()) {
@@ -224,9 +222,9 @@ public class ShopController extends BaseController {
 		//图片上传读取转换
 		ImageHolder shopImg = null;
 		try {
-			shopImg = ResolverImg("shopImg");
+			shopImg = ResolverImgForUpdate("shopImg");
 		} catch (Exception e) {
-			return exceptionResult(result, "上传图片不可为空");
+			return exceptionResult(result, "图片处理失败");
 		}
 		
 		if(shop == null || shop.getShopId() == null) {
@@ -237,9 +235,7 @@ public class ShopController extends BaseController {
 		UserInfo owner = (UserInfo)request.getSession().getAttribute("user");
 		shop.setOwner(owner);
 		try {
-			ShopExecution se = null;
-			se = service.updateShop(shop, shopImg);
-			
+			ShopExecution se = service.updateShop(shop, shopImg);
 			if (se.getState() == ShopStateEnum.SUCCESS.getState()) {
 				result.put("success", true);
 				return result;

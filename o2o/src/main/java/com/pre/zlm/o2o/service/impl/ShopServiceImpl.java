@@ -1,4 +1,5 @@
 package com.pre.zlm.o2o.service.impl;
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -37,28 +38,24 @@ public class ShopServiceImpl implements ShopService{
 		} else {
 			shopExecution.setState(ShopStateEnum.QUERY_NULL.getState());
 		}
-
 		return shopExecution;
 	}
 	
 	@Override
 	@Transactional
 	public ShopExecution addShop(Shop shop, ImageHolder shopImg) {
-		
-		if(shop == null) {
+		//非空判断
+		if (shop == null) {
 			return new ShopExecution(ShopStateEnum.NULL_SHOP);
 		}
-		if(shop.getShopName() == null) {
+		if (shop.getShopName() == null) {
 			return new ShopExecution(ShopStateEnum.NULL_SHOPNAME);
-		}
-		shop.setEnableStatus(0);
+		}	
+		shop.setEnableStatus(0);	//店铺创建时默认状态为审核中	
 		shop.setCreateTime(new Date());
 		shop.setLastEditTime(new Date());
-		
-		//插入店铺
 		int result=dao.insertShop(shop);
-		
-		if(result<=0) {
+		if (result <= 0) {
 			throw new ShopOperationException("店铺插入失败");
 		}
 		
@@ -66,16 +63,14 @@ public class ShopServiceImpl implements ShopService{
 		if(shopImg.getImage()!=null) {
 			try{
 				addShopImg(shop, shopImg);
-			}catch (Exception e) {
+			} catch (Exception e) {
 				throw new ShopOperationException("图片插入失败");
 			}
 		}
 		result=dao.updateShop(shop);
-		
-		if(result<=0) {
+		if (result<=0) {
 			throw new RuntimeException("图片更新失败");
 		}
-		
 		return new ShopExecution(ShopStateEnum.CHECK);
 	}
 	

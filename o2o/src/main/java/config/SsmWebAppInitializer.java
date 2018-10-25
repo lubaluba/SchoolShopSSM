@@ -1,4 +1,7 @@
 package config;
+/**
+ * 该类用于代替web.xml
+ */
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
@@ -10,12 +13,12 @@ public class SsmWebAppInitializer extends AbstractAnnotationConfigDispatcherServ
 
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
-		super.onStartup(servletContext);
+		super.onStartup(servletContext);	//启动servlet
 		/**
 		 * 配置kaptcha
 		 */
-		ServletRegistration.Dynamic kaptchaServlet = servletContext.addServlet("kaptcha-servlet", KaptchaServlet.class);
-		kaptchaServlet.addMapping("/kaptcha");
+		ServletRegistration.Dynamic kaptchaServlet = servletContext.addServlet("kaptcha-servlet", KaptchaServlet.class);//创建一个kaptchaServlet
+		kaptchaServlet.addMapping("/kaptcha");	//设置
 		//是否有边框
 		kaptchaServlet.setInitParameter("kaptcha.border", "no");
 		//字体颜色 
@@ -31,8 +34,7 @@ public class SsmWebAppInitializer extends AbstractAnnotationConfigDispatcherServ
 		//验证码字符个数
 		kaptchaServlet.setInitParameter("kaptcha.textproducer.char.length", "5");
 		//字体颜大小
-		kaptchaServlet.setInitParameter("kaptcha.textproducer.font.names", "Arial");
-		
+		kaptchaServlet.setInitParameter("kaptcha.textproducer.font.names", "Arial");	
 	}
 	
 
@@ -43,7 +45,6 @@ public class SsmWebAppInitializer extends AbstractAnnotationConfigDispatcherServ
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		// TODO Auto-generated method stub
 		return new Class<?>[] {WebConfig.class};
 	}
 

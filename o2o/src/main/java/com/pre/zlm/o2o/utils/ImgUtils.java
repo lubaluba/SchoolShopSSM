@@ -16,6 +16,10 @@ import com.pre.zlm.o2o.dto.ImageHolder;
 
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
+/**
+ * 	@author zlm
+ *	该类用于将上传的图片进行压缩并且加上水印
+ */
 public class ImgUtils {
 	
 	private static String basePath = Thread.currentThread().getContextClassLoader().getResource("").getPath();

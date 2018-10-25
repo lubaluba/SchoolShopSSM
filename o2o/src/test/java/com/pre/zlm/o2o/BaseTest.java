@@ -6,5 +6,4 @@ import config.RootConfig;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=RootConfig.class)
 public class BaseTest {
-
 }

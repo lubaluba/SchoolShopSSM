@@ -1,8 +1,9 @@
 /**
- * 
+ *	主要针对店铺添加操作 
  */
-//异步获得区域列表信息
+//异步获得区域和店铺类别信息
 $(function(){
+	//异步获取区域信息
 	$.get(
 		"/o2o/superadmin/listarea.action",
 		false,
@@ -14,6 +15,7 @@ $(function(){
 		},
 		"json"
 	);
+	//异步获取店铺分类信息
 	$.get(
 			"/o2o/shopAdmin/getshopCategorylist.action",
 			false,
@@ -28,10 +30,10 @@ $(function(){
 })
 
 /**
- * 获得子类
+ * 获得二级店铺类别
  */
 function getChildren(data){
-	var index = data.selectedIndex;
+	var index = data.selectedIndex;			
 	var val = data.options[index].value;
 	$("#shop-category-sub").empty();
 	$.get(
@@ -46,7 +48,7 @@ function getChildren(data){
 			"json"
 		);
 }
-//登录提交表单
+//店铺注册提交表单
 function submit(){
 	var shop = {};
 	shop.shopName = $('#shop-name').val();
