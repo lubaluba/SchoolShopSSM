@@ -20,7 +20,6 @@ import com.pre.zlm.o2o.entity.Shop;
 import com.pre.zlm.o2o.enums.GoodsStateEnum;
 import com.pre.zlm.o2o.exception.GoodsOperationException;
 import com.pre.zlm.o2o.service.GoodsService;
-import com.pre.zlm.o2o.utils.HttpServletRequestUtils;
 import com.pre.zlm.o2o.web.BaseController;
 
 @Controller
