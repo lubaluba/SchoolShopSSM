@@ -10,4 +10,15 @@ public interface GoodsImgDao {
 	 * 商品详情图片添加,批量添加
 	 */
 	int batchInsertGoodsImg(List<GoodsImg> goodsImgList);
+	
+	/**
+	 * 查询商品详情图片
+	 */
+	List<GoodsImg> getGoodsImgList(Long goodsId);
+	
+	/**
+	 * 根据id删除图片
+	 */
+	int deleteGoodsImgById(Long goodsId);
 }
+

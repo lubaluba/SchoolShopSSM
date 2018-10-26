@@ -28,24 +28,23 @@ public class GoodsExecution {
 	private Goods goods;
 	
 	/**
-	 * 店铺类表,批量查询和操作
+	 * 商品类表,批量查询和操作
 	 */
 	private List<Goods> goodsList;
 	
 	public GoodsExecution(){
 	}
 	
-	//店铺操作失败时调用的构造器
 	public GoodsExecution(GoodsStateEnum stateEnum) {
 		this.state = stateEnum.getState();
 		this.stateInfo = stateEnum.getStateInfo();
 	}
-	//店铺操作成功时使用的构造器
+
 	public GoodsExecution(GoodsStateEnum stateEnum, Goods goods) {
 		this(stateEnum);
 		this.goods = goods;
 	}
-	//店铺操作成功时使用的构造器
+
 	public GoodsExecution(GoodsStateEnum stateEnum, List<Goods> goodsList) {
 		this(stateEnum);
 		this.goodsList = goodsList;

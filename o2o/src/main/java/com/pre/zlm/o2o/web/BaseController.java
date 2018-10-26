@@ -1,6 +1,8 @@
 package com.pre.zlm.o2o.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -65,6 +67,28 @@ public class BaseController {
 	 */
 	protected boolean checkCode(){
 		return CodeUtil.checkVerifyCode(request);
+	}
+	
+	/**
+	 * 批量处理图片
+	 * @throws IOException 
+	 */
+	protected List<ImageHolder> ResolverImgList(String fileAttrName, int count) throws IOException {
+		List<ImageHolder> goodsImgList = new ArrayList<>();
+		CommonsMultipartResolver cmpr = new CommonsMultipartResolver(request.getSession().getServletContext());
+		if (cmpr.isMultipart(request)) {
+			MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest)request;
+			for (int i = 0; i < count; i++) {
+				CommonsMultipartFile goodsImgFile = (CommonsMultipartFile)multipartHttpServletRequest.getFile(fileAttrName + i);
+				if (goodsImgFile != null) {
+					ImageHolder goodsImg = new ImageHolder(goodsImgFile.getInputStream(), goodsImgFile.getOriginalFilename());
+					goodsImgList.add(goodsImg);
+				} else {
+					break;
+				}
+			}
+		}
+		return goodsImgList;
 	}
 	
 	/**
