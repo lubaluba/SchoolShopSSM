@@ -5,11 +5,76 @@
 	<insert id="insertGoods" useGeneratedKeys="true" keyColumn="goods_id" 
 		keyProperty="goodsId" parameterType="com.pre.zlm.o2o.entity.Goods">
 		INSERT INTO 
-			goods(goods_name,goods_desc,img_addr,normal_price,promotion_price,priority,
+			goods(goods_id,goods_name,goods_desc,img_addr,normal_price,promotion_price,priority,
 					create_time,last_edit_time,enable_status,goods_category_id,shop_id)
 		VALUES
-			(#{goodsName},#{goodsDesc},#{imgAddr},#{normalPrice},#{promotionPrice},#{priority},#{createTime},
+			(#{goodsId},#{goodsName},#{goodsDesc},#{imgAddr},#{normalPrice},#{promotionPrice},#{priority},#{createTime},
 			#{lastEditTime},#{enableStatus},#{goodsCategory.goodsCategoryId},#{shop.shopId})
 	</insert>
 	
+	<update id="updateGoods" parameterType="com.pre.zlm.o2o.entity.Goods" keyProperty="goods_id" useGeneratedKeys="true">
+		UPDATE 
+			goods
+		<set>
+			<if test="goodsName != null">goods_name=#{goodsName},</if>
+			<if test="goodsDesc != null">goods_desc=#{goodsDesc},</if>
+			<if test="imgAddr != null">img_addr=#{imgAddr},</if>
+			<if test="normalPrice != null">normal_price=#{normalPrice},</if>
+			<if test="promotionPrice != null">promotion_price=#{promotionPrice},</if>
+			<if test="priority != null">priority=#{priority},</if>
+			<if test="lastEditTime != null">last_edit_time=#{lastEditTime},</if>
+			<if test="enableStatus != null">enable_status=#{enableStatus}</if>
+		</set>
+		WHERE 
+			goods_id = #{goodsId} 
+		AND 
+			shop_id = #{shop.shopId};
+	</update>
+	
+	<select id="getGoodsById" resultMap="goodsMap" parameterType="Long">
+		SELECT
+			g.goods_id,goods_name,goods_desc,img_addr,normal_price,promotion_price,g.priority,g.create_time,g.last_edit_time,
+			enable_status,g.goods_category_id,shop_id,goods_img_id,img_address,img_desc,gm.priority,gm.create_time,gm.goods_id
+		FROM
+			goods g 
+		LEFT JOIN
+			goods_img gm
+		ON
+			g.goods_id = gm.goods_id
+		WHERE
+			g.goods_id = #{goodsId}
+		ORDER BY
+			gm.priority DESC
+	</select>
+	
+	
+	<resultMap type="com.pre.zlm.o2o.entity.Goods" id="goodsMap">
+		<id column="goods_id" property="goodsId"/>
+		<result column="goods_name" property="goodsName"/>
+		<result column="goods_desc" property="goodsDesc"/>
+		<result column="img_addr" property="imgAddr"/>
+		<result column="normal_price" property="normalPrice"/>
+		<result column="promotion_price" property="promotionPrice"/>
+		<result column="priority" property="priority"/>
+		<result column="create_time" property="createTime"/>
+		<result column="last_edit_time" property="lastEditTime"/>
+		<result column="enable_status" property="enableStatus"/>
+		<association property="shop" column="shop_id" javaType="com.pre.zlm.o2o.entity.Shop">
+			<id column="shop_id" property="shopId"/>
+			<result column="owner_id" property="ownerId"/>
+			<result column="shop_name" property="shopName"/>
+		</association>
+		<association property="goodsCategory" column="goods_category_id" javaType="com.pre.zlm.o2o.entity.GoodsCategory">
+			<id column="goods_category_id" property="goodsCategoryId"/>
+			<result column="goods_category_name" property="goodsCategoryName"/>
+		</association>
+		<collection property="imgList" column="goods_id" ofType="com.pre.zlm.o2o.entity.GoodsImg" foreignColumn="shop_id">
+			<id column="goods_img_id" property="goodsImgId"/>
+			<result column="img_address" property="imgAddress"/>
+			<result column="img_desc" property="imgDesc"/>
+			<result column="priority" property="priority"/>
+			<result column="create_time" property="createTime"/>
+			<result column="good_id" property="goodsId"/>
+		</collection>
+	</resultMap>
 </mapper>

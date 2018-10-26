@@ -29,7 +29,7 @@ public class GoodsImgDaoTest extends BaseTest{
 		GoodsImg img1 = new GoodsImg();
 		img1.setCreateTime(new Date());
 		img1.setGoodsId(1L);
-		img1.setImgAddr("图片1");
+		img1.setImgAddress("图片1");
 		img1.setImgDesc("测试1");
 		img1.setPriority(2);
 		list.add(img1);
@@ -37,7 +37,7 @@ public class GoodsImgDaoTest extends BaseTest{
 		GoodsImg img2 = new GoodsImg();
 		img2.setCreateTime(new Date());
 		img2.setGoodsId(1L);
-		img2.setImgAddr("图片2");
+		img2.setImgAddress("图片2");
 		img2.setImgDesc("测试2");
 		img2.setPriority(2);
 		list.add(img2);
@@ -51,7 +51,9 @@ public class GoodsImgDaoTest extends BaseTest{
 	}
 	
 	@Test 
-	public void testCDeleteGoodsCategory() {
+	public void testCDeleteGoodsImgByGoodsId() {
+		int result = dao.deleteGoodsImgByGoodsId(1L);
+		assertEquals(result, 2);
 	}
 	
 }

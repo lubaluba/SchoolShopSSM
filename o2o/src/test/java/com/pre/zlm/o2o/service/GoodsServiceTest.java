@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +29,12 @@ public class GoodsServiceTest extends BaseTest{
 	private GoodsService service;
 	
 	@Test
+	@Ignore
 	public void testAAddShop() throws IOException {
 		Goods goods = new Goods();
 		goods.setCreateTime(new Date());
 		goods.setEnableStatus(0);
+		goods.setGoodsId(3L);
 		
 		Shop shop = new Shop();
 		shop.setShopId(1L);
@@ -49,12 +52,12 @@ public class GoodsServiceTest extends BaseTest{
 		goods.setPromotionPrice(800);
 		
 		//创建缩略图文件流
-		File thumbnailFile = new File("C:/360极速浏览器下载/壁纸/a4306e914ab3c888b2d45a2cb0c80feb.jpg");
+		File thumbnailFile = new File("C:/360极速浏览器下载/壁纸/1.jpg");
 		InputStream is = new FileInputStream(thumbnailFile);
 		ImageHolder thumbnail= new ImageHolder(is, thumbnailFile.getName());
 	
-		File goodsImg1 = new File("C:/360极速浏览器下载/壁纸/10169909502f1f2b0e2befeba8b0232e.jpg");
-		File goodsImg2 = new File("C:/360极速浏览器下载/壁纸/a4306e914ab3c888b2d45a2cb0c80feb.jpg");
+		File goodsImg1 = new File("C:/360极速浏览器下载/壁纸/2.jpg");
+		File goodsImg2 = new File("C:/360极速浏览器下载/壁纸/3.jpg");
 		InputStream is1 = new FileInputStream(goodsImg1);
 		InputStream is2 = new FileInputStream(goodsImg2);
 		List<ImageHolder> goodsImgList = new ArrayList<>();
@@ -63,5 +66,21 @@ public class GoodsServiceTest extends BaseTest{
 		
 		GoodsExecution ge = service.addGoods(goods, thumbnail, goodsImgList);
 		assertEquals(GoodsStateEnum.SUCCESS.getState(), ge.getState());
+	}
+	
+	@Test
+	public void testBModifyGoods() throws Exception {
+		Goods goods  = service.getGoodsById(3L);
+		goods.setGoodsName("更新");
+		File thumbnaliFile = new File("C:/360极速浏览器下载/壁纸/4.jpg");
+		ImageHolder thumbnail = new ImageHolder(new FileInputStream(thumbnaliFile), thumbnaliFile.getName());
+		File im1 = new File("C:/360极速浏览器下载/壁纸/5.jpg");
+		File im2 = new File("C:/360极速浏览器下载/壁纸/6.jpg");
+		List<ImageHolder> list = new ArrayList<>();
+		list.add(new ImageHolder(new FileInputStream(im1), im1.getName()));
+		list.add(new ImageHolder(new FileInputStream(im2), im2.getName()));
+		GoodsExecution ge = service.modifyGoods(goods, thumbnail, list);	
+		assertEquals(GoodsStateEnum.SUCCESS.getState(), ge.getState());
+		
 	}
 }

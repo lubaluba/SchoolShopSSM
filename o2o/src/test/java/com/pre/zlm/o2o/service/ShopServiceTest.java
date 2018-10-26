@@ -28,6 +28,7 @@ public class ShopServiceTest extends BaseTest{
 	 * 通过店铺类别查询
 	 */
 	@Test
+	@Ignore
 	public void testGetShopListByShopCategory() {
 		ShopCategory sp = new ShopCategory();
 		sp.setShopCategoryId(3L);
@@ -44,6 +45,8 @@ public class ShopServiceTest extends BaseTest{
 	/**
 	 * 测试非法
 	 */
+	@Test
+	@Ignore
 	public void testIlleage() {
 		ShopCategory sp = new ShopCategory();
 		sp.setShopCategoryId(111L);
@@ -65,7 +68,6 @@ public class ShopServiceTest extends BaseTest{
 	}
 	
 	@Test
-	@Ignore
 	public void addShopTest() throws FileNotFoundException {
 		Shop shop =new Shop();
 		shop.setShopName("ww");
@@ -83,7 +85,7 @@ public class ShopServiceTest extends BaseTest{
 		user.setUserId(1L);
 		shop.setArea(a);
 		shop.setOwner(user);
-		File shopImg=new File("C:/360极速浏览器下载/壁纸/05fdab5e0254bfaa2cdf08b5a030209b.jpg");
+		File shopImg=new File("C:/360极速浏览器下载/壁纸/8ba9a82a38e24194109ddffcc7c0e7d4.jpg");
 		InputStream in=new FileInputStream(shopImg);
 		shop.setShopCategory(sc);
 		ShopExecution se =service.addShop(shop, new ImageHolder(in, shopImg.getName()));

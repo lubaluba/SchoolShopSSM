@@ -4,11 +4,11 @@
 
 	<insert id="batchInsertGoodsImg" parameterType="java.util.List">
 		INSERT INTO
-			goods_img(img_addr, img_desc, priority, create_time, goods_id)
+			goods_img(img_address, img_desc, priority, create_time, goods_id)
 		VALUES
 		<foreach collection="list" item="img" index="index" separator=",">
 			(
-				#{img.imgAddr},
+				#{img.imgAddress},
 				#{img.imgDesc},
 				#{img.priority},
 				#{img.createTime},
@@ -16,4 +16,11 @@
 			)		
 		</foreach>
 	</insert>
+	
+	<delete id="deleteGoodsImgByGoodsId" parameterType="Long">
+		Delete FROM
+			goods_img
+		WHERE
+			goods_id = #{goodsId}
+	</delete>
 </mapper>

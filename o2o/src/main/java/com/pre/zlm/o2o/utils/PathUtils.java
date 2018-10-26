@@ -20,4 +20,9 @@ public class PathUtils {
 		String imagePath = "upload/item/shop/" + shopId + "/";
 		return imagePath.replace("/", seperator);
 	}
+	
+	public static String getGoodsImgePath(long shopId, long goodsId) {
+		String imagePath = "upload/item/shop/" + shopId + "/goods/" + goodsId +"/";
+		return imagePath.replace("/", seperator);
+	}
 }

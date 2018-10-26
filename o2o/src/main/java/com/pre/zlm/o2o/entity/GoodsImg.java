@@ -15,7 +15,7 @@ public class GoodsImg {
 	/**
 	 * 图片地址
 	 */
-	private String imgAddr;
+	private String imgAddress;
 	
 	/**
 	 * 图片描述

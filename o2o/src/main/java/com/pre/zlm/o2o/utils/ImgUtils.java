@@ -38,7 +38,7 @@ public class ImgUtils {
 		File dest = new File(PathUtils.getImgBasePath() + relativeAddr);
 		try {
 			Thumbnails.of(imgHolder.getImage()).size(337, 640)
-			.watermark(Positions.BOTTOM_RIGHT,ImageIO.read(new File(basePath+"/watermark.jpg")), 0.75f)
+			.watermark(Positions.BOTTOM_RIGHT,ImageIO.read(new File(basePath+"/watermark.png")), 0.75f)
 			.outputQuality(0.9f).toFile(dest);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -57,7 +57,7 @@ public class ImgUtils {
 		try {
 			Thumbnails.of(imgHolder.getImage())
 			.size(200, 200)
-			.watermark(Positions.BOTTOM_RIGHT,ImageIO.read(new File(basePath+"/watermark.jpg")), 0.75f)
+			.watermark(Positions.BOTTOM_RIGHT,ImageIO.read(new File(basePath+"/watermark.png")), 0.75f)
 			.outputQuality(0.8f)
 			.toFile(dest);
 			return relativeAddr;

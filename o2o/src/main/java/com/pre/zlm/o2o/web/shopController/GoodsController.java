@@ -11,14 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pre.zlm.o2o.dto.GoodsExecution;
 import com.pre.zlm.o2o.dto.ImageHolder;
 import com.pre.zlm.o2o.entity.Goods;
+import com.pre.zlm.o2o.entity.GoodsCategory;
 import com.pre.zlm.o2o.entity.Shop;
 import com.pre.zlm.o2o.enums.GoodsStateEnum;
 import com.pre.zlm.o2o.exception.GoodsOperationException;
+import com.pre.zlm.o2o.service.GoodsCategoryService;
 import com.pre.zlm.o2o.service.GoodsService;
 import com.pre.zlm.o2o.web.BaseController;
 
@@ -28,6 +31,8 @@ public class GoodsController extends BaseController {
 	
 	@Autowired
 	private GoodsService service;
+	@Autowired
+	private GoodsCategoryService goodsCategoryService;
 	
 	//支持商品详情图上传最大数量
 	private static final int IMAGEMAXCOUNT = 6;
@@ -61,9 +66,7 @@ public class GoodsController extends BaseController {
 		}
 		try {
 			Shop currentShop = (Shop)request.getSession().getAttribute("currentShop");
-			Shop shop = new Shop();
-			shop.setShopId(currentShop.getShopId());
-			goods.setShop(shop);
+			goods.setShop(currentShop);
 			GoodsExecution pe = service.addGoods(goods, thumbnail, goodsImgList);
 			if (pe.getState() == GoodsStateEnum.SUCCESS.getState()) {
 				result.put("success", true);
@@ -76,5 +79,58 @@ public class GoodsController extends BaseController {
 		}		
 	}
 	
+	@RequestMapping(value = "/getgoodsbyid", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> getGoodsById(@RequestParam Long goodsId) {
+		Map<String, Object> result = new HashMap<>();
+		if (goodsId > -1) {
+			Goods goods = service.getGoodsById(goodsId);
+			List<GoodsCategory> goodsCategoryList = goodsCategoryService.listShopCategory(goods.getShop().getShopId());
+			result.put("goods", goods);
+			result.put("goodsCategoryList", goodsCategoryList);
+			result.put("success", true);
+		} else {
+			exceptionResult(result, "商品id为空");
+		}
+		return result;
+	}
+	
+	@RequestMapping(value = "/modifygoods", method = RequestMethod.POST)
+	@ResponseBody
+	private Map<String, Object> modifyGoods(HttpServletRequest request) {
+		Map<String, Object> result = new HashMap<>();
+		if (! checkCode()) {
+			return exceptionResult(result, "验证码错误！");
+		}
+		List<ImageHolder> goodsImgList = null;	
+		ImageHolder thumbnail = null;
+		try {
+			thumbnail = ResolverImg("thumbnail");
+			goodsImgList = ResolverImgList("goodsImg", IMAGEMAXCOUNT);
+		} catch (IOException e1) {
+			return exceptionResult(result, "处理商品详情图失败");
+		}	
+		Goods goods = null;
+		try {
+			goods = (Goods) getObject("goodsStr", Goods.class);
+		} catch (Exception e1) {
+			return exceptionResult(result, "json参数转换异常");
+		}
+		if (goods != null) {
+			try {
+				Shop currentShop = (Shop)request.getSession().getAttribute("currentShop");
+				goods.setShop(currentShop);
+				GoodsExecution ge = service.modifyGoods(goods, thumbnail, goodsImgList);
+				if (ge.getState() == GoodsStateEnum.SUCCESS.getState()) {
+					result.put("success", true);
+				} else {
+					exceptionResult(result, ge.getStateInfo());
+				}
+			} catch (RuntimeException e) {
+				exceptionResult(result, e.getMessage());
+			}
+		}
+		return result;
+	}
 }
 	

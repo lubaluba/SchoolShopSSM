@@ -17,8 +17,8 @@ public interface GoodsImgDao {
 	List<GoodsImg> getGoodsImgList(Long goodsId);
 	
 	/**
-	 * 根据id删除图片
+	 * 根据goodsId批量删除该商品下面的全部图片
 	 */
-	int deleteGoodsImgById(Long goodsId);
+	int deleteGoodsImgByGoodsId(Long goodsId);
 }
 
