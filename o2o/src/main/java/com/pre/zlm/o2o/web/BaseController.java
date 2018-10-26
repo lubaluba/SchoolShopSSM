@@ -101,7 +101,10 @@ public class BaseController {
 		CommonsMultipartResolver cmpr = new CommonsMultipartResolver(request.getSession().getServletContext());
 		if (cmpr.isMultipart(request)) {
 			MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest)request;
-			shopImg = (CommonsMultipartFile)multipartHttpServletRequest.getFile(fileAttrName);	
+			shopImg = (CommonsMultipartFile)multipartHttpServletRequest.getFile(fileAttrName);
+			if(shopImg == null) {
+				return null;
+			}
 		} else {
 			throw new RuntimeException("图片为空");
 		}
@@ -117,6 +120,9 @@ public class BaseController {
 		if (cmpr.isMultipart(request)) {
 			MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest)request;
 			shopImg = (CommonsMultipartFile)multipartHttpServletRequest.getFile(fileAttrName);	
+			if(shopImg == null) {
+				return null;
+			}
 		} else {
 			throw new RuntimeException("图片为空");
 		}

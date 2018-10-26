@@ -1,10 +1,10 @@
 $(function() {
 	var goodsId = getQueryString('goodsId');
 	var shopId = 1;
-	var infoUrl = '/o2o/shop/getgoodsbyid?goodsId=' + goodsId;
+	var infoUrl = '/o2o/shopAdmin/getgoodsbyid?goodsId=' + goodsId;
 	var categoryUrl = '/o2o/shopAdmin/getgoodscategory?shopId='
 			+ shopId;
-	var goodsPostUrl = '/o2o/shop/modifyGoods';
+	var goodsPostUrl = '/o2o/shopAdmin/modifygoods';
 	var isEdit = false;
 	if (goodsId) {
 		getInfo(goodsId);
