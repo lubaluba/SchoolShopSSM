@@ -37,8 +37,14 @@ public class ShopAdminController {
 	public String toGoodsManagment() {
 		return "goods/goodsmanagment";
 	}
+	
 	@RequestMapping(value = "/togoodsoperation")
 	public String toGoodsOperation() {
 		return "goods/goodsoperation";
+	}
+	
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	public String index() {
+		return "frontend/index";
 	}
 }

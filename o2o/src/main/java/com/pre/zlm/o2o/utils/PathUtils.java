@@ -9,7 +9,7 @@ public class PathUtils {
 		String os = System.getProperty("os.name");
 		String basePath = "";
 		if (os.toLowerCase().startsWith("win")) {
-			basePath = "C:/360极速浏览器下载/o2oimage/";
+			basePath = "C:/o2o_files/o2oimage/";
 		} else {
 			basePath = "/home/zlm/image";
 		}
