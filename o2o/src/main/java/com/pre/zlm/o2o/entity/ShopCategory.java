@@ -45,4 +45,13 @@ public class ShopCategory {
 	 * 这里是层次关系,如果为null,说明是父类。如果不为空则说明是某一类别子类,比如奶茶店属于饮品类
 	 */
 	private ShopCategory parent;
+
+	public ShopCategory() {
+	}
+
+	public ShopCategory(Long shopCategoryId) {
+		this.shopCategoryId = shopCategoryId;
+	}
+	
+	
 }
