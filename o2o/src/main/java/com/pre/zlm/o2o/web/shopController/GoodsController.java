@@ -23,6 +23,7 @@ import com.pre.zlm.o2o.enums.GoodsStateEnum;
 import com.pre.zlm.o2o.exception.GoodsOperationException;
 import com.pre.zlm.o2o.service.GoodsCategoryService;
 import com.pre.zlm.o2o.service.GoodsService;
+import com.pre.zlm.o2o.utils.HttpServletRequestUtils;
 import com.pre.zlm.o2o.web.BaseController;
 
 @Controller
@@ -131,6 +132,47 @@ public class GoodsController extends BaseController {
 			}
 		}
 		return result;
+	}
+	
+	@RequestMapping(value = "/getGoodsList", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> getGoodsListPages(HttpServletRequest request) {
+		Map<String, Object> result = new HashMap<>();
+		int pageIndex = HttpServletRequestUtils.getInt(request, "pageIndex");
+		int pageSize = HttpServletRequestUtils.getInt(request, "pageSize");
+		Shop currentShop = (Shop)request.getSession().getAttribute("currentShop");
+		if (pageIndex > -1 && pageSize > -1 && currentShop != null && currentShop.getShopId() != null) {
+			long goodsCategoryId = HttpServletRequestUtils.getInt(request, "goodsCategoryId");
+			String goodsName = HttpServletRequestUtils.getString(request, "goodsName");
+			int enableStatus = HttpServletRequestUtils.getInt(request, "enableStatus");
+			Goods goodsCondition = compactGoodsCondition(currentShop.getShopId(), goodsCategoryId, goodsName, enableStatus);
+			GoodsExecution ge = service.getGoodsList(goodsCondition, pageIndex, pageSize);
+			result.put("success", true);
+			result.put("goodsList", ge.getGoodsList());
+			result.put("count", ge.getCount());
+		} else {
+			exceptionResult(result, "查询条件不正确");
+		}
+		return result;
+	}
+	
+	private Goods compactGoodsCondition(Long shopId, Long goodsCategoryId, String goodsName, Integer enableStatus) {
+		Goods goodsCondition = new Goods();
+		Shop shop = new Shop();
+		shop.setShopId(shopId);
+		goodsCondition.setShop(shop);
+		if (goodsCategoryId > 0L) {
+			GoodsCategory gc = new GoodsCategory();
+			gc.setGoodsCategoryId(goodsCategoryId);
+			goodsCondition.setGoodsCategory(gc);
+		}
+		if (goodsName != null) {
+			goodsCondition.setGoodsName(goodsName);
+		}
+		if (enableStatus == 0 || enableStatus == 1) {
+			goodsCondition.setEnableStatus(enableStatus);
+		}
+		return goodsCondition;
 	}
 }
 	

@@ -81,6 +81,5 @@ public class GoodsServiceTest extends BaseTest{
 		list.add(new ImageHolder(new FileInputStream(im2), im2.getName()));
 		GoodsExecution ge = service.modifyGoods(goods, thumbnail, list);	
 		assertEquals(GoodsStateEnum.SUCCESS.getState(), ge.getState());
-		
 	}
 }

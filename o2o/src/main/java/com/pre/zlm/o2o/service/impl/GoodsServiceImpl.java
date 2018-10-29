@@ -19,6 +19,7 @@ import com.pre.zlm.o2o.enums.GoodsStateEnum;
 import com.pre.zlm.o2o.exception.GoodsOperationException;
 import com.pre.zlm.o2o.service.GoodsService;
 import com.pre.zlm.o2o.utils.ImgUtils;
+import com.pre.zlm.o2o.utils.PageCalculator;
 import com.pre.zlm.o2o.utils.PathUtils;
 @Service
 public class GoodsServiceImpl implements GoodsService {
@@ -161,5 +162,17 @@ public class GoodsServiceImpl implements GoodsService {
 			return new GoodsExecution(GoodsStateEnum.EMPTY);
 		}
 	}
+
+	@Override
+	public GoodsExecution getGoodsList(Goods goodsCondition, int pageIndex, int pageSize) {
+		int rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
+		List<Goods> list = goodsDao.listGoods(goodsCondition, rowIndex, pageSize);
+		int count = goodsDao.getGoodsCount(goodsCondition);
+		GoodsExecution ge = new GoodsExecution();
+		ge.setCount(count);
+		ge.setGoodsList(list);
+		return ge;
+	}
+	
 	
 }

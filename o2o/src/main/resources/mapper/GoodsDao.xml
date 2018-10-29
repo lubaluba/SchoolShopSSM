@@ -2,6 +2,50 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pre.zlm.o2o.dao.GoodsDao">
 	
+	<select id="listGoods" resultType="com.pre.zlm.o2o.entity.Goods">
+		SELECT
+			goods_id,goods_name,goods_desc,img_addr,normal_price,promotion_price,priority,create_time,last_edit_time,enable_status,
+			goods_category_id,shop_id
+		FROM
+			goods
+		<where>
+			<if test="goodsCondition.shop != null and goodsCondition.shop.shopId != null">
+				and shop_id = #{goodsCondition.shop.shopId}
+			</if> 
+			<if test="goodsCondition.goodsCategory != null and goodsCondition.goodsCategory.goodsCategoryId != null">
+				and goods_category_id = #{goodsCondition.goodsCategory.goodsCategoryId}
+			</if>
+			<if test="goodsCondition.enableStatus != null">
+				and enable_status = #{goodsCondition.enableStatus}
+			</if>
+			<if test="goodsCondition.goodsName != null">
+				and goods_name like '%${goodsCondition.goodsName}%' 
+			</if>
+		</where>
+		ORDER BY
+			priority DESC
+		LIMIT
+		 	#{rowIndex},#{pageSize}
+	</select>
+	
+	<select id="getGoodsCount" resultType="int">
+		SELECT count(1) FROM goods
+		<where>
+			<if test="goodsCondition.shop != null and goodsCondition.shop.shopId != null">
+				and shop_id = #{goodsCondition.shop.shopId}
+			</if> 
+			<if test="goodsCondition.goodsCategory != null and goodsCondition.goodsCategory.goodsCategoryId != null">
+				and goods_category_id = #{goodsCondition.goodsCategory.goodsCategoryId}
+			</if>
+			<if test="goodsCondition.enableStatus != null">
+				and enable_status = #{goodsCondition.enableStatus}
+			</if>
+			<if test="goodsCondition.goodsName != null">
+				and goods_name like '%${goodsCondition.goodsName}%' 
+			</if>
+		</where>
+	</select>
+	
 	<insert id="insertGoods" useGeneratedKeys="true" keyColumn="goods_id" 
 		keyProperty="goodsId" parameterType="com.pre.zlm.o2o.entity.Goods">
 		INSERT INTO 
@@ -46,7 +90,6 @@
 		ORDER BY
 			gm.priority DESC
 	</select>
-	
 	
 	<resultMap type="com.pre.zlm.o2o.entity.Goods" id="goodsMap">
 		<id column="goods_id" property="goodsId"/>

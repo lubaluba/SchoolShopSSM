@@ -28,5 +28,14 @@ public interface GoodsService {
 	 */
 	GoodsExecution modifyGoods(Goods goods, ImageHolder thumbnail, List<ImageHolder> goodsImgList)
 		throws GoodsOperationException;
+	
+	/**
+	 * 	按条件分页查询商品信息
+	 * 	@param goodsCondition 查询条件,可选:商品名(模糊),商品状态,店铺id,商品类别
+	 * 	@param pageIndex	当前页码
+	 * 	@param pageSize		每页显示条数
+	 * 	@return
+	 */
+	GoodsExecution getGoodsList(Goods goodsCondition, int pageIndex, int pageSize);
 }
 

@@ -75,6 +75,7 @@ public class GoodsDaoTest extends BaseTest{
 	}
 	
 	@Test
+	@Ignore
 	public void testCUpdateGoods() {
 		Goods goods = new Goods();
 		goods.setGoodsId(1L);
@@ -93,5 +94,33 @@ public class GoodsDaoTest extends BaseTest{
 		assertEquals(result, 1);
 	}
 	
-
+	@Test
+	public void testGetGoodsCount() {
+		Goods goodsCondition = new Goods();
+		int countAll = dao.getGoodsCount(goodsCondition);
+		assertEquals(countAll, 3);
+		Goods goodsCondition2 = new Goods();
+		goodsCondition2.setGoodsName("香辣");
+		int countName = dao.getGoodsCount(goodsCondition2);
+		assertEquals(countName, 1);
+		Goods goodsCondition3 = new Goods();
+		GoodsCategory gc = new GoodsCategory();
+		gc.setGoodsCategoryId(1L);
+		goodsCondition3.setGoodsCategory(gc);
+		int countCategory = dao.getGoodsCount(goodsCondition3);
+		assertEquals(countCategory, 2);
+		Goods goodsCondition4 = new Goods();
+		Shop shop = new Shop();
+		shop.setShopId(2L);
+		goodsCondition4.setShop(shop);
+		int countShop= dao.getGoodsCount(goodsCondition4);
+		assertEquals(countShop, 1);
+	}
+	
+	@Test
+	public void testListGoods() {
+		Goods goodsCondition = new Goods();
+		int result = dao.listGoods(goodsCondition, 0, 3).size();
+		assertEquals(result, 3);
+	}
 }
