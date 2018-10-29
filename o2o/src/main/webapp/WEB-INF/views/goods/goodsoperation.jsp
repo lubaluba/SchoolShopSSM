@@ -166,7 +166,7 @@
     </div>
     <div class="content-block">
       <div class="row">
-        <div class="col-50"><a href="/o2o/shopadmin/goodsmanage" class="button button-big button-fill button-danger">返回商品管理</a></div>
+        <div class="col-50"><a href="/o2o/shopAdmin/togoodsmanagment" class="button button-big button-fill button-danger">返回商品管理</a></div>
         <div class="col-50">
         	<a href="javascript:void(0)" class="button button-big button-fill button-success" id="submit">提交</a>
         </div>

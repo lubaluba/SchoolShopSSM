@@ -134,7 +134,22 @@ public class GoodsController extends BaseController {
 		return result;
 	}
 	
-	@RequestMapping(value = "/getGoodsList", method = RequestMethod.GET)
+	@RequestMapping(value = "/removegoods", method = RequestMethod.POST)
+	@ResponseBody
+	private Map<String, Object> removeGoods(HttpServletRequest request) {
+		Map<String, Object> result = new HashMap<>();
+		Goods goods = service.getGoodsById(HttpServletRequestUtils.getLong(request, "goodsId"));
+		goods.setEnableStatus(HttpServletRequestUtils.getInt(request, "enableStatus"));
+		GoodsExecution ge = service.modifyGoods(goods, null, null);
+		if (ge.getState() == GoodsStateEnum.SUCCESS.getState()) {
+			result.put("success", true);
+		} else {
+			exceptionResult(result, "下架失败");
+		}
+		return result;
+	}
+	
+	@RequestMapping(value = "/getgoodslist", method = RequestMethod.GET)
 	@ResponseBody
 	private Map<String, Object> getGoodsListPages(HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<>();

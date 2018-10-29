@@ -41,7 +41,7 @@ var _hmt = _hmt || [];
   					class="button button-big button-fill">商铺信息</a>
   			</div>
   			<div class="col-50 mb">
-  				<a  href="/o2o/shopAdmin/togoodsoperation?"
+  				<a  href="/o2o/shopAdmin/togoodsmanagment?"
   					class="button button-big button-fill">商品管理</a>
   			</div>
   			<div class="col-50 mb">

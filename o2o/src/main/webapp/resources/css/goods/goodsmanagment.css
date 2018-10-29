@@ -1,0 +1,20 @@
+.row-goods {
+    border: 1px solid #999;
+    padding: .5rem;
+    border-bottom: none;
+}
+
+/* .row-goods * {
+	white-space : nowrap;
+	overflow : scroll;
+} */
+.row-goods:last-child {
+    border-bottom: 1px solid #999;
+}
+.goods-name {
+    white-space: nowrap;
+    overflow-x: scroll;
+}
+.goods-wrap a {
+    margin-right: 1rem;
+}

@@ -33,8 +33,12 @@ public class ShopAdminController {
 		return "shop/goodscategorymanagement";
 	}
 	
+	@RequestMapping(value = "/togoodsmanagment")
+	public String toGoodsManagment() {
+		return "goods/goodsmanagment";
+	}
 	@RequestMapping(value = "/togoodsoperation")
-	public String productOperation() {
+	public String toGoodsOperation() {
 		return "goods/goodsoperation";
 	}
 }

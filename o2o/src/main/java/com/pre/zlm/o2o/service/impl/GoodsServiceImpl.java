@@ -70,7 +70,7 @@ public class GoodsServiceImpl implements GoodsService {
 	 * @throws IOException 
 	 */
 	private void addThumbnail(Goods goods, ImageHolder thumbnail) {
-		String dest = PathUtils.getGoodsImgePath(goods.getShop().getShopId(), goods.getGoodsId());
+		String dest = PathUtils.getGoodsImgePath(goods.getShop().getShopId());
 		String thumbnailAddr = null;
 		try {
 			thumbnailAddr = ImgUtils.generateThumbnail(thumbnail, dest);
@@ -85,7 +85,7 @@ public class GoodsServiceImpl implements GoodsService {
 	 */
 	private void addGoodsImgList(Goods goods, List<ImageHolder> goodsImgList) {
 		//获取图片储存路径,这里直接存放在相应店铺文件夹底下
-		String dest = PathUtils.getGoodsImgePath(goods.getShop().getShopId(), goods.getGoodsId());
+		String dest = PathUtils.getGoodsImgePath(goods.getShop().getShopId());
 		List<GoodsImg> imgList = new ArrayList<>();
 		for (ImageHolder img : goodsImgList) {
 			String imgAddr = ImgUtils.generateNormalThumbnail(img, dest);
