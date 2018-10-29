@@ -29,4 +29,14 @@ public class GoodsCategory {
 	 * 创建时间
 	 */
 	private Date createTime;
+
+	public GoodsCategory() {
+		
+	}
+	
+	public GoodsCategory(Long goodsCategoryId) {
+		this.goodsCategoryId = goodsCategoryId;
+	}
+	
+	
 }

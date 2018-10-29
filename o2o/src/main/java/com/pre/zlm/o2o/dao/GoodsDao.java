@@ -32,5 +32,10 @@ public interface GoodsDao {
 	 * 获得查询的商品总数
 	 */
 	int getGoodsCount(@Param("goodsCondition") Goods goodsCondition);
+	
+	/**
+	 * 	当我们删除某个商品类别之前,把该类别下的所有商品的的categoryId置为null
+	 */
+	int updateGoodsCategoryToNull(@Param("goodsCategoryId") Long goodsCategoryId, @Param("shopId") Long shopId);
 }
 

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.pre.zlm.o2o.BaseTest;
 import com.pre.zlm.o2o.dto.GoodsCategoryExecution;
 import com.pre.zlm.o2o.entity.GoodsCategory;
+import com.pre.zlm.o2o.enums.GoodsCategoryStateEnum;
 
 public class GoodsCategoryServiceTest extends BaseTest{
 	
@@ -21,6 +22,7 @@ public class GoodsCategoryServiceTest extends BaseTest{
 	GoodsCategoryService service;
 	
 	@Test
+	@Ignore
 	public void testShopCategoryService() {
 		List<GoodsCategory> list = service.listShopCategory(1L);
 		assertTrue(list.size() == 2);
@@ -49,10 +51,18 @@ public class GoodsCategoryServiceTest extends BaseTest{
 		GoodsCategoryExecution gce = service.batchInsertGoodsCategory(list);
 		assertEquals(1, gce.getState());
 	}
+	
 	@Test
+	@Ignore
 	public void testBatchInsertGoodsCategoryFail() {
 		List<GoodsCategory> list = new ArrayList<>();
 		GoodsCategoryExecution gce = service.batchInsertGoodsCategory(list);
 		assertEquals(-1002, gce.getState());
+	}
+	
+	@Test
+	public void testDeleteGoodsCategory() {
+		GoodsCategoryExecution res = service.deleteGoodsCategory(1L, 1L);
+		assertEquals(GoodsCategoryStateEnum.SUCCESS.getState(), res.getState());
 	}
 }

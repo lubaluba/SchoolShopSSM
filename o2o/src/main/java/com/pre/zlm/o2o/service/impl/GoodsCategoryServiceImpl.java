@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pre.zlm.o2o.dao.GoodsCategoryDao;
+import com.pre.zlm.o2o.dao.GoodsDao;
 import com.pre.zlm.o2o.dto.GoodsCategoryExecution;
+import com.pre.zlm.o2o.entity.Goods;
 import com.pre.zlm.o2o.entity.GoodsCategory;
 import com.pre.zlm.o2o.enums.GoodsCategoryStateEnum;
 import com.pre.zlm.o2o.exception.GoodsCategoryOperationException;
@@ -17,6 +19,9 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
 	
 	@Autowired
 	private GoodsCategoryDao goodsCategoryDao;
+	
+	@Autowired
+	private GoodsDao goodsDao;
 
 	@Override
 	public List<GoodsCategory> listShopCategory(long shopId) {
@@ -51,7 +56,14 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
 	@Transactional
 	public GoodsCategoryExecution deleteGoodsCategory(long goodsCategoryId, long shopId)
 			throws GoodsCategoryOperationException {
-		// TODO 将此商品类别下的商品的类别id置为空
+		//将此商品类别下的商品的类别id置为空
+		Goods goodsCondition = new Goods();
+		goodsCondition.setGoodsCategory(new GoodsCategory(goodsCategoryId));
+		int count = goodsDao.getGoodsCount(goodsCondition);
+		int res = goodsDao.updateGoodsCategoryToNull(goodsCategoryId, shopId);
+		if (count != res) {
+			throw new GoodsCategoryOperationException("解除商品和商品类别关系失败");
+		}
 		try {
 			int effectedNum  = goodsCategoryDao.deleteGoodsCategory(goodsCategoryId, shopId);
 			if (effectedNum <= 0) {

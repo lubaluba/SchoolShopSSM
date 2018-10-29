@@ -95,6 +95,7 @@ public class GoodsDaoTest extends BaseTest{
 	}
 	
 	@Test
+	@Ignore
 	public void testGetGoodsCount() {
 		Goods goodsCondition = new Goods();
 		int countAll = dao.getGoodsCount(goodsCondition);
@@ -118,9 +119,16 @@ public class GoodsDaoTest extends BaseTest{
 	}
 	
 	@Test
+	@Ignore
 	public void testListGoods() {
 		Goods goodsCondition = new Goods();
 		int result = dao.listGoods(goodsCondition, 0, 3).size();
 		assertEquals(result, 3);
+	}
+	
+	@Test
+	public void testUpdateGoodsCategoryToNull() {
+		int result = dao.updateGoodsCategoryToNull(1L, 1L);
+		assertEquals(2, result);
 	}
 }
