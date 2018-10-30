@@ -66,17 +66,16 @@ $(function() {
 							+ '</div>' + '</div>' + '</li>' + '</ul>'
 							+ '</div>' + '</div>' + '<div class="card-footer">'
 							+ '<p class="color-gray">'
-							+ new Date(item.lastEditTime)
+							+ formatDate(new Date(item.lastEditTime).getTime(),"YY-MM-DD hh:mm")
 							+ '更新</p>' + '<span>点击查看</span>' + '</div>'
 							+ '</div>';
 				});
 				$('.list-div').append(html);
 				var total = $('.list-div .card').length;
 				if (total >= maxItems) {
-					// 加载完毕，则注销无限加载事件，以防不必要的加载
-					$.detachInfiniteScroll($('.infinite-scroll'));
-					// 删除加载提示符
-					$('.infinite-scroll-preloader').remove();
+					$('.infinite-scroll-preloader').hide();
+				} else {
+					$('.infinite-scroll-preloader').show();
 				}
 				pageNum += 1;
 				loading = false;
@@ -95,7 +94,7 @@ $(function() {
 
 	$('.shop-list').on('click', '.card', function(e) {
 		var shopId = e.currentTarget.dataset.shopId;
-		window.location.href = '/o2o/frontend/shopdetail?shopId=' + shopId;
+		window.location.href = 'toshopdetail?shopId=' + shopId;
 	});
 
 	$('#shoplist-search-div').on(
@@ -131,7 +130,7 @@ $(function() {
 
 			});
 
-	$('#search').on('input', function(e) {
+	$('#search').on('change', function(e) {
 		shopName = e.target.value;
 		$('.list-div').empty();
 		pageNum = 1;

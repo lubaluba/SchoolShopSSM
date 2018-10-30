@@ -12,4 +12,9 @@ public class FrontendController {
 	public String toShopList() {
 		return  "frontend/shoplist";
 	}
+	
+	@RequestMapping(value = "/toshopdetail")
+	public String toShopDetail() {
+		return "frontend/shopdetail";
+	}
 }
