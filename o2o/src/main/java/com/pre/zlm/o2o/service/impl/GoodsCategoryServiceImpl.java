@@ -24,7 +24,7 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
 	private GoodsDao goodsDao;
 
 	@Override
-	public List<GoodsCategory> listShopCategory(long shopId) {
+	public List<GoodsCategory> listGoodsCategory(long shopId) {
 		
 		return goodsCategoryDao.listGoodsCategoryByShopId(shopId);
 	}

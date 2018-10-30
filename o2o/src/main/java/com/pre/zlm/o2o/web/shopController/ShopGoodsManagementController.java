@@ -44,7 +44,7 @@ public class ShopGoodsManagementController extends BaseController {
 		
 		List<GoodsCategory> goodsCategoryList = null;
 		if (currentShop != null && currentShop.getShopId() > 0) {
-			goodsCategoryList  = goodsService.listShopCategory(currentShop.getShopId());
+			goodsCategoryList  = goodsService.listGoodsCategory(currentShop.getShopId());
 			result.put("success", true);
 			result.put("goodscategorylist", goodsCategoryList);
 			return result;

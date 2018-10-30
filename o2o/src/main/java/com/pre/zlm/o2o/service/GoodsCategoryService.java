@@ -13,7 +13,7 @@ public interface GoodsCategoryService {
 	 * @param long shopId
 	 * @return
 	 */
-	List<GoodsCategory> listShopCategory(long shopId);
+	List<GoodsCategory> listGoodsCategory(long shopId);
 	
 	/**
 	 * 批量插入店铺商品类别信息

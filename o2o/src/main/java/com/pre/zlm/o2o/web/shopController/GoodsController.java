@@ -86,7 +86,7 @@ public class GoodsController extends BaseController {
 		Map<String, Object> result = new HashMap<>();
 		if (goodsId > -1) {
 			Goods goods = service.getGoodsById(goodsId);
-			List<GoodsCategory> goodsCategoryList = goodsCategoryService.listShopCategory(goods.getShop().getShopId());
+			List<GoodsCategory> goodsCategoryList = goodsCategoryService.listGoodsCategory(goods.getShop().getShopId());
 			result.put("goods", goods);
 			result.put("goodsCategoryList", goodsCategoryList);
 			result.put("success", true);

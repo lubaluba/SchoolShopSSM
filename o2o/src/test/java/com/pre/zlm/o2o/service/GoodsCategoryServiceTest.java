@@ -24,7 +24,7 @@ public class GoodsCategoryServiceTest extends BaseTest{
 	@Test
 	@Ignore
 	public void testShopCategoryService() {
-		List<GoodsCategory> list = service.listShopCategory(1L);
+		List<GoodsCategory> list = service.listGoodsCategory(1L);
 		assertTrue(list.size() == 2);
 		assertEquals("饮料类", list.get(1).getGoodsCategoryName());
 	}
