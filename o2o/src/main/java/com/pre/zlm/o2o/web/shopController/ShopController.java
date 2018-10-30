@@ -122,9 +122,10 @@ public class ShopController extends BaseController {
 	 * 获取某一一级类别下的全部店铺
 	 */
 	@RequestMapping(value = "/listshopspageinfo", method = RequestMethod.GET)
+	@ResponseBody
 	private Map<String, Object> listShopsPageInfo(HttpServletRequest request){
 		Map<String, Object> result = new HashMap<>();
-		Long parentId = HttpServletRequestUtils.getLong(request, "parent");
+		Long parentId = HttpServletRequestUtils.getLong(request, "parentId");
 		//如果parentId存在,就取出该以及类别下的全部二级类别,如果不存在就取出全部的一级类别
 		List<ShopCategory> shopCategoryList = null;
 		try {

@@ -1,6 +1,6 @@
 $(function() {
     var url = '/o2o/frontend/listmainpageinfo';
-
+    
     $.getJSON(url, function (data) {
         if (data.success) {
             var headLineList = data.headLineList;
@@ -45,3 +45,7 @@ $(function() {
     });
 
 });
+
+function toShopList(){
+	window.location.href = 'frontend/toshoplist';
+}

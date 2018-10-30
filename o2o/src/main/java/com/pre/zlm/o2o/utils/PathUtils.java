@@ -22,7 +22,7 @@ public class PathUtils {
 	}
 	
 	public static String getGoodsImgePath(long shopId) {
-		String imagePath = "upload/item/shop/" + shopId + "/goods/";
+		String imagePath = "/upload/item/shop/" + shopId + "/goods/";
 		return imagePath.replace("/", seperator);
 	}
 }
