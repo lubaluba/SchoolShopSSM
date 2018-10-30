@@ -73,7 +73,7 @@ public class ShopDetailController extends BaseController{
 			Goods goodsCondition = compactGoodsCondition4Search(shopId, goodsCategoryId, goodsName);
 			GoodsExecution ge = goodsService.getGoodsList(goodsCondition, pageIndex, pageSize);
 			result.put("count", ge.getCount());
-			result.put("goodsList", ge.getGoods());
+			result.put("goodsList", ge.getGoodsList());
 			result.put("success", true);
 		} else {
 			exceptionResult(result, "查询商品信息失败,请检查参数");
