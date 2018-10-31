@@ -50,7 +50,7 @@
 					<div class="swiper-pagination"></div>
 				</div>
 				<div class='total-shop-button'>
-					<a href="allShops" >全部商店</a>
+					<a href="javascript:void(0)" onclick="toShopList()">全部商店</a>
 				</div>
 				<div class="row">
 					<!-- <div class="col-50 shop-classify">

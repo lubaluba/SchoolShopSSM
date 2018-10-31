@@ -17,4 +17,10 @@ public class FrontendController {
 	public String toShopDetail() {
 		return "frontend/shopdetail";
 	}
+	
+	@RequestMapping(value ="/index")
+	public String toIndex() {
+		return "frontend/index";
+	}
+	
 }

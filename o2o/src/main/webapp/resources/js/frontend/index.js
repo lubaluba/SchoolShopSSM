@@ -40,12 +40,12 @@ $(function() {
 
     $('.row').on('click', '.shop-classify', function (e) {
         var shopCategoryId = e.currentTarget.dataset.category;
-        var newUrl = '/o2o/frontend/toshoplist?parentId=' + shopCategoryId;
+        var newUrl = 'toshoplist?parentId=' + shopCategoryId;
         window.location.href = newUrl;
     });
 
 });
 
 function toShopList(){
-	window.location.href = 'frontend/toshoplist';
+	window.location.href = 'toshoplist';
 }
