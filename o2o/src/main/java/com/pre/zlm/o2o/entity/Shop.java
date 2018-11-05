@@ -67,7 +67,7 @@ public class Shop {
 	/**
 	 * 店铺所属用户
 	 */
-	private UserInfo owner;
+	private User owner;
 	
 	/**
 	 * 所属类别

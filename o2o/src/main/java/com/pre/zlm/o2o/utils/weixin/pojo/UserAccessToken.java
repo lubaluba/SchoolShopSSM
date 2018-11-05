@@ -32,7 +32,7 @@ public class UserAccessToken {
 	/**
 	 * 	该用户在此公众号下的身份标识,对于此微信号具有唯一性
 	 */
-	@JsonProperty("open_id")
+	@JsonProperty("openid")
 	private String openId;
 	
 	/**

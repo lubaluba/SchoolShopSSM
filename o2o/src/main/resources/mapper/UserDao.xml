@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pre.zlm.o2o.dao.UserDao">
+	<select id="getUserById" resultType="com.pre.zlm.o2o.entity.User" parameterType="Long">
+		SELECT 
+			user_id,name,profile_img,email,gender,enable_status,user_type,create_time,last_edit_time
+		FROM 
+			user
+		WHERE
+			user_id = #{userId}
+	</select>
+	
+	<insert id="insertUser" useGeneratedKeys="true" parameterType="com.pre.zlm.o2o.entity.User" keyProperty="userId" keyColumn="user_id">
+		INSERT INTO
+			user(name,profile_img,email,gender,enable_status,user_type,create_time,last_edit_time)
+		VALUES
+			(#{name},#{profileImg},#{email},#{gender},#{enableStatus},#{userType},#{createTime},#{lastEditTime})
+	</insert>
+</mapper>

@@ -17,7 +17,7 @@ import com.pre.zlm.o2o.dto.ShopExecution;
 import com.pre.zlm.o2o.entity.Area;
 import com.pre.zlm.o2o.entity.Shop;
 import com.pre.zlm.o2o.entity.ShopCategory;
-import com.pre.zlm.o2o.entity.UserInfo;
+import com.pre.zlm.o2o.entity.User;
 import com.pre.zlm.o2o.enums.ShopStateEnum;
 import com.pre.zlm.o2o.exception.ShopOperationException;
 public class ShopServiceTest extends BaseTest{
@@ -81,7 +81,7 @@ public class ShopServiceTest extends BaseTest{
 		a.setAreaId(2);
 		ShopCategory sc =new ShopCategory();
 		sc.setShopCategoryId(1L);
-		UserInfo user =new UserInfo();
+		User user =new User();
 		user.setUserId(1L);
 		shop.setArea(a);
 		shop.setOwner(user);

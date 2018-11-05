@@ -4,7 +4,7 @@ import java.util.Date;
 
 import lombok.Data;
 @Data
-public class UserInfo {
+public class User {
 	/**
 	 * 用户id
 	 */
@@ -18,7 +18,7 @@ public class UserInfo {
 	/**
 	 * 用户头像地址
 	 */
-	private String profileImage;
+	private String profileImg;
 	
 	/**
 	 * 用户邮箱

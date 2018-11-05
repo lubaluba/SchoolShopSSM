@@ -37,6 +37,6 @@ public class LocalAuth {
 	/**
 	 * 关联用户
 	 */
-	private UserInfo user;
+	private User user;
 	
 }

@@ -28,5 +28,5 @@ public class WechatAuth {
 	/**
 	 * 关联用户
 	 */
-	private UserInfo user;
+	private User user;
 }

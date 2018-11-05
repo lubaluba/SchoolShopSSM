@@ -5,9 +5,11 @@ import java.util.Map;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy;
@@ -19,9 +21,30 @@ import com.pre.zlm.o2o.dao.split.DynamicDataSource;
 @ComponentScan(basePackages= {"com.pre.zlm.o2o"})
 @MapperScan(basePackages= {"com.pre.zlm.o2o.dao"})
 @EnableTransactionManagement
+@PropertySource("classpath:jdbc.properties")
 public class RootConfig extends org.apache.ibatis.session.Configuration{
 	protected boolean mapUnderscoreToCamelCase=true;
 
+	@Value("${datasource.driverClassName}")
+	private String driverClassName;
+	
+	@Value("${datasource.master.url}")
+	private String masterURL;
+	
+	@Value("${datasource.slave.url}")
+	private String slaveURL;
+	
+	@Value("${datasource.username}")
+	private String userName;
+	
+	@Value("${datasource.password}")
+	private String password;
+	
+	@Value("${datasource.maxtotal}")
+	private int maxTotal;
+	
+	@Value("${datasource.maxidle}")
+	private int maxIdle;
 	/**
 	 * 配置动态数据源,这里面的targetDataSources就是路由数据源对应的名称
 	 */
@@ -107,12 +130,12 @@ public class RootConfig extends org.apache.ibatis.session.Configuration{
 	 */
 	public BasicDataSource getMasterDataSource(){
 		BasicDataSource dataSource =new BasicDataSource();
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/o2o?useSSL=false");
-		dataSource.setUsername("root");
-		dataSource.setPassword("root");
-		dataSource.setMaxTotal(10);
-		dataSource.setMaxIdle(5);
+		dataSource.setDriverClassName(driverClassName);
+		dataSource.setUrl(masterURL);
+		dataSource.setUsername(userName);
+		dataSource.setPassword(password);
+		dataSource.setMaxIdle(maxIdle);
+		dataSource.setMaxTotal(maxTotal);
 		return dataSource;
 	}
 	
@@ -121,12 +144,12 @@ public class RootConfig extends org.apache.ibatis.session.Configuration{
 	 */
 	public BasicDataSource getSlaveDataSource() {
 		BasicDataSource dataSource =new BasicDataSource();
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3366/o2o?useSSL=false");
-		dataSource.setUsername("root");
-		dataSource.setPassword("root");
-		dataSource.setMaxTotal(10);
-		dataSource.setMaxIdle(5);
+		dataSource.setDriverClassName(driverClassName);
+		dataSource.setUrl(slaveURL);
+		dataSource.setUsername(userName);
+		dataSource.setPassword(password);
+		dataSource.setMaxIdle(maxIdle);
+		dataSource.setMaxTotal(maxTotal);
 		return dataSource;
 	}
 	

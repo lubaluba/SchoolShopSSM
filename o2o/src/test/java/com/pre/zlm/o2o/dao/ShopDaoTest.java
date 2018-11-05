@@ -12,7 +12,7 @@ import com.pre.zlm.o2o.BaseTest;
 import com.pre.zlm.o2o.entity.Area;
 import com.pre.zlm.o2o.entity.Shop;
 import com.pre.zlm.o2o.entity.ShopCategory;
-import com.pre.zlm.o2o.entity.UserInfo;
+import com.pre.zlm.o2o.entity.User;
 public class ShopDaoTest extends BaseTest{
 	@Autowired
 	private ShopDao dao;
@@ -23,7 +23,7 @@ public class ShopDaoTest extends BaseTest{
 	@Test
 	@Ignore
 	public void testgetShopList() {
-		UserInfo user = new UserInfo();
+		User user = new User();
 		user.setUserId(1L);
 		Shop shopCondition = new Shop();
 		shopCondition.setOwner(user);
@@ -142,7 +142,7 @@ public class ShopDaoTest extends BaseTest{
 		a.setAreaId(2);
 		ShopCategory sc =new ShopCategory();
 		sc.setShopCategoryId(1L);
-		UserInfo user =new UserInfo();
+		User user =new User();
 		user.setUserId(1L);
 		shop.setArea(a);
 		shop.setOwner(user);
@@ -167,7 +167,7 @@ public class ShopDaoTest extends BaseTest{
 		a.setAreaId(2);
 		ShopCategory sc =new ShopCategory();
 		sc.setShopCategoryId(1L);
-		UserInfo user =new UserInfo();
+		User user =new User();
 		user.setUserId(1L);
 		shop.setArea(a);
 		shop.setOwner(user);

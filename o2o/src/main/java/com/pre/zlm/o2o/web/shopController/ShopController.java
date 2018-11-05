@@ -19,7 +19,7 @@ import com.pre.zlm.o2o.dto.ShopExecution;
 import com.pre.zlm.o2o.entity.Area;
 import com.pre.zlm.o2o.entity.Shop;
 import com.pre.zlm.o2o.entity.ShopCategory;
-import com.pre.zlm.o2o.entity.UserInfo;
+import com.pre.zlm.o2o.entity.User;
 import com.pre.zlm.o2o.enums.ShopStateEnum;
 import com.pre.zlm.o2o.exception.ShopOperationException;
 import com.pre.zlm.o2o.service.AreaService;
@@ -99,11 +99,11 @@ public class ShopController extends BaseController {
 	private Map<String, Object> getShopList(HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<>();
 		//TODO 这里从session中获取user
-		UserInfo user = new UserInfo();
+		User user = new User();
 		user.setUserId(1L);
 		user.setName("王小二");
 		request.getSession().setAttribute("user", user);
-		user = (UserInfo)request.getSession().getAttribute("user");
+		user = (User)request.getSession().getAttribute("user");
 		
 		try {
 			Shop shopCondition = new Shop();
@@ -237,7 +237,7 @@ public class ShopController extends BaseController {
 		//注册店铺
 		//TODO 注册店铺时需要店主的信息,此时可以通过session获取。
 		//UserInfo owner = (UserInfo)request.getSession().getAttribute("user");
-		UserInfo owner = new UserInfo();
+		User owner = new User();
 		owner.setUserId(1L);
 		shop.setOwner(owner);
 		try {
@@ -318,7 +318,7 @@ public class ShopController extends BaseController {
 		}
 		
 		//更新店铺
-		UserInfo owner = (UserInfo)request.getSession().getAttribute("user");
+		User owner = (User)request.getSession().getAttribute("user");
 		shop.setOwner(owner);
 		try {
 			ShopExecution se = service.updateShop(shop, shopImg);

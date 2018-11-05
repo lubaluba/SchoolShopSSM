@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ConnectException;
 import java.net.URL;
-import java.security.SecureRandom;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -18,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pre.zlm.o2o.entity.User;
 import com.pre.zlm.o2o.utils.weixin.pojo.UserAccessToken;
 import com.pre.zlm.o2o.utils.weixin.pojo.WechatUser;
 
@@ -29,7 +29,7 @@ public class WechatUserUtil {
 
 	private static Logger log = LoggerFactory.getLogger(WechatUserUtil.class);
 
-	public static UserAccessToken getUserAccessToken(String code) throws IOException {
+	public  UserAccessToken getUserAccessToken(String code) throws IOException {
 		//测试号信息里的appId和appsecret
 		String appId = "wx1fe36a53f8f2ee1d";
 		log.debug("appId:" + appId);
@@ -66,7 +66,7 @@ public class WechatUserUtil {
 			//创建SSLContext对象,并使用我们指定信任管理器初始化
 			TrustManager[] tm = { new MyX509TrustManager()};
 			SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
-			sslContext.init(null, tm, new SecureRandom());
+			sslContext.init(null, tm, new java.security.SecureRandom());
 			SSLSocketFactory ssf = sslContext.getSocketFactory();
 			
 			URL url = new URL(requestUrl);
@@ -75,7 +75,7 @@ public class WechatUserUtil {
 			
 			httpsUrlConnection.setDoOutput(true);
 			httpsUrlConnection.setDoInput(true);
-			httpsUrlConnection.setUseCaches(true);
+			httpsUrlConnection.setUseCaches(false);
 			httpsUrlConnection.setRequestMethod(requestMethod);
 			if ("GET".equalsIgnoreCase(requestMethod)) {
 				httpsUrlConnection.connect();
@@ -109,7 +109,17 @@ public class WechatUserUtil {
 	}
 	
 
-
+	/**
+	 *	将WechatUser里的信息转换成User的信息并返回
+	 */
+	public static User getUserFromRequest(WechatUser wechatUser) {
+		User user = new User();
+		user.setName(wechatUser.getNickName());
+		user.setGender(wechatUser.getSex() == 0 ? "男" : "女" );
+		user.setProfileImg(wechatUser.getHeadimgurl());
+		user.setEnableStatus(1);
+		return user;
+	}
 	
 	public static WechatUser getUserInfo(String accessToken, String openId) {
 		String url = "https://api.weixin.qq.com/sns/userinfo?access_token="
