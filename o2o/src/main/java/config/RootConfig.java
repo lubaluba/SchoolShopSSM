@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -23,6 +24,7 @@ import com.pre.zlm.o2o.utils.DESUtils;
 @MapperScan(basePackages= {"com.pre.zlm.o2o.dao"})
 @EnableTransactionManagement
 @PropertySource("classpath:jdbc.properties")
+@Import({RedisConfig.class})
 public class RootConfig extends org.apache.ibatis.session.Configuration{
 	protected boolean mapUnderscoreToCamelCase=true;
 
@@ -106,6 +108,11 @@ public class RootConfig extends org.apache.ibatis.session.Configuration{
 	public org.apache.ibatis.session.Configuration config(){
 		
 		org.apache.ibatis.session.Configuration config =new org.apache.ibatis.session.Configuration();
+		
+		/**
+		 * 开启缓存
+		 */
+		config.setCacheEnabled(true);
 		
 		/**
 		 * 开启驼峰式命名匹配,如:Table{create_time} --> Entity{createTime}
