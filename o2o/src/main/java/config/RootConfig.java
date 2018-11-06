@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.pre.zlm.o2o.dao.interceptor.DynamicDataSourceInterceptor;
 import com.pre.zlm.o2o.dao.split.DynamicDataSource;
+import com.pre.zlm.o2o.utils.DESUtils;
 @Configuration
 @ComponentScan(basePackages= {"com.pre.zlm.o2o"})
 @MapperScan(basePackages= {"com.pre.zlm.o2o.dao"})
@@ -132,8 +133,8 @@ public class RootConfig extends org.apache.ibatis.session.Configuration{
 		BasicDataSource dataSource =new BasicDataSource();
 		dataSource.setDriverClassName(driverClassName);
 		dataSource.setUrl(masterURL);
-		dataSource.setUsername(userName);
-		dataSource.setPassword(password);
+		dataSource.setUsername(DESUtils.getDecryptString(userName));
+		dataSource.setPassword(DESUtils.getDecryptString(password));
 		dataSource.setMaxIdle(maxIdle);
 		dataSource.setMaxTotal(maxTotal);
 		return dataSource;
@@ -146,8 +147,8 @@ public class RootConfig extends org.apache.ibatis.session.Configuration{
 		BasicDataSource dataSource =new BasicDataSource();
 		dataSource.setDriverClassName(driverClassName);
 		dataSource.setUrl(slaveURL);
-		dataSource.setUsername(userName);
-		dataSource.setPassword(password);
+		dataSource.setUsername(DESUtils.getDecryptString(userName));
+		dataSource.setPassword(DESUtils.getDecryptString(password));
 		dataSource.setMaxIdle(maxIdle);
 		dataSource.setMaxTotal(maxTotal);
 		return dataSource;
