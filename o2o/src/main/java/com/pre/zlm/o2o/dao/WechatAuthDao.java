@@ -12,4 +12,5 @@ public interface WechatAuthDao {
 	 * 	添加对应本平台的微信账号
 	 */
 	int insertWechatAuth(WechatAuth wechatAuth);
+	
 }

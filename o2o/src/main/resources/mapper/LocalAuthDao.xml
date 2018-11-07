@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pre.zlm.o2o.dao.LocalAuthDao">
+	<select id="getLocalAuthByUsernameAndPwd" resultMap="localAuthMap">
+		SELECT 
+			local_auth_id,username,password,l.create_time,l.last_edit_time,l.user_id,name,gender,
+			email,profile_img,user_type,u.create_time,u.last_edit_time,enable_status
+		FROM
+			local_auth l
+		LEFT JOIN
+			user u
+		ON
+			l.user_id = u.user_id
+		WHERE
+			username=#{username} AND password=#{password}
+	</select>
+	
+	<select id="getLocalAuthByUserId" resultMap="localAuthMap" parameterType="long">
+		SELECT 
+			local_auth_id,username,password,l.create_time,l.last_edit_time,l.user_id,name,gender,
+			email,profile_img,user_type,u.create_time,u.last_edit_time,enable_status
+		FROM
+			local_auth l
+		LEFT JOIN
+			user u
+		ON
+			l.user_id = u.user_id
+		WHERE
+			l.user_id = #{user_id}
+	</select>
+	
+	<insert id="insertLocalAuth" parameterType="com.pre.zlm.o2o.entity.LocalAuth" useGeneratedKeys="true"
+		keyColumn="local_auth_id" keyProperty="localAuthId">
+		INSERT INTO
+			local_auth(userName,password,create_time,last_edit_time,user_id)
+		VALUES
+			(#{username},#{password},#{createTime},#{lastEditTime},#{user.userId})	
+	</insert>
+	
+	<update id="updateLocalAuth" parameterType="com.pre.zlm.o2o.entity.LocalAuth" >
+		UPDATE
+			local_auth
+		SET
+			password = #{password},last_edit_time = #{lastEditTime}
+		WHERE
+			username = #{username}
+		AND
+			user_id = #{user.userId}
+	</update>
+	
+	<resultMap type="com.pre.zlm.o2o.entity.LocalAuth" id="localAuthMap">
+		<id column="local_auth_id" property="localAuthId"/>
+		<result column="username" property="username"/>
+		<result column="password" property="password"/>
+		<result column="create_time" property="createTime"/>
+		<result column="last_edit_time" property="lastEditTime"/>
+		<association property="user" column="user_id" javaType="com.pre.zlm.o2o.entity.User">
+			<id column="user_id" property="userId"/>
+			<result column="name" property="name"/>
+			<result column="gender" property="gender"/>
+			<result column="email" property="email"/>
+			<result column="user_type" property="userType"/>
+			<result column="profile_img" property="profileImg"/>
+			<result column="create_time" property="createTime"/>
+			<result column="last_edit_time" property="lastEditTime"/>
+			<result column="enable_status" property="enableStatus"/>
+		</association>
+	</resultMap>
+</mapper>
