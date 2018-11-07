@@ -25,6 +25,7 @@ public class AreaServiceTest extends BaseTest{
 	RedisTemplate<String, Object>  rt; 
 	
 	@Test
+	@Ignore
 	public void testRedis() throws IOException {
 		User user1 = new User();
 		user1.setName("张三");
@@ -49,10 +50,9 @@ public class AreaServiceTest extends BaseTest{
 	}
 	
 	@Test
-	@Ignore
 	public void test() {
 		List<Area> list =service.getAreaList();
-		assertEquals("麓山南路", list.get(0).getAreaName());
+		assertEquals("科教新村", list.get(0).getAreaName());
 	}
 	
 }
