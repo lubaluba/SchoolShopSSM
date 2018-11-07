@@ -2,8 +2,8 @@ $(function() {
 	var loading = false;
 	var maxItems = 999;
 	var pageSize = 10;
-	var listUrl = '/o2o/shopAdmin/listshops';
-	var searchDivUrl = '/o2o/shopAdmin/listshopspageinfo';
+	var listUrl = '/o2o/shop/shoplist';
+	var searchDivUrl = '/o2o/shop/shopquerycondition';
 	var pageNum = 1;
 	var parentId = getQueryString('parentId');
 	var areaId = '';
@@ -12,34 +12,32 @@ $(function() {
 
 	function getSearchDivData() {
 		var url = searchDivUrl + '?' + 'parentId=' + parentId;
-		$
-				.getJSON(
-						url,
-						function(data) {
-							if (data.success) {
-								var shopCategoryList = data.shopCategoryList;
-								var html = '';
-								html += '<a href="#" class="button" data-category-id=""> 全部类别  </a>';
-								shopCategoryList
-										.map(function(item, index) {
-											html += '<a href="#" class="button" data-category-id='
-													+ item.shopCategoryId
-													+ '>'
-													+ item.shopCategoryName
-													+ '</a>';
-										});
-								$('#shoplist-search-div').html(html);
-								var selectOptions = '<option value="">全部街道</option>';
-								var areaList = data.areaList;
-								areaList.map(function(item, index) {
-									selectOptions += '<option value="'
+		$.getJSON(
+				url,
+				function(data) {
+					if (data.success) {
+						var shopCategoryList = data.shopCategoryList;
+						var html = '';
+						html += '<a href="#" class="button" data-category-id=""> 全部类别  </a>';
+						shopCategoryList.map(function(item, index) {
+							html += '<a href="#" class="button" data-category-id='
+										+ item.shopCategoryId
+									+ '>'
+										+ item.shopCategoryName
+									+ '</a>';
+						});
+						$('#shoplist-search-div').html(html);
+						var selectOptions = '<option value="">全部街道</option>';
+						var areaList = data.areaList;
+						areaList.map(function(item, index) {
+							selectOptions += '<option value="'
 											+ item.areaId + '">'
 											+ item.areaName + '</option>';
-								});
-								$('#area-search').html(selectOptions);
-							}
 						});
-	}
+						$('#area-search').html(selectOptions);
+					}
+				});
+		}
 	getSearchDivData();
 
 	function addItems(pageSize, pageIndex) {
@@ -94,7 +92,7 @@ $(function() {
 
 	$('.shop-list').on('click', '.card', function(e) {
 		var shopId = e.currentTarget.dataset.shopId;
-		window.location.href = 'toshopdetail?shopId=' + shopId;
+		window.location.href = 'shopdetail.jsp?shopId=' + shopId;
 	});
 
 	$('#shoplist-search-div').on(
@@ -151,5 +149,5 @@ $(function() {
 	$.init();
 });
 function back(){
-	window.location.href = "../../o2o"
+	window.location.href = "../"
 }

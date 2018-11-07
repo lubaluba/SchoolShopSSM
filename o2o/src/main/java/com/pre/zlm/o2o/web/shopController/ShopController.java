@@ -28,7 +28,7 @@ import com.pre.zlm.o2o.service.ShopService;
 import com.pre.zlm.o2o.utils.HttpServletRequestUtils;
 import com.pre.zlm.o2o.web.BaseController;
 @Controller
-@RequestMapping("/shopAdmin")
+@RequestMapping("/shop")
 public class ShopController extends BaseController {
 	
 	@Autowired
@@ -42,7 +42,8 @@ public class ShopController extends BaseController {
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
-	@RequestMapping(value = "/listshops", method = RequestMethod.GET)
+	//前端展示获取店铺列表信息
+	@RequestMapping(value = "/shoplist", method = RequestMethod.GET)
 	@ResponseBody
 	private Map<String, Object> listShop(HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<>();
@@ -91,9 +92,7 @@ public class ShopController extends BaseController {
 	}
 
 	
-	/**
-	 *	获得店铺列表
-	 */
+	//店铺管理员获取店铺列表
 	@RequestMapping(value = "/getshoplist", method = RequestMethod.GET)
 	@ResponseBody
 	private Map<String, Object> getShopList(HttpServletRequest request) {
@@ -118,10 +117,8 @@ public class ShopController extends BaseController {
 		}
 	}
 	
-	/**
-	 * 获取某一一级类别下的全部店铺
-	 */
-	@RequestMapping(value = "/listshopspageinfo", method = RequestMethod.GET)
+	//获取店铺查询条件(类别和区域信息)
+	@RequestMapping(value = "/shopquerycondition", method = RequestMethod.GET)
 	@ResponseBody
 	private Map<String, Object> listShopsPageInfo(HttpServletRequest request){
 		Map<String, Object> result = new HashMap<>();
@@ -150,9 +147,7 @@ public class ShopController extends BaseController {
 		return result;
 	}
 	
-	/**
-	 * 点击进入店铺展示详情页面
-	 */
+	//获取店铺详情
 	@RequestMapping(value = "/getshopmanagementinfo", method = RequestMethod.GET)
 	@ResponseBody
 	private Map<String, Object> getShopManagementInfo(HttpServletRequest request) {

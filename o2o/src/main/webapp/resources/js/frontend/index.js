@@ -1,6 +1,5 @@
 $(function() {
-    var url = '/o2o/frontend/listmainpageinfo';
-    
+	var url = '/o2o/frontend/listmainpageinfo';
     $.getJSON(url, function (data) {
         if (data.success) {
             var headLineList = data.headLineList;
@@ -8,7 +7,7 @@ $(function() {
             headLineList.map(function (item, index) {
                 swiperHtml += ''
                             + '<div class="swiper-slide img-wrap">'
-                            +      '<img class="banner-img" src="'+ item.lineImg +'" alt="'+ item.lineName +'">'
+                            + 	'<img class="banner-img" src="'+ item.lineImg +'" alt="'+ item.lineName +'">'
                             + '</div>';
             });
             $('.swiper-wrapper').html(swiperHtml);
@@ -40,12 +39,12 @@ $(function() {
 
     $('.row').on('click', '.shop-classify', function (e) {
         var shopCategoryId = e.currentTarget.dataset.category;
-        var newUrl = 'toshoplist?parentId=' + shopCategoryId;
+        var newUrl = 'frontend/shoplist.jsp?parentId=' + shopCategoryId;
         window.location.href = newUrl;
     });
 
 });
 
-function toShopList(){
-	window.location.href = 'toshoplist';
+function toList() {
+	window.location.href = "frontend/shoplist.jsp"
 }

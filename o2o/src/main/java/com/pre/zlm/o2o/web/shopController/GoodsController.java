@@ -27,7 +27,7 @@ import com.pre.zlm.o2o.utils.HttpServletRequestUtils;
 import com.pre.zlm.o2o.web.BaseController;
 
 @Controller
-@RequestMapping("/shopAdmin")
+@RequestMapping("/goods")
 public class GoodsController extends BaseController {
 	
 	@Autowired

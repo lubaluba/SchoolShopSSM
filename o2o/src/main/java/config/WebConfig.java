@@ -15,7 +15,7 @@ public class WebConfig extends WebMvcConfigurationSupport{
 	@Bean
 	public ViewResolver viewResolver() {
 		InternalResourceViewResolver resolver =new InternalResourceViewResolver();
-		resolver.setPrefix("/WEB-INF/views/");	//自动添加前缀,也就是我们访问前端页面时不用写前缀
+		resolver.setPrefix("/o2o/");	//自动添加前缀,也就是我们访问前端页面时不用写前缀
 		resolver.setSuffix(".jsp");				//自动添加后缀,访问前端页面(jsp文件)不用写文件后置	
 		resolver.setExposeContextBeansAsAttributes(true);
 		return resolver;

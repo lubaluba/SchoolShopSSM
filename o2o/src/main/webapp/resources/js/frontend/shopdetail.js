@@ -2,44 +2,37 @@ $(function() {
 	var loading = false;
 	var maxItems = 20;
 	var pageSize = 10;
-
 	var listUrl = '/o2o/frontend/listgoodsbyshop';
-
 	var pageNum = 1;
 	var shopId = getQueryString('shopId');
 	var goodsCategoryId = '';
 	var goodsName = '';
-
-	var searchDivUrl = '/o2o/frontend/listshopdetail?shopId='
-			+ shopId;
-
+	var searchDivUrl = '/o2o/frontend/listshopdetail?shopId=' + shopId;
 	function getSearchDivData() {
 		var url = searchDivUrl;
 		$.getJSON(
-						url,
-						function(data) {
-							if (data.success) {
-								var shop = data.shop;
-								$('#shop-cover-pic').attr('src', shop.shopImg);
-								$('#shop-update-time').html(formatDate(new Date(shop.lastEditTime).getTime(),"YY-MM-DD"));
-								$('#shop-name').html(shop.shopName);
-								$('#shop-desc').html(shop.shopDesc);
-								$('#shop-addr').html(shop.shopAddr);
-								$('#shop-phone').html(shop.phone);
-
-								var goodsCategoryList = data.goodsCategoryList;
-								var html = '';
-								goodsCategoryList
-										.map(function(item, index) {
-											html += '<a href="#" class="button" data-goods-search-id='
-													+ item.goodsCategoryId
-													+ '>'
-													+ item.goodsCategoryName
-													+ '</a>';
-										});
-								$('#shopdetail-button-div').html(html);
-							}
+				url,
+				function(data) {
+					if (data.success) {
+						var shop = data.shop;
+						$('#shop-cover-pic').attr('src', shop.shopImg);
+						$('#shop-update-time').html(formatDate(new Date(shop.lastEditTime).getTime(),"YY-MM-DD"));
+						$('#shop-name').html(shop.shopName);
+						$('#shop-desc').html(shop.shopDesc);
+						$('#shop-addr').html(shop.shopAddr);
+						$('#shop-phone').html(shop.phone);
+						var goodsCategoryList = data.goodsCategoryList;
+						var html = '';
+						goodsCategoryList.map(function(item, index) {
+							html+= '<a href="#" class="button" data-goods-search-id='
+								+ item.goodsCategoryId
+								+ '>'
+								+ item.goodsCategoryName
+								+ '</a>';
 						});
+						$('#shopdetail-button-div').html(html);
+					}
+			});
 	}
 	getSearchDivData();
 
@@ -85,15 +78,12 @@ $(function() {
 			}
 		});
 	}
-
 	addItems(pageSize, pageNum);
-
 	$(document).on('infinite', '.infinite-scroll-bottom', function() {
 		if (loading)
 			return;
 		addItems(pageSize, pageNum);
 	});
-
 	$('#shopdetail-button-div').on(
 			'click',
 			'.button',
