@@ -17,7 +17,7 @@ $(function(){
 	);
 	//异步获取店铺分类信息
 	$.get(
-			"/o2o/shopAdmin/getshopCategorylist.action",
+			"/o2o/shop/getshopCategorylist.action?parentId=-1",
 			false,
 			function(data){
 				for(var i = 0; i < data.total; i++){
@@ -37,7 +37,7 @@ function getChildren(data){
 	var val = data.options[index].value;
 	$("#shop-category-sub").empty();
 	$.get(
-			"/o2o/shopAdmin/getshopCategorylist.action?parentId="+val,
+			"/o2o/shop/getshopCategorylist.action?parentId="+val,
 			false,
 			function(data){
 				for(var i = 0; i < data.total; i++){
@@ -48,6 +48,7 @@ function getChildren(data){
 			"json"
 		);
 }
+
 //店铺注册提交表单
 function submit(){
 	var shop = {};
@@ -79,7 +80,7 @@ function submit(){
 	formData.append('verifyCodeActual', verifyCodeActual);
 	$.ajax({
 			type: "POST",
-			url: "/o2o/shopAdmin/registershop.action",
+			url: "/o2o/shopadmin/registershop.action",
 			data:formData,
 			dataType: "json",
 			processData: false,
@@ -88,7 +89,7 @@ function submit(){
 			success: function(data){
 				if(data.success){
 					$.toast('提交成功!');
-					window.location.href = "/o2o/shopAdmin/toShopList"
+					window.location.href = "/o2o/shopkeeper/shoplist.html"
 				}else{
 					$.toast('提交失败！' + data.errMsg);
 				}

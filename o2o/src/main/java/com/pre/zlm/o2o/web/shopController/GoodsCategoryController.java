@@ -21,12 +21,9 @@ import com.pre.zlm.o2o.enums.GoodsCategoryStateEnum;
 import com.pre.zlm.o2o.service.GoodsCategoryService;
 import com.pre.zlm.o2o.web.BaseController;
 
-/**
- * 店铺商品管理
- */
 @Controller
-@RequestMapping(value = "shopAdmin")
-public class ShopGoodsManagementController extends BaseController {
+@RequestMapping(value = "goodscategory")
+public class GoodsCategoryController extends BaseController {
 	
 	@Autowired
 	private GoodsCategoryService goodsService;
@@ -108,4 +105,6 @@ public class ShopGoodsManagementController extends BaseController {
 			return exceptionResult(result, "请选择一个商品类别");
 		}
 	}
+	
+	
 }

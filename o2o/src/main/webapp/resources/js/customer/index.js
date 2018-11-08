@@ -39,12 +39,12 @@ $(function() {
 
     $('.row').on('click', '.shop-classify', function (e) {
         var shopCategoryId = e.currentTarget.dataset.category;
-        var newUrl = 'frontend/shoplist.jsp?parentId=' + shopCategoryId;
+        var newUrl = 'customer/shoplist.html?parentId=' + shopCategoryId;
         window.location.href = newUrl;
     });
 
 });
 
 function toList() {
-	window.location.href = "frontend/shoplist.jsp"
+	window.location.href = "customer/shoplist.html"
 }

@@ -92,7 +92,7 @@ $(function() {
 
 	$('.shop-list').on('click', '.card', function(e) {
 		var shopId = e.currentTarget.dataset.shopId;
-		window.location.href = 'shopdetail.jsp?shopId=' + shopId;
+		window.location.href = 'shopdetail.html?shopId=' + shopId;
 	});
 
 	$('#shoplist-search-div').on(

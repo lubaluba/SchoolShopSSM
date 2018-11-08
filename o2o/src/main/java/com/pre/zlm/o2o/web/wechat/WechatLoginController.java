@@ -96,9 +96,9 @@ public class WechatLoginController {
 		}
 		//根据roleType决定是跳转到店铺前端展示页面还是后台管理页
 		if (SHOPEND.equals(roleType)) {
-			return "shopAdmin/shoplist";
+			return "o2o/shop/shoplist.jsp";
 		} else {
-			return "frontend/index";
+			return "o2o/frontend/index.jsp";
 		}
 	}
 }

@@ -3,7 +3,7 @@
  */
 $(function(){
 	var shopId = getQueryString("shopId");
-	var shopInfoUrl = '/o2o/shopAdmin/getshopmanagementinfo?shopId='+shopId;
+	var shopInfoUrl = '/o2o/shop/getshopmanagementinfo?shopId='+shopId;
 	$.getJSON(shopInfoUrl, function(data){
 		if(data.redirect){
 			window.location.href = data.url;
@@ -11,7 +11,7 @@ $(function(){
 			if(data.shopId != undefined && data.shopId != null){
 				shopId = data.shopId;
 			}
-			$('#shopinfo').attr('href','/o2o/shopAdmin/toUpdatePage?shopId='+shopId);
+			$('#shopinfo').attr('href','updateshop.html?shopId='+shopId);
 		}
 	})
 })

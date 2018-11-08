@@ -26,7 +26,7 @@ $(function(){
 		}
 		$.ajax({
 			type: "POST",
-			url: "/o2o/shopAdmin/addgoodscategorys.action",
+			url: "/o2o/goodscategory/addgoodscategorys.action",
 			data:JSON.stringify(goodsCategoryList),
 			contentType: "application/json",
 			success: function(data){
@@ -52,7 +52,7 @@ $(function(){
 				var target = e.currentTarget;
 				$.confirm("确定吗?",function(){
 					$.ajax({
-						url : "/o2o/shopAdmin/deletegoodscategory.action",
+						url : "/o2o/goodscategory/deletegoodscategory.action",
 						type : "POST",
 						data : {
 							goodsCategoryId : target.getAttribute("data-id")
@@ -75,7 +75,7 @@ $(function(){
 
 function getList(){
 	$.get(
-			"/o2o/shopAdmin/getgoodscategory.action",
+			"/o2o/goodscategory/getgoodscategory.action",
 			function(data){
 				if(data.success){
 					var list = data.goodscategorylist;

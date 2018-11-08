@@ -1,17 +1,17 @@
 $(function() {
 	var goodsId = getQueryString('goodsId');
 	var shopId = 1;
-	var infoUrl = '/o2o/shopAdmin/getgoodsbyid?goodsId=' + goodsId;
-	var categoryUrl = '/o2o/shopAdmin/getgoodscategory?shopId='
+	var infoUrl = '/o2o/goods/getgoodsbyid?goodsId=' + goodsId;
+	var categoryUrl = '/o2o/goodscategory/getgoodscategory?shopId='
 			+ shopId;
-	var goodsPostUrl = '/o2o/shopAdmin/modifygoods';
+	var goodsPostUrl = '/o2o/goodsadmin/modifygoods';
 	var isEdit = false;
 	if (goodsId) {
 		getInfo(goodsId);
 		isEdit = true;
 	} else {
 		getCategory(shopId);
-		goodsPostUrl = '/o2o/shopAdmin/addgoods';
+		goodsPostUrl = '/o2o/goodsadmin/addgoods';
 	}
 
 	//获取需要编辑的商品的商品信息,并赋值给表单

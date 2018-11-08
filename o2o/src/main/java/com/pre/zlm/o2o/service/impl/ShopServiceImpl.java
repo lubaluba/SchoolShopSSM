@@ -52,6 +52,8 @@ public class ShopServiceImpl implements ShopService{
 			return new ShopExecution(ShopStateEnum.NULL_SHOPNAME);
 		}	
 		shop.setEnableStatus(0);	//店铺创建时默认状态为审核中	
+		shop.setAdvice("感谢加入,您的店铺正在审核中"); //默认通知
+		shop.setPriority(1);	//默认优先级
 		shop.setCreateTime(new Date());
 		shop.setLastEditTime(new Date());
 		int result=dao.insertShop(shop);

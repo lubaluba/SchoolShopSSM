@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE>
 <html>
 <head>
@@ -16,7 +14,6 @@
 <!-- Google Web Fonts -->
 <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
 <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
-<link rel="stylesheet" href="../resources/css/goods/goodsoperation.css">
 <link rel="apple-touch-icon-precomposed" href="/assets/img/apple-touch-icon-114x114.png">
 <script>
 	var _hmt = _hmt || [];
@@ -29,130 +26,98 @@
 </script>
 </head>
 <body>
+	<div class="page-group">
+    <div id="page-label-input" class="page">
   	<header class="bar bar-nav">
-   		 	<h1 class="title">添加商品</h1>
+    	<a class="button button-link button-nav pull-left back" href="/demos/form">
+    		<span class="icon icon-left"></span>返回</a>
+   		 	<h1 class="title">店铺修改</h1>
   	</header>
   	<div class="content">
     <div class="list-block">
       <ul>
-       <!-- 商品名称 -->
+       <!-- 店铺姓名 -->
         <li>
           <div class="item-content">
-          	<div class="item-media">
-          		<i class="icon icon-form-name"></i>
-          	</div>
             <div class="item-inner">
-              <div class="item-title label">商品名称</div>
+              <div class="item-title label">店铺名称</div>
               <div class="item-input">
-                <input type="text" placeholder="商品名称" id="goods-name" >
+                <input type="text" placeholder="店名" id="shop-name" >
               </div>
             </div>
           </div>
         </li>
-        <!-- 目录 -->
-         <li>
-          <div class="item-content">
-          	<div class="item-media">
-          		<i class="icon icon-form-email"></i>
-          	</div>
-            <div class="item-inner">
-              <div class="item-title label">商品类别</div>
-              <div class="item-input">
-                <select id = "category"></select>
-              </div>
-            </div>
-          </div>
-        </li>
-       <!-- 优先级 -->
+        <!-- 店铺类型 -->
         <li>
           <div class="item-content">
-          	<div class="item-media">
-          		<i class="icon icon-form-email"></i>
-          	</div>
             <div class="item-inner">
-              <div class="item-title label">优先级</div>
+              <div class="item-title label">店铺类型</div>
               <div class="item-input">
-                <input type="number" placeholder="优先级(1~5)" id="priority" min ="1" max="5" >
+                <select id = "shop-category">
+                </select>
               </div>
             </div>
           </div>
         </li>
-       <!-- 原价 -->
+       <!-- 所属区域 -->
        <li>
           <div class="item-content">
-          	<div class="item-media">
-          		<i class="icon icon-form-email"></i>
-          	</div>
             <div class="item-inner">
-              <div class="item-title label">原价</div>
+              <div class="item-title label">所属区域</div>
               <div class="item-input">
-                <input type="number" placeholder="原价" id="normal-price" >
+                <select id = "shop-area">
+                </select>
               </div>
             </div>
           </div>
         </li>
-        <!-- 现价 -->
+       <!-- 联系方式 -->
         <li>
           <div class="item-content">
-          	<div class="item-media">
-          		<i class="icon icon-form-email"></i>
-          	</div>
             <div class="item-inner">
-              <div class="item-title label">现价</div>
+              <div class="item-title label">联系方式</div>
               <div class="item-input">
-                <input type="number" placeholder="现价" id="promotion-price" >
+                <input type="text" placeholder="联系方式" id="phone">
               </div>
             </div>
           </div>
         </li>
-       <!-- 缩略图 -->
-         <li>
+        <!-- 店铺图片 -->
+        <li>
           <div class="item-content">
-          	<div class="item-media">
-          		<i class="icon icon-form-email"></i>
-          	</div>
             <div class="item-inner">
-              <div class="item-title label">缩略图</div>
+              <div class="item-title label">店铺图片</div>
               <div class="item-input">
-                <input type="file" id = "small-img">
+                <input type="file" id = "shop-img">
               </div>
             </div>
           </div>
         </li>
-        <!-- 批量详情图片 -->
-       <li>
+       <!-- 店铺地址 -->
+        <li>
           <div class="item-content">
-          	<div class="item-media">
-          		<i class="icon icon-form-email"></i>
-          	</div>
-            <div class="item-inner detail-img-div">
-              <div class="item-title label">详情图</div>
-          	  <div class="item-input" id = "detail-img">
-          	  	<input type="file" class="detail-img">
-          	  </div>
+            <div class="item-inner">
+              <div class="item-title label">详细地址</div>
+              <div class="item-input">
+                <input type="text"  placeholder="address" id="shop-addr">
+              </div>
             </div>
           </div>
         </li>
-       <!-- 商品详情-->
-       <li>
+        <!-- 店铺详情 -->
+        <li class="align-top">
           <div class="item-content">
-          	<div class="item-media">
-          		<i class="icon icon-form-email"></i>
-          	</div>
             <div class="item-inner">
-              <div class="item-title label">商品描述</div>
-          	  <div class="item-input">
-          	  	<textarea id="goods-desc" placeholder="商品描述"></textarea>
-          	  </div>
+              <div class="item-title label">店铺简介</div>
+              <div class="item-input">
+                <textarea placeholder="店铺简介" id="shop-desc"></textarea>
+              </div>
             </div>
           </div>
         </li>
         <!-- 验证码 -->
         <li>
           <div class="item-content">
-          <div class="item-media">
-          		<i class="icon icon-form-email"></i>
-          	</div>
             <div class="item-inner">
               <div class="item-title label">验证码</div>
               <input type="text" id = "j_captcha" placeholder="验证码">
@@ -161,22 +126,27 @@
               </div>
             </div>
           </div>
-        </li> 
+        </li>
       </ul>
     </div>
     <div class="content-block">
       <div class="row">
-        <div class="col-50"><a href="/o2o/shopAdmin/togoodsmanagment" class="button button-big button-fill button-danger">返回商品管理</a></div>
         <div class="col-50">
-        	<a href="javascript:void(0)" class="button button-big button-fill button-success" id="submit">提交</a>
+        	<a href="javascript:void(0)"  onclick="javascript:{window.location.href='shopmanagement.html'}"  class="button button-big button-fill button-danger">返回</a>
+        </div>
+        <div class="col-50">
+        	<a href="javascript:void(0)" class="button button-big button-fill button-success" id="addShopSubmit" onclick="update()">更新</a>
         </div>
       </div>
     </div>
   </div>
+</div>`
+
+  </div>
     <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
-    <script type="text/javascript" src="../resources/js/goods/goodsoperation.js"></script>
+    <script type="text/javascript" src="../resources/js/shopkeeper/shopupdate.js"></script>
     <script type="text/javascript" src="../resources/js/commom/commom.js"></script>
   </body>
 </html>

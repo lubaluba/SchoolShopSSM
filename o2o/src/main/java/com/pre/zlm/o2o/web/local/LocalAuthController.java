@@ -26,9 +26,9 @@ public class LocalAuthController extends BaseController {
 	@Autowired
 	private LocalAuthService service;
 	
-	//注册本地账号
+	//绑定本地账户(即一个user关联了一个本地账户(localAuth)和一个微信账户(wechatAuth))
 	@ResponseBody
-	@RequestMapping(value = "/register", method = {RequestMethod.POST})
+	@RequestMapping(value = "/bindlocalauth", method = {RequestMethod.POST})
 	public Map<String, Object> registerLocalAuth(HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		if (! checkCode()) {

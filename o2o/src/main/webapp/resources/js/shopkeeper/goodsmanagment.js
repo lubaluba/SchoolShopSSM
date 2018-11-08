@@ -1,8 +1,8 @@
 $(function() {
 	var shopId = 1;
-	var listUrl = '/o2o/shopAdmin/getgoodslist?pageIndex=1&pageSize=10&shopId='
+	var listUrl = '/o2o/goods/getgoodslist?pageIndex=1&pageSize=10&shopId='
 			+ shopId;
-	var deleteUrl = '/o2o/shopAdmin/removegoods';
+	var deleteUrl = '/o2o/goodsadmin/removegoods';
 	function getList() {
 		$.getJSON(listUrl, function(data) {
 			if (data.success) {
@@ -81,7 +81,7 @@ $(function() {
 					function(e) {
 						var target = $(e.currentTarget);
 						if (target.hasClass('edit')) {
-							window.location.href = '/o2o/shopAdmin/togoodsoperation?goodsId='
+							window.location.href = 'goodsoperation.html?goodsId='
 									+ e.currentTarget.dataset.id;
 						} else if (target.hasClass('delete')) {
 							deleteItem(e.currentTarget.dataset.id,
@@ -93,6 +93,6 @@ $(function() {
 					});
 
 	$('#new').click(function() {
-		window.location.href = '/o2o/shopAdmin/togoodsoperation';
+		window.location.href = 'goodsoperation.html';
 	});
 });
