@@ -41,12 +41,7 @@ public class WechatLoginController {
 	private UserService userService;
 	@Autowired
 	private WechatAuthService wechatAuthService;
-	
-	@RequestMapping(value = "/test", method = { RequestMethod.GET })
-	public String hh(HttpServletRequest request, HttpServletResponse response) {
-		return "redirect:../index.html";
-	}
-	
+
 	@RequestMapping(value = "/logincheck", method = { RequestMethod.GET })
 	public String doGet(HttpServletRequest request, HttpServletResponse response) {
 		log.debug("weixin login get...");

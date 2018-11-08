@@ -35,11 +35,7 @@ public class ShopAdminController extends BaseController {
 	private Map<String, Object> getShopList(HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<>();
 		// TODO 这里从session中获取user
-		User user = new User();
-		user.setUserId(1L);
-		user.setName("王小二");
-		request.getSession().setAttribute("user", user);
-		user = (User) request.getSession().getAttribute("user");
+		User user = (User) request.getSession().getAttribute("user");
 		try {
 			Shop shopCondition = new Shop();
 			shopCondition.setOwner(user);
@@ -80,10 +76,7 @@ public class ShopAdminController extends BaseController {
 			return exceptionResult(result, "请输入店铺信息");
 		}
 		// 注册店铺
-		// TODO 注册店铺时需要店主的信息,此时可以通过session获取。
-		// UserInfo owner = (UserInfo)request.getSession().getAttribute("user");
-		User owner = new User();
-		owner.setUserId(1L);
+		User owner = (User)request.getSession().getAttribute("user");
 		shop.setOwner(owner);
 		try {
 			ShopExecution se = service.addShop(shop, shopImg);

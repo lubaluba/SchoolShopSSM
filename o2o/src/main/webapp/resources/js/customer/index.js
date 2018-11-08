@@ -42,6 +42,24 @@ $(function() {
         var newUrl = 'customer/shoplist.html?parentId=' + shopCategoryId;
         window.location.href = newUrl;
     });
+    
+	$('#log-out').click(function () {
+		$.ajax({
+			url : "/o2o/local/logout",
+			type : "post",
+			contentType : false,
+			processData : false,
+			cache : false,
+			success : function(data) {
+				if (data.success) {
+					window.location.href = '/o2o/user/login.html';
+				}
+			},
+			error : function(data, error) {
+				alert(error);
+			}
+		});
+	});
 
 });
 

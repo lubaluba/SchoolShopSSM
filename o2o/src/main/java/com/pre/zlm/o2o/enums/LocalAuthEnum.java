@@ -7,7 +7,8 @@ public enum LocalAuthEnum {
 	UPDATE_ERROR(-1003,"账号更新失败"),
 	QUERY_NULL(-1005, "查询为空,请检查查询条件"),
 	BIND_FAIL(-1006,"绑定账号失败"),
-	PARAM_NULL(-1007,"传入参数为空");
+	PARAM_NULL(-1007,"传入参数为空"),
+	USER_ERROR(-1008,"用户名或密码不正确");
 	
 	private int state;
 	

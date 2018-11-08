@@ -76,7 +76,7 @@ public class LocalAuthServiceImpl implements LocalAuthService {
 				} 
 				return new LocalAuthExecution(LocalAuthEnum.SUCCESS);
 			} else {
-				return new LocalAuthExecution(LocalAuthEnum.UPDATE_ERROR);
+				return new LocalAuthExecution(LocalAuthEnum.USER_ERROR);
 			}
 		} catch (Exception e) {
 			throw new LocalAuthException("密码更新失败" + e.getMessage());
