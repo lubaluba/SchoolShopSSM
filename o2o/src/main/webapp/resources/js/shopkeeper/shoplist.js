@@ -3,10 +3,13 @@
  */
 //异步获得区域列表信息
 $(function(){
-	$.get(
-		"/o2o/shopadmin/shoplist.action",
-		function(data){
-			if(data.success){
+	
+	$.ajax({
+		url : "/o2o/shopadmin/shoplist.action",
+		type : "get",
+		dataType : "json",
+		success : function(data) {
+			if (data.success) {
 				$('#user-name').text(data.user.name);
 				var list = data.shoplist;
 				var html = '';
@@ -19,8 +22,12 @@ $(function(){
 				$("#shop-row").html(html);
 			}
 		},
-		"json"
-	);
+    	error : function(data){   
+    		if(data.responseText = 'needlogin'){
+    			window.location.href = "/o2o/user/login.html";
+    		}
+    	}
+	});
 	
 	$('#log-out').click(function () {
 		$.ajax({

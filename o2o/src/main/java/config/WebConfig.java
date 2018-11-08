@@ -2,15 +2,36 @@ package config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import com.pre.zlm.o2o.web.interceptor.ShopInterceptor;
 @Configuration
 //@EnableWebMvc//该注解就是开启springMVC的javaConfig,相当于在xml中配置<mvc:annotation-driven>
 @ComponentScan("com.pre.zlm.o2o.web")	//启动组件扫描,扫描包下含注解的类
+@EnableAspectJAutoProxy
 public class WebConfig extends WebMvcConfigurationSupport{
+	
+	/**
+	 * 注册自定义的拦截器
+	 */
+	@Override
+	protected void addInterceptors(InterceptorRegistry registry) {
+		InterceptorRegistration interceptor1  = registry.addInterceptor(new ShopInterceptor());
+		//该拦截器拦截shopAdminController下面的所有接口
+		interceptor1.addPathPatterns("/shopadmin/**");
+		//InterceptorRegistration interceptor2  = registry.addInterceptor(new ShopPermissionInterceptor());
+		//interceptor2.excludePathPatterns("/shopadmin/shoplist");
+		//interceptor2.excludePathPatterns("/shopadmin/shoplist");
+		super.addInterceptors(registry);
+	}
+	
 	//spring-mvc jsp视图解析器
 	@Bean
 	public ViewResolver viewResolver() {
