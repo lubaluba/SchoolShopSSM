@@ -42,6 +42,10 @@ public class WechatLoginController {
 	@Autowired
 	private WechatAuthService wechatAuthService;
 	
+	@RequestMapping(value = "/test", method = { RequestMethod.GET })
+	public String hh(HttpServletRequest request, HttpServletResponse response) {
+		return "redirect:../index.html";
+	}
 	
 	@RequestMapping(value = "/logincheck", method = { RequestMethod.GET })
 	public String doGet(HttpServletRequest request, HttpServletResponse response) {
@@ -96,9 +100,9 @@ public class WechatLoginController {
 		}
 		//根据roleType决定是跳转到店铺前端展示页面还是后台管理页
 		if (SHOPEND.equals(roleType)) {
-			return "o2o/shop/shoplist.jsp";
+			return "redirect:../shopkeeper/shoplist.html";
 		} else {
-			return "o2o/frontend/index.jsp";
+			return "redirect:../index.html";
 		}
 	}
 }
