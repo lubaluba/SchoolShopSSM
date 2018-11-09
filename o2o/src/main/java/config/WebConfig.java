@@ -12,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.pre.zlm.o2o.web.interceptor.ShopInterceptor;
+import com.pre.zlm.o2o.web.interceptor.ShopPermissionInterceptor;
 @Configuration
 //@EnableWebMvc//该注解就是开启springMVC的javaConfig,相当于在xml中配置<mvc:annotation-driven>
 @ComponentScan("com.pre.zlm.o2o.web")	//启动组件扫描,扫描包下含注解的类
@@ -26,9 +27,8 @@ public class WebConfig extends WebMvcConfigurationSupport{
 		InterceptorRegistration interceptor1  = registry.addInterceptor(new ShopInterceptor());
 		//该拦截器拦截shopAdminController下面的所有接口
 		interceptor1.addPathPatterns("/shopadmin/**");
-		//InterceptorRegistration interceptor2  = registry.addInterceptor(new ShopPermissionInterceptor());
-		//interceptor2.excludePathPatterns("/shopadmin/shoplist");
-		//interceptor2.excludePathPatterns("/shopadmin/shoplist");
+		InterceptorRegistration interceptor2  = registry.addInterceptor(new ShopPermissionInterceptor());
+		interceptor2.addPathPatterns("/shopadmin/updateshop");
 		super.addInterceptors(registry);
 	}
 	

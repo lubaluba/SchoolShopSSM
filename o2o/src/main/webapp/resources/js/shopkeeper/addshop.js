@@ -94,6 +94,11 @@ function submit(){
 					$.toast('提交失败！' + data.errMsg);
 				}
 				$('#captcha_img').click();
-			}
+			},
+	    	error : function(data){   
+	    		if(data.responseText = 'needlogin'){
+	    			window.location.href = "/o2o/user/login.html";
+	    		}
+	    	}
 	});
 }

@@ -34,7 +34,7 @@ public class ShopAdminController extends BaseController {
 	@ResponseBody
 	private Map<String, Object> getShopList(HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<>();
-		// TODO 这里从session中获取user
+		//这里从session中获取user
 		User user = (User) request.getSession().getAttribute("user");
 		try {
 			Shop shopCondition = new Shop();

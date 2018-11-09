@@ -27,7 +27,7 @@ public class ShopInterceptor extends HandlerInterceptorAdapter {
 			if (user != null && user.getUserId() != null && user.getUserId() > 0 && user.getEnableStatus() == 1 && user.getUserType() == 2)
 				//通过验证则返回true,拦截器返回true后,用户接下来的操作才得以正常执行
 				return true;
-		} 
+		}
 		response.getWriter().println("needlogin");
 		return false;
 	}
