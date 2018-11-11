@@ -109,7 +109,7 @@ $(function() {
 					'.card',
 					function(e) {
 						var goodsId = e.currentTarget.dataset.goodsId;
-						window.location.href = '/o2o/frontend/goodsdetail?goodsId='
+						window.location.href = 'goodsdetail.html?goodsId='
 								+ goodsId;
 					});
 
