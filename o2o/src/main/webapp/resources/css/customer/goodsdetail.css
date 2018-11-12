@@ -1,7 +1,7 @@
-.shopdetail-button-div {
+.goodsdetail-button-div {
     margin: 0 .3rem;
 }
-.shopdetail-button-div > .button {
+.goodsdetail-button-div > .button {
     width: 30%;
     height: 1.5rem;
     line-height: 1.5rem;

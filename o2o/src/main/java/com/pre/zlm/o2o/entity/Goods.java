@@ -71,4 +71,9 @@ public class Goods {
 	 * 所属店铺
 	 */
 	private Shop shop;
+	
+	/**
+	 * 商品积分
+	 */
+	private Integer point;
 }

@@ -16,7 +16,7 @@
 	<select id="listGoods" resultType="com.pre.zlm.o2o.entity.Goods">
 		SELECT
 			goods_id,goods_name,goods_desc,img_addr,normal_price,promotion_price,priority,create_time,last_edit_time,enable_status,
-			goods_category_id,shop_id
+			goods_category_id,shop_id,point
 		FROM
 			goods
 		<where>
@@ -61,10 +61,10 @@
 		keyProperty="goodsId" parameterType="com.pre.zlm.o2o.entity.Goods">
 		INSERT INTO 
 			goods(goods_id,goods_name,goods_desc,img_addr,normal_price,promotion_price,priority,
-					create_time,last_edit_time,enable_status,goods_category_id,shop_id)
+					create_time,last_edit_time,enable_status,goods_category_id,shop_id,point)
 		VALUES
 			(#{goodsId},#{goodsName},#{goodsDesc},#{imgAddr},#{normalPrice},#{promotionPrice},#{priority},#{createTime},
-			#{lastEditTime},#{enableStatus},#{goodsCategory.goodsCategoryId},#{shop.shopId})
+			#{lastEditTime},#{enableStatus},#{goodsCategory.goodsCategoryId},#{shop.shopId},#{point})
 	</insert>
 	
 	<update id="updateGoods" parameterType="com.pre.zlm.o2o.entity.Goods" keyProperty="goods_id" useGeneratedKeys="true">
@@ -79,6 +79,7 @@
 			<if test="priority != null">priority=#{priority},</if>
 			<if test="lastEditTime != null">last_edit_time=#{lastEditTime},</if>
 			<if test="enableStatus != null">enable_status=#{enableStatus}</if>
+			<if test="point != null">point=#{point}</if>
 		</set>
 		WHERE 
 			goods_id = #{goodsId} 
@@ -89,7 +90,7 @@
 	<select id="getGoodsById" resultMap="goodsMap" parameterType="Long">
 		SELECT
 			g.goods_id,goods_name,goods_desc,img_addr,normal_price,promotion_price,g.priority,g.create_time,g.last_edit_time,
-			enable_status,g.goods_category_id,shop_id,goods_img_id,img_address,img_desc,gm.priority,gm.create_time,gm.goods_id
+			enable_status,g.goods_category_id,shop_id,goods_img_id,img_address,img_desc,gm.priority,gm.create_time,gm.goods_id,point
 		FROM
 			goods g 
 		LEFT JOIN
@@ -113,6 +114,7 @@
 		<result column="create_time" property="createTime"/>
 		<result column="last_edit_time" property="lastEditTime"/>
 		<result column="enable_status" property="enableStatus"/>
+		<result column="point" property="point"/>
 		<association property="shop" column="shop_id" javaType="com.pre.zlm.o2o.entity.Shop">
 			<id column="shop_id" property="shopId"/>
 			<result column="owner_id" property="ownerId"/>
