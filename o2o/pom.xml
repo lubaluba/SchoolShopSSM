@@ -12,11 +12,18 @@
   </properties>
   <dependencies>
   
-  	<dependency>
+  <dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>javax.servlet-api</artifactId>
+    <version>4.0.1</version>
+    <scope>provided</scope>
+</dependency>
+  
+  	<!-- <dependency>
     	<groupId>javax.servlet</groupId>
     	<artifactId>jstl</artifactId>
     	<version>1.2</version>
-	</dependency>
+	</dependency> -->
 	
   <dependency>
       <groupId>junit</groupId>
@@ -77,7 +84,7 @@
         <version>${spring.version}</version>
     </dependency>
 
-	<dependency>  
+<!-- 	<dependency>  
            <groupId>javax.servlet.jsp.jstl</groupId>  
            <artifactId>jstl-api</artifactId>  
            <version>1.2</version>  
@@ -111,7 +118,7 @@
                    <artifactId>jstl-api</artifactId>  
                </exclusion>  
            </exclusions>  
-       </dependency>  
+       </dependency>   -->
 	<!-- json解析 -->
 	<dependency>
     	<groupId>com.fasterxml.jackson.core</groupId>
