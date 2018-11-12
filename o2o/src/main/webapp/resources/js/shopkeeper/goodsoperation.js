@@ -24,6 +24,7 @@ $(function() {
 						$('#goods-name').val(goods.goodsName);
 						$('#goods-desc').val(goods.goodsDesc);
 						$('#priority').val(goods.priority);
+						$('#point').val(goods.point);
 						$('#normal-price').val(goods.normalPrice);
 						$('#promotion-price').val(goods.promotionPrice);
 						var optionHtml = '';
@@ -71,6 +72,7 @@ $(function() {
 				goods.goodsName = $('#goods-name').val();
 				goods.goodsDesc = $('#goods-desc').val();
 				goods.priority = $('#priority').val();
+				goods.point = $('#point').val();
 				goods.normalPrice = $('#normal-price').val();
 				goods.promotionPrice = $('#promotion-price').val();
 				goods.goodsCategory = {
