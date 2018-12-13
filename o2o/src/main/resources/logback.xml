@@ -33,6 +33,11 @@
 	</appender>
 	<!-- INFO -->
 	<appender name="infoAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<levle>ERROR</levle>
+			<onMatch>DENY</onMatch>
+			<onMismatch>ACCEPT</onMismatch>
+		</filter>
 		<!-- 文件路径 -->
 		<file>${log.filePath}/info.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -52,6 +57,9 @@
 	</appender>
 	<!-- ERROR -->
 	<appender name="errorAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<levle>ERROR</levle>
+		</filter>
 		<!-- 文件路径 -->
 		<file>${log.filePath}/error.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">

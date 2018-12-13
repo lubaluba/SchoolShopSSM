@@ -86,9 +86,11 @@ public class RootConfig extends org.apache.ibatis.session.Configuration{
 		*/
 		//加载mybatis全局配置
 		sqlSessionFactoryBean.setConfiguration(config());
+		
+		//设置typeAlias包扫面路径
 		/*sqlSessionFactoryBean.setTypeAliasesPackage("cn.pre.zlm.ssm.pojo");*/
 		
-		//mapper地址
+		//设置mapper扫描地址
 		sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*.xml"));
 		
 		return sqlSessionFactoryBean;

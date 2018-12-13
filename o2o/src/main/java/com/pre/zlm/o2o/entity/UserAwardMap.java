@@ -45,4 +45,9 @@ public class UserAwardMap {
 	 */
 	private User operator;
 	
+	/**
+	 * 奖品积分
+	 */
+	private Integer point;
+	
 }
