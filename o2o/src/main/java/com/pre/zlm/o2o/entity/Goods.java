@@ -6,6 +6,15 @@ import java.util.List;
 import lombok.Data;
 @Data
 public class Goods {
+	
+	public Goods(Long goodsId) {
+		this.goodsId = goodsId;
+	}
+	
+	public Goods() {
+		
+	}
+
 	/**
 	 * 商品id
 	 */

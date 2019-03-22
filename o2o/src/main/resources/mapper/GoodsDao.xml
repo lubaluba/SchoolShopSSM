@@ -78,7 +78,7 @@
 			<if test="promotionPrice != null">promotion_price=#{promotionPrice},</if>
 			<if test="priority != null">priority=#{priority},</if>
 			<if test="lastEditTime != null">last_edit_time=#{lastEditTime},</if>
-			<if test="enableStatus != null">enable_status=#{enableStatus}</if>
+			<if test="enableStatus != null">enable_status=#{enableStatus},</if>
 			<if test="point != null">point=#{point}</if>
 		</set>
 		WHERE 

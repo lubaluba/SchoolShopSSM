@@ -39,4 +39,9 @@ public class LocalAuth {
 	 */
 	private User user;
 	
+	/**
+	 * 鉴权token
+	 */
+	private String token;
+	
 }

@@ -3,7 +3,7 @@ package com.pre.zlm.o2o.dao.split;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+@Deprecated
 public class DynamicDataSourceHolder {
 	
 	private static Logger logger  = LoggerFactory.getLogger(DynamicDataSourceHolder.class);

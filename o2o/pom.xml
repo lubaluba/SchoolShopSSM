@@ -1,196 +1,204 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.pre.zlm</groupId>
-  <artifactId>o2o</artifactId>
-  <packaging>war</packaging>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>o2o Maven Webapp</name>
-  <url>http://maven.apache.org</url>
-  <properties>
-  	<spring.version>5.0.8.RELEASE</spring.version>
-  </properties>
-  <dependency>
-    <groupId>javax.faces</groupId>
-    <artifactId>jsf-api</artifactId>
-    <version>2.0</version>
-    <scope>provided</scope>
-</dependency>
-  <dependency>
-    <groupId>taglibs</groupId>
-    <artifactId>standard</artifactId>
-    <version>1.1.2</version>
-</dependency>
-  <dependency>
-    <groupId>javax.servlet</groupId>
-    <artifactId>jstl</artifactId>
-    <version>1.2</version>
-</dependency>
-<dependency>
-    <groupId>commons-dbutils</groupId>
-    <artifactId>commons-dbutils</artifactId>
-    <version>1.6</version>
-</dependency>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.pre.zlm</groupId>
+	<artifactId>o2o</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>o2o Maven Webapp</name>
+	<url>http://maven.apache.org</url>
 
-  
-  <dependencies>
-  	<dependency>
-    <groupId>javax.servlet.jsp</groupId>
-    <artifactId>javax.servlet.jsp-api</artifactId>
-    <version>2.3.1</version>
-    <scope>provided</scope>
-</dependency>
-  	
-  	
-  	<!-- servlet -->
-  	<dependency>
-    	<groupId>javax.servlet</groupId>
-    	<artifactId>javax.servlet-api</artifactId>
-    	<version>4.0.1</version>
-    	<scope>provided</scope>
-  	</dependency>
-	
-  	<dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-    <!-- logback -->
-    <dependency>
-    	<groupId>ch.qos.logback</groupId>
-   	 	<artifactId>logback-classic</artifactId>
-    	<version>1.2.3</version>
-	</dependency>
-	<!-- 配置spring -->
-	<dependency>
-    	<groupId>org.springframework</groupId>
-    	<artifactId>spring-core</artifactId>
-    	<version>${spring.version}</version>
-	</dependency>
-	<dependency>
-    	<groupId>org.springframework</groupId>
-    	<artifactId>spring-beans</artifactId>
-    	<version>${spring.version}</version>
-	</dependency>
-	<dependency>
-   	 	<groupId>org.springframework</groupId>
-    	<artifactId>spring-context</artifactId>
-    	<version>${spring.version}</version>
-	</dependency>
-	<dependency>
-    	<groupId>org.springframework</groupId>
-    	<artifactId>spring-jdbc</artifactId>
-    	<version>${spring.version}</version>
-	</dependency>
-	<dependency>
-    	<groupId>org.springframework</groupId>
-    	<artifactId>spring-tx</artifactId>
-    	<version>${spring.version}</version>
-	</dependency>
-	<dependency>
-    	<groupId>org.springframework</groupId>
-    	<artifactId>spring-web</artifactId>
-    	<version>${spring.version}</version>
-	</dependency>
-	<dependency>
-    	<groupId>org.springframework</groupId>
-    	<artifactId>spring-webmvc</artifactId>
-    	<version>${spring.version}</version>
-	</dependency>
-	<dependency>
-    <groupId>org.springframework</groupId>
-    	<artifactId>spring-test</artifactId>
-    	<version>5.0.5.RELEASE</version>
-    	<scope>test</scope>
-	</dependency>
-	<dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-aspects</artifactId>
-        <version>${spring.version}</version>
-    </dependency>
+	<properties>
+		<spring.version>5.0.8.RELEASE</spring.version>
+	</properties>
 
-	<!-- json解析 -->
-	<dependency>
-    	<groupId>com.fasterxml.jackson.core</groupId>
-    	<artifactId>jackson-databind</artifactId>
-    	<version>2.9.5</version>
-	</dependency>
-	<!-- Map工具类,spring-core包需要该包提供支持-->
-	<dependency>
-    	<groupId>commons-collections</groupId>
-    	<artifactId>commons-collections</artifactId>
-    	<version>3.2.1</version>
-	</dependency>
-	<!-- Mybatis -->
-	<dependency>
-    	<groupId>org.mybatis</groupId>
-    	<artifactId>mybatis</artifactId>
-    	<version>3.4.6</version>
-	</dependency>
-	<dependency>
-    	<groupId>org.mybatis</groupId>
-    	<artifactId>mybatis-spring</artifactId>
-    	<version>1.3.2</version>
-	</dependency>
-	<!-- 数据库 -->
-	<dependency>
-    	<groupId>mysql</groupId>
-    	<artifactId>mysql-connector-java</artifactId>
-    	<version>5.1.46</version>
-	</dependency>
-	<dependency>
-    	<groupId>com.mchange</groupId>
-    	<artifactId>c3p0</artifactId>
-    	<version>0.9.5.2</version>
-	</dependency>
-	<dependency>
-    	<groupId>org.apache.commons</groupId>
-    	<artifactId>commons-dbcp2</artifactId>
-    	<version>2.1.1</version>
-	</dependency>
-	<!-- 图片处理 -->
-	<dependency>
-    <groupId>net.coobird</groupId>
-    	<artifactId>thumbnailator</artifactId>
-    	<version>0.4.8</version>
-	</dependency>
-	<!-- lombok -->
-	<dependency>
-    	<groupId>org.projectlombok</groupId>
-    	<artifactId>lombok</artifactId>
-    	<version>1.18.0</version>
-    	<scope>provided</scope>
-	</dependency>
-	
-	<dependency>
-    	<groupId>commons-fileupload</groupId>
-    	<artifactId>commons-fileupload</artifactId>
-    	<version>1.3.3</version>
-	</dependency>
-	
-	<!-- kaptcha -->
-	<dependency>
-    	<groupId>com.github.penggle</groupId>
-    	<artifactId>kaptcha</artifactId>
-    	<version>2.3.2</version>
-	</dependency>
-	
-	<!-- redis -->
-	<dependency>
-    	<groupId>redis.clients</groupId>
-    	<artifactId>jedis</artifactId>
-    	<version>2.9.0</version>
-	</dependency>
-	<dependency>
-    	<groupId>org.springframework.data</groupId>
-    	<artifactId>spring-data-redis</artifactId>
-    	<version>2.1.2.RELEASE</version>
-	</dependency>
-	
+	<dependencies>
+		<dependency>
+			<groupId>javax.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+			<version>2.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbutils</groupId>
+			<artifactId>commons-dbutils</artifactId>
+			<version>1.6</version>
+		</dependency>
 
-</dependencies>
-  <build>
-    <finalName>o2o</finalName>
-  </build>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+
+		<!-- servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- logback -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<!-- 配置spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>5.0.5.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<!-- json解析 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.5</version>
+		</dependency>
+		<!-- Map工具类,spring-core包需要该包提供支持 -->
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+		<!-- Mybatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.4.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+		<!-- 数据库 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.46</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-dbcp2</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+		<!-- 图片处理 -->
+		<dependency>
+			<groupId>net.coobird</groupId>
+			<artifactId>thumbnailator</artifactId>
+			<version>0.4.8</version>
+		</dependency>
+		<!-- lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.3</version>
+		</dependency>
+
+		<!-- kaptcha -->
+		<dependency>
+			<groupId>com.github.penggle</groupId>
+			<artifactId>kaptcha</artifactId>
+			<version>2.3.2</version>
+		</dependency>
+
+		<!-- redis -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>2.9.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>2.1.2.RELEASE</version>
+		</dependency>
+		
+		<!-- jwt -->
+		<dependency>
+    		<groupId>com.auth0</groupId>
+    		<artifactId>java-jwt</artifactId>
+    		<version>3.7.0</version>
+		</dependency>
+
+	</dependencies>
+	<build>
+		<finalName>o2o</finalName>
+	</build>
 </project>

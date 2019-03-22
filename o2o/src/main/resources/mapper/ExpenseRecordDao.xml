@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pre.zlm.o2o.dao.ExpenseRecordDao">
+	
+	<insert id="insert" keyColumn="oid" keyProperty="oid" useGeneratedKeys="true">
+		INSERT INTO
+			expense_record(order_id,amount,user_id,goods_id,count,buy_time,shop_id)
+		VALUES
+			(#{orderId},#{amount},#{userId},#{goods.goodsId},#{count},#{buyTime},#{shopId})
+	</insert>
+
+	<select id="getRecordByUserId" resultMap="recordMap">
+		SELECT
+			oid,
+			order_id,
+			amount,
+			user_id,
+			expense_record.goods_id,
+			count,
+			buy_time,
+			expense_record.shop_id,
+			goods.goods_name,
+			goods.goods_desc,
+			goods.img_addr,
+			goods.normal_price,
+			goods.promotion_price,
+			goods.priority,
+			goods.point,
+			goods.enable_status
+		FROM
+			expense_record,goods
+		<where>
+			expense_record.goods_id = goods.goods_id
+		AND
+			user_id = #{userId}
+		</where>
+		ORDER BY order_Id
+		
+	</select>
+
+	<select id="getRecordByOrderId" resultMap="recordMap">
+		SELECT
+			oid,
+			order_id,
+			amount,
+			user_id,
+			expense_record.goods_id,
+			count,
+			buy_time,
+			expense_record.shop_id,
+			goods.goods_name,
+			goods.goods_desc,
+			goods.img_addr,
+			goods.normal_price,
+			goods.promotion_price,
+			goods.priority,
+			goods.point,
+			goods.enable_status
+		FROM
+			expense_record,goods
+		<where>
+			expense_record.goods_id = goods.goods_id
+		AND
+			user_id = #{userId}
+		AND 
+			order_id = #{orderId}
+		</where>
+		ORDER BY order_Id
+		
+	</select>
+	
+	
+		<select id="getRecordByShopId" resultMap="recordMap">
+		SELECT
+			oid,
+			order_id,
+			amount,
+			user_id,
+			expense_record.goods_id,
+			count,
+			buy_time,
+			expense_record.shop_id,
+			goods.goods_name,
+			goods.goods_desc,
+			goods.img_addr,
+			goods.normal_price,
+			goods.promotion_price,
+			goods.priority,
+			goods.point,
+			goods.enable_status
+		FROM
+			expense_record,goods
+		<where>
+			expense_record.goods_id = goods.goods_id
+		AND
+			expense_record.shop_id = #{shopId}
+		</where>
+		ORDER BY buy_time DESC
+		
+	</select>
+	
+
+	<select id="getAllOrderId" resultType="string">
+		SELECT DISTINCT 
+			order_id 
+		FROM 
+			expense_record
+	</select>
+	
+	
+	
+	<resultMap type="com.pre.zlm.o2o.entity.ExpenseRecord" id="recordMap">
+		<id column="oid" property="oid"/>
+		<result column="order_id" property="orderId"/>
+		<result column="amount" property="amount"/>
+		<result column="user_id" property="userId"/>
+		<result column="buy_time" property="buyTime"/>
+		<result column="shop_id" property="shopId"/>
+		<result column="count" property="count"/>
+		<association property="goods" column="goods_id" javaType="com.pre.zlm.o2o.entity.Goods">
+			<id column="goods_id" property="goodsId"/>
+			<result column="goods_name" property="goodsName"/>
+			<result column="goods_desc" property="goodsDesc"/>
+			<result column="img_addr" property="imgAddr"/>
+			<result column="normal_price" property="normalPrice"/>
+			<result column="promotion_price" property="promotionPrice"/>
+			<result column="priority" property="priority"/>
+			<result column="point" property="point"/>
+			<result column="enable_status" property="enableStatus"/>
+		</association>
+	</resultMap>
+</mapper>

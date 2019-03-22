@@ -1,16 +1,19 @@
-package com.pre.zlm.o2o.web.local;
+package com.pre.zlm.o2o.web.user;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.pre.zlm.o2o.cache.RedisCacheUtil;
 import com.pre.zlm.o2o.dto.LocalAuthExecution;
 import com.pre.zlm.o2o.entity.LocalAuth;
 import com.pre.zlm.o2o.entity.User;
@@ -26,6 +29,10 @@ public class LocalAuthController extends BaseController {
 	@Autowired
 	private LocalAuthService service;
 	
+	@Autowired
+	RedisCacheUtil redis;
+	
+	RedisTemplate<String, String> redisTemplate = new RedisTemplate<String, String>();
 	//登录验证
 	@ResponseBody
 	@RequestMapping(value = "/logincheck", method = {RequestMethod.POST})
@@ -38,8 +45,10 @@ public class LocalAuthController extends BaseController {
 		String username = HttpServletRequestUtils.getString(request, "username");
 		String password = HttpServletRequestUtils.getString(request, "password");
 		if (username != null && password != null) {
-			LocalAuth localAuth = service.getLocalAuthByUsernameAndPwd(username, password);
+			LocalAuth localAuth = service.getLocalAuthByUsernameAndPwd(username, password);			
 			if (localAuth != null) {
+				//拿到登录的user后生成token
+				//onLogin(localAuth);
 				result.put("success", true);
 				result.put("userType", localAuth.getUser().getUserType());
 				request.getSession().setAttribute("user", localAuth.getUser());
@@ -51,6 +60,31 @@ public class LocalAuthController extends BaseController {
 		}
 		return result;
 	}
+	
+	//鉴权接口
+	@ResponseBody
+	@RequestMapping(value = "/auth", method = {RequestMethod.POST})
+	public Map<String, Object> getUser(HttpServletRequest request) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		User user = (User) request.getSession().getAttribute("user");
+		if (user != null) {
+			result.put("success", true);
+			result.put("user", user);
+		} else {
+			result.put("success", false);
+		}
+		return result;
+	}
+	
+	//根据token获取User
+	/*
+	 * public LocalAuth getLoginedUserByToken(String token) { Map<String, String>
+	 * map = null; try { map = JWTUtils.verifyToken(token); } catch (Exception e) {
+	 * throw new LocalAuthException("请检查登录状态"); } String username =
+	 * map.get("username"); String password = map.get("password"); LocalAuth user =
+	 * service.getLocalAuthByUsernameAndPwd(username, password);
+	 * user.setToken(token); return user; }
+	 */
 	
 	//绑定本地账户(即一个user关联了一个本地账户(localAuth)和一个微信账户(wechatAuth))
 	@ResponseBody
@@ -113,10 +147,29 @@ public class LocalAuthController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
-	public Map<String, Object> logout(HttpServletRequest request){
-		Map<String, Object> result = new HashMap<>();
+	public void logout(HttpServletRequest request){
 		request.getSession().setAttribute("user", null);
-		result.put("success", true);
-		return result;
+		try {
+			response.sendRedirect("/o2o/index.html");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 	}
+	
+	
+	
+	/*
+	 * private void onLogin(LocalAuth user) { Map<String, String> claims = new
+	 * HashMap<String, String>(); claims.put("username", user.getUsername());
+	 * claims.put("password", user.getPassword()); claims.put("name",
+	 * user.getUser().getEmail()); claims.put("name", user.getUser().getName());
+	 * String token = JWTUtils.getToken(claims); user.setToken(token); }
+	 */
+	
+	/*
+	 * private String renewToken(String token, String username) {
+	 * redisTemplate.opsForValue().set(username, token);
+	 * redisTemplate.expire(username, 15, TimeUnit.MINUTES); return token; }
+	 */
 }

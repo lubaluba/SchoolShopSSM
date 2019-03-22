@@ -146,6 +146,7 @@ $(function() {
 		$.openPanel('#panel-left-demo');
 	});
 
+	
 	$.init();
 });
 function back(){

@@ -52,6 +52,7 @@ public class RootConfig extends org.apache.ibatis.session.Configuration{
 	 * 配置动态数据源,这里面的targetDataSources就是路由数据源对应的名称
 	 */
 	@Bean
+	@Deprecated
 	public DynamicDataSource  getDynamicDataSource() {
 		DynamicDataSource dynamicDataSource = new DynamicDataSource();
 		Map<Object, Object> map = new HashMap<>();
@@ -64,11 +65,13 @@ public class RootConfig extends org.apache.ibatis.session.Configuration{
 	/**
 	 * 懒加载dataSource,这样就可以根据具体的操作去使用不同的数据库
 	 */
-	@Bean
-	public LazyConnectionDataSourceProxy getDataSource() {
-		LazyConnectionDataSourceProxy dataSource = new LazyConnectionDataSourceProxy(getDynamicDataSource());
-		return dataSource;
-	}
+	/*
+	 * @Deprecated
+	 * 
+	 * @Bean public LazyConnectionDataSourceProxy getDataSource() {
+	 * LazyConnectionDataSourceProxy dataSource = new
+	 * LazyConnectionDataSourceProxy(getDynamicDataSource()); return dataSource; }
+	 */
 	
 	@Bean
 	public SqlSessionFactoryBean getSqlSessionFactory() throws Exception {
@@ -129,15 +132,27 @@ public class RootConfig extends org.apache.ibatis.session.Configuration{
 		/**
 		 * 配置好的interceptor
 		 */
-		config.addInterceptor(new DynamicDataSourceInterceptor());
+		//config.addInterceptor(new DynamicDataSourceInterceptor());
 		
 		return config;
 	}
 	
 	
+	public BasicDataSource getDataSource() {
+		BasicDataSource dataSource =new BasicDataSource();
+		dataSource.setDriverClassName(driverClassName);
+		dataSource.setUrl(masterURL);
+		dataSource.setUsername(DESUtils.getDecryptString(userName));
+		dataSource.setPassword(DESUtils.getDecryptString(password));
+		dataSource.setMaxIdle(maxIdle);
+		dataSource.setMaxTotal(maxTotal);
+		return dataSource;
+	}
+	
 	/**
 	 * 主数据库
 	 */
+	@Deprecated
 	public BasicDataSource getMasterDataSource(){
 		BasicDataSource dataSource =new BasicDataSource();
 		dataSource.setDriverClassName(driverClassName);
@@ -152,6 +167,7 @@ public class RootConfig extends org.apache.ibatis.session.Configuration{
 	/**
 	 * 从数据库
 	 */
+	@Deprecated
 	public BasicDataSource getSlaveDataSource() {
 		BasicDataSource dataSource =new BasicDataSource();
 		dataSource.setDriverClassName(driverClassName);

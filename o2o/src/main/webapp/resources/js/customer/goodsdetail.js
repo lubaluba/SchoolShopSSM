@@ -1,4 +1,5 @@
 $(function() {
+	
     // 从地址栏的URL里获取goodsId
     var goodsId = getQueryString('goodsId');
     // 获取商品信息的URL
@@ -28,6 +29,8 @@ $(function() {
                 $('#price').show();
                 $('#normalPrice').html(
                         '<del>' + '￥' + goods.normalPrice + '</del>');
+                $('#realPrice').val(goods.promotionPrice);
+                $('#goods_id').val(goods.goodsId);
                 $('#promotionPrice').text('￥' + goods.promotionPrice);
             } else if (goods.normalPrice != undefined
                     && goods.promotionPrice == undefined) {
@@ -41,10 +44,10 @@ $(function() {
             }
             var imgListHtml = '';
             // 遍历商品详情图列表，并生成批量img标签
-            goods.goodsImgList.map(function(item, index) {
+            /*goods.goodsImgList.map(function(item, index) {
                 imgListHtml += '<div> <img src="' + item.imgAddr
                         + '" width="100%" /></div>';
-            });
+            });*/
             // if (data.needQRCode) {
             // // 生成购买商品的二维码供商家扫描
             // imgListHtml += '<div> <img
@@ -53,6 +56,7 @@ $(function() {
             // + '" width="100%"/></div>';
             // }
             $('#imgList').html(imgListHtml);
+            checkGoods();
         }
     });
     // 点击后打开右侧栏
@@ -61,3 +65,45 @@ $(function() {
 	});
     $.init();
 });
+
+function addToCart() {
+	var number = $("#number").val();
+	if (number == null || number == ""){
+		$.toast("请选择购买数目！！");
+	} else {
+		var price = $("#realPrice").val();
+		var goodsId = $("#goods_id").val();
+		$.ajax({
+			type: "POST",
+			url: "/o2o/cart/add?price=" + price +"&number=" + number + "&goodsId=" +goodsId,
+			/*data:{
+				"price" :price,
+				"number":number,
+				"goodsId":goodsId
+			},
+			dataType: "text",*/
+			processData: false,
+			contentType: false,
+			cache: false,
+			success: function(data){
+				if(data.success){
+					$.toast('成功添加至购物车!');
+					location.reload();
+				}else{
+					$.toast('提交失败！' + data.errMsg);
+				}
+			},
+		});
+	}
+};
+
+function checkGoods(){
+	var goodsId = $("#goods_id").val();
+	var url = "/o2o/cart/check?goodsId="+goodsId;
+	$.getJSON(url, function(data) {
+		 if(data.isExist){
+			 $("#buy_bottom").css("background-color","gray");//改变背景颜色
+			 $("#buy_bottom").text("已购买");
+		 }    
+	});
+}

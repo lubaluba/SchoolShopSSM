@@ -26,6 +26,7 @@ import com.pre.zlm.o2o.dao.split.DynamicDataSourceHolder;
  * 如果是query请求就走slave数据库
  * 实现mybatis的拦截器接口
  */
+@Deprecated
 @Intercepts({@Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class})
 ,@Signature(type = Executor.class, args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}, method = "query")})
 public class DynamicDataSourceInterceptor implements Interceptor {

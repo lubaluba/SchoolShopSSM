@@ -58,3 +58,7 @@ function getshopstatus(status){
 		return "审核通过";
 	}
 }
+
+function toIndex(){
+	window.location.href  = '/o2o/index.html'
+}

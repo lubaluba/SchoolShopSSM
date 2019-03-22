@@ -34,7 +34,7 @@ $(function() {
 					if (data.userType == 2){
 						window.location.href = '/o2o/shopkeeper/shoplist.html';
 					} else {
-						window.location.href = '/o2o/index.html';
+						back();
 					}
 				} else {
 					$.toast('登录失败！');
@@ -51,3 +51,16 @@ $(function() {
 		window.location.href = '/o2o/local/register';
 	});
 });
+
+function back(){
+
+	var prevLink = document.referrer;
+	if($.trim(prevLink)==''){
+		location.href = '/o2o/index.html';
+	}else{
+		if(prevLink.indexOf('/o2o/index.html?')==-1){	//来自其它站点
+			location.href = '/o2o/index.html?';
+		}
+		location.href = prevLink;
+	}
+}
